@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="vcpmodule">
+  <head>
+    <meta charset="utf-8">
+    <title>VCP</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi" />
+    <link href="lib/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="app/style.css" rel="stylesheet" id="skinCss">
+    <link href="lib/angularslider/angular-slider.css" rel="stylesheet">
+    <link rel="shortcut icon" href="app/img/favicon.ico">
+    <!--[if lt IE 9]>
+      <script src="lib/other/html5shiv.js"></script>
+    <![endif]-->
+    <!-- 默认 Site Theme -->
+    <link href="theme/default/site-theme.css" rel="stylesheet">
+  </head>
+
+  <style type="text/css">
+  <!--
+  #kinMaxShow{width:100%; height:500px; overflow:hidden;}
+  -->
+  </style>
+<body class="vcpbody">
+
+<div class="row-fluid" ng-controller="page1">
+    <div class="control-group">
+        <label for="footermenuname" class="control-label"> Name:</label>
+        <input type="text" name="footermenuname" id="footermenuname" ng-model="footermenu.name">
+    </div>
+
+</div>
+
+
+
+<!-- Header -->
+
+    <!-- Load JS -->
+
+    <script src="lib/angular/1.1.5/angular.js"></script>
+    <script src="lib/angular/1.1.5/angular-resource.js"></script>
+
+    <script src="lib/jquery/jquery-1.8.2.min.js"></script>
+
+
+    <!-- Bootstrap Plug -->
+
+    
+<script type="text/javascript">
+    angular.module('vcpmodule.service', ['ngResource']);
+    angular.module('vcpmodule.service').factory('Footermenu',  function($resource){
+        return $resource('/api/publisher/footermenus/:Id', {});
+    });
+
+    var vcpapp = angular.module('vcpmodule', [ 'vcpmodule.service']);
+
+
+    vcpapp.config( function($httpProvider){
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8' ;
+        $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8' ;
+
+        $httpProvider.defaults.transformRequest = [function(data, headersGetter){
+            var param = function(obj)
+            {
+                var query = '';
+                var name, value, fullSubName, subName, subValue, innerObj, i;
+
+                for(name in obj)
+                {
+                    value = obj[name];
+
+                    if(value instanceof Array)
+                    {
+                        for(i=0; i<value.length; ++i)
+                        {
+                            subValue = value[i];
+                            fullSubName = name + '[' + i + ']';
+                            innerObj = {};
+                            innerObj[fullSubName] = subValue;
+                            query += param(innerObj) + '&';
+                        }
+                    }
+                    else if(value instanceof Object)
+                    {
+                        for(subName in value)
+                        {
+                            subValue = value[subName];
+                            fullSubName = name + '[' + subName + ']';
+                            innerObj = {};
+                            innerObj[fullSubName] = subValue;
+                            query += param(innerObj) + '&';
+                        }
+                    }
+                    else if(value !== undefined && value !== null)
+                    {
+                        query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+                    }
+                }
+
+                return query.length ? query.substr(0, query.length - 1) : query;
+            };
+
+            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+        }];
+    });
+
+    var controllers = {};
+    vcpapp.controller(controllers);
+    controllers.page1 = function ($scope, $location, $http, $q, Footermenu){
+
+//        $scope.items = Footermenu.query();
+
+        $scope.footermenu ={
+            name : '333new',
+            type : 1,
+            order : 3,
+            siteid : 1,
+            linkurl : '',
+            linkpageid : 0,
+            linkpagename : ''
+        };
+
+        Footermenu.save($scope.footermenu);
+
+        var f1 = new Footermenu();
+            f1.name = 'goodmenu';
+            f1.type = 1;
+            f1.order = 3;
+            f1.siteid = 1;
+            f1.linkurl = '';
+            f1.linkpageid = 0;
+            f1.linkpagename = '';
+            f1.$save();
+
+        var f2 = Footermenu.get({Id:6}, function(){
+            f2.name = 'goodmenu';
+            f2.$update({Id:6});
+        });
+
+
+        Footermenu.delete({Id:12});
+
+/*        $http.put('/api/publisher/footermenus/6', $scope.footermenu).success(  function(data, status, headers, config){
+                console.log(data);
+            }
+        )*/
+
+    }
+
+</script>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="project">
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+        body th{
+            width: 170px;
+        }
+
+        .slide-enter,
+        .slide-leave
+        {
+            -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+            -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+            -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+            -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+            transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+            position: relative;
+            display: block;
+        }
+
+        .slide-enter.slide-enter-active,
+        .slide-leave {
+            opacity: 1;
+            right: 0;
+            height: 22px;
+        }
+
+        .slide-leave.slide-leave-active,
+        .slide-enter {
+            opacity: 0;
+            right: -100px;
+            height: 0px;
+        }
+    </style>
+    <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="lib/bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"> </script>
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+    <script src="http://firebase.github.io/angularFire/angularFire.js"></script>
+
+</head>
+
+<body>
+
+<h2>JavaScript Projects</h2>
+<div ng-view></div>
+
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+
+<script>
+
+    angular.module('project', ['firebase']).
+            value('fbURL', 'https://angularjs-projects.firebaseio.com/').
+            factory('Projects', function(angularFireCollection, fbURL) {
+                return angularFireCollection(fbURL);
+            }).
+            config(function($routeProvider) {
+                $routeProvider.
+                        when('/', {controller:ListCtrl, templateUrl:'list.html'}).
+                        when('/edit/:projectId', {controller:EditCtrl, templateUrl:'detail.html'}).
+                        when('/new', {controller:CreateCtrl, templateUrl:'detail.html'}).
+                        otherwise({redirectTo:'/'});
+            });
+
+    function ListCtrl($scope, Projects) {
+        $scope.projects = Projects;
+    }
+
+    function CreateCtrl($scope, $location, $timeout, Projects) {
+        $scope.save = function() {
+            Projects.add($scope.project, function() {
+                $timeout(function() { $location.path('/'); });
+            });
+        }
+    }
+
+    function EditCtrl($scope, $location, $routeParams, angularFire, fbURL) {
+        angularFire(fbURL + $routeParams.projectId, $scope, 'remote', {}).
+                then(function() {
+                    $scope.project = angular.copy($scope.remote);
+                    $scope.project.$id = $routeParams.projectId;
+                    $scope.isClean = function() {
+                        return angular.equals($scope.remote, $scope.project);
+                    }
+                    $scope.destroy = function() {
+                        $scope.remote = null;
+                        $location.path('/');
+                    };
+                    $scope.save = function() {
+                        $scope.remote = angular.copy($scope.project);
+                        $location.path('/');
+                    };
+                });
+    }
+
+
+</script>
+
+</body>
+</html>

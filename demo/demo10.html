@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>Angular JS 快速入门</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="angulargirl">
+    <meta name="author" content="Jin WYP">
+
+    <!-- Le styles -->
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+        .selected{
+            color:red;
+        }
+        .liselected{
+            color:red;
+            font-size: 16px;
+        }
+
+        .lastcss{
+            color:green;
+            font-size: 18px;
+        }
+
+        .menu li{
+            width: 120px;
+        }
+    </style>
+    <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="lib/bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Angular Demo</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="active"><a href="http://www.angulargirl.com/">Angular Girl</a></li>
+                    <li><a href="demo1.html">Demo1</a></li>
+                    <li><a href="demo2.html">Demo2</a></li>
+                    <li><a href="demo3.html">Demo3</a></li>
+                    <li><a href="demo4.html">Demo4</a></li>
+                    <li><a href="demo5.html">Demo5</a></li>
+                    <li><a href="demo10.html">Demo10</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+
+        <div ng-controller="MyCtrl1">
+            <ul class="nav nav-pills menu" >
+                <li ng-repeat="menu in menulist" edit-menu datamodel="menu" datalistmodel="menulist" index="$index"  class="active">
+                </li>
+                <li add-menu maxmemu="5"></li>
+            </ul>
+        </div>
+
+
+</div> <!-- /container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="lib/angular/angular.js"></script>
+<script src="lib/jquery/jquery-1.8.2.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/services.js"></script>
+
+
+
+
+</body>
+</html>

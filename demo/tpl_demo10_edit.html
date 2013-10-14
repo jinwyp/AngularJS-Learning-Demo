@@ -1,0 +1,12 @@
+
+
+    <a href="#" ng-show="cssshowmenu" ng-click="editMenuButton()">{{ menu.name }}</a>
+
+    <form class="form-horizontal" ng-hide="cssshowmenu">
+
+            <input type="text" id="inputMenu" placeholder="Menu Name" ng-model="menu.name">
+
+            <button type="submit" class="btn" ng-click="saveEditMenuButton()">Save</button>
+            <button type="submit" class="btn" ng-click="deleteMenuButton()">Delete</button>
+
+    </form>
