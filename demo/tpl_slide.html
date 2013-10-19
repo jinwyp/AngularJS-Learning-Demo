@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs">
-    <li class="active"><a href="">首页</a></li>
-    <li><a href="">第一页</a></li>
-    <li><a href="">第二页</a></li>
+    <li ng-repeat ="menu in menus" ng-class ="{active:$index==currentmenu}" >
+    	<a href="" ng-click="clickmenu($index)">{{menu}}</a>
+    </li>
 </ul>

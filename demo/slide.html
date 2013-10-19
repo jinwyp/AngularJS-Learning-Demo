@@ -59,14 +59,14 @@
         </div>
 
         <div class="row-fluid">
-            <div class="span6">
+            <div class="span4">
                 <label>Name:
                     <input type="text" ng-model="yourName" placeholder="Enter a name here">
                 </label>
                 <h3>Hello {{yourName}}!</h3>
             </div>
 
-            <div class="span6">
+            <div class="span8">
                 <pre class="prettyprint">
     &lt;label&gt;Name:&lt;/label&gt;
     &lt;input&nbsp;type=&quot;text&quot;&nbsp;ng-model=&quot;yourName&quot;&nbsp;placeholder=&quot;Enter&nbsp;a&nbsp;name&nbsp;here&quot;&gt;
@@ -89,7 +89,7 @@
 
     <div class="row-fluid" id="demo2">
         <div class="span12">
-            <h2>Demo2 易用的表单验证</h2>
+            <h2>Demo2 易用的表单验证 Form</h2>
 
             <form class="form-horizontal" name="loginform">
 
@@ -178,6 +178,7 @@
                 <div menu-gdg></div>
                 <menu-gdg></menu-gdg>
                 <div menu-gdg></div>
+                <div menu-gdg></div>
             </div>
 
             <div class="span8">
@@ -187,27 +188,33 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;menu-gdg&gt;&lt;/div&gt;
     &nbsp;&nbsp;&nbsp;&nbsp;&lt;menu-gdg&gt;&lt;/menu-gdg&gt;
     &nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;menu-gdg&gt;&lt;/div&gt;
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;menu-gdg&gt;&lt;/div&gt;
     &lt;/div&gt;
                 </pre>
 
                 定义自定义组件 “menuGdg”
                 <pre class="prettyprint">
-    angular.module('myapp', []).directive('menuGdg', function () {
-        return {
-            restrict: 'EA',
-            templateUrl: 'tpl_slide.html',
-            scope: { },
-            link: function (scope, element, attrs) {
+angular.module('myapp', []).directive('menuGdg', function () {
+    return {
+        restrict: 'EA',
+        templateUrl: 'tpl_slide.html',
+        scope: { },
+        link: function (scope, element, attrs) {
+            scope.menus = [ '首页', '第一天', '第二天' ];
+            scope.currentmenu = 0; 
+            scope.clickmenu = function (indexid){
+                scope.currentmenu = indexid;
             }
         }
-    })
+    }
+})
                 </pre>
                 “menuGdg”组件模板文件 “tpl_slide.html”
                 <pre class="prettyprint">
 &lt;ul&nbsp;class=&quot;nav&nbsp;nav-tabs&quot;&gt;
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&nbsp;class=&quot;active&quot;&gt;&lt;a&nbsp;href=&quot;&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a&nbsp;href=&quot;&quot;&gt;第一页&lt;/a&gt;&lt;/li&gt;
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a&nbsp;href=&quot;&quot;&gt;第二页&lt;/a&gt;&lt;/li&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&nbsp;ng-repeat&nbsp;=&quot;menu&nbsp;in&nbsp;menus&quot;&nbsp;ng-class&nbsp;=&quot;{active:$index==currentmenu}&quot;&nbsp;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;    &lt;a&nbsp;href=&quot;&quot;&nbsp;ng-click=&quot;clickmenu($index)&quot;&gt;{{menu}}&lt;/a&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt;
 &lt;/ul&gt;
                 </pre>
             </div>
@@ -244,7 +251,11 @@ angular.module('myapp', []).directive('menuGdg', function () {
         templateUrl: 'tpl_slide.html',
         scope: { },
         link: function (scope, element, attrs) {
-
+            scope.menus = [ '首页', '第一天', '第二天' ];
+            scope.currentmenu = 0; 
+            scope.clickmenu = function (indexid){
+                scope.currentmenu = indexid;
+            }
         }
     }
 })
