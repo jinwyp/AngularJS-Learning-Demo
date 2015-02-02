@@ -1,0 +1,25 @@
+{
+  "name": "AngularJS-Learning-Demo",
+  "version": "1.0.1",
+  "homepage": "https://github.com/jinwyp/AngularJS-Learning-Demo",
+  "authors": [
+    "Jin <jinwyp@gmail.com>"
+  ],
+  "description": "Learning Angular",
+  "main": "index.html",
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.28",
+    "reveal.js": "~3.0.0"
+  }
+}
