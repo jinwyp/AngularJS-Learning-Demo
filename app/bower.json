@@ -1,0 +1,26 @@
+{
+  "name": "express-angular-demo",
+  "main": "app.js",
+  "version": "0.1",
+  "authors": [
+    "Jin <jinwyp@gmail.com>"
+  ],
+  "keywords": [
+    "express",
+    "angular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.15",
+    "jquery": "~2.1.3",
+    "bootstrap": "~3.3.4",
+    "reveal.js": "~3.0.0"
+  }
+}
