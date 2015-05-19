@@ -19,6 +19,11 @@
     "serve-favicon": "~2.2.0"
   },
   "devDependencies": {
-    "express-generator": "^4.12.1"
+    "express-generator": "^4.12.1",
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.10.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-nodemon": "^2.0.3",
+    "jshint-stylish": "^1.0.2"
   }
 }

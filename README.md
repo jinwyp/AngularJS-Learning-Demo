@@ -47,4 +47,12 @@ bower install reveal.js --save
 进入app文件夹，键入 DEBUG=myapp npm start 运行网站  然后在浏览器 打开http://localhost:8080/ 就可以访问了
 
 
+## 第四步 使用Gulp 来运行网站
+
+安装Gulp
+
+    npm install -g gulp
+
+gulp-nodemon 是重启服务器的插件。
+gulp-livereload 后端控制前端同步刷新，可能需要安装的 chrome 浏览器插件 LiveReload(也可以不用浏览器插件)
 
