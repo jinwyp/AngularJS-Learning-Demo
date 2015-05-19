@@ -1,3 +1,3 @@
-Express JS Framework Guild
+Express JS Framework Guide
 ==============
 

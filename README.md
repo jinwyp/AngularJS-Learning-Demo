@@ -1,4 +1,5 @@
-#Express4 Angular Learning Demo
+# Express4 AngularJS Learning Demo
+
 
 ## 第一步 开始一个项目
 先确保系统已经安装好 [NodeJS](https://nodejs.org/)
@@ -23,9 +24,6 @@
 创建完毕会在当前文件夹下增加一个app文件夹
 
 注意: 项目所需要的后端依赖的库都在 node_modules 下。后端文件和库使用npm 命令安装，package.json 里面记录所有信息。
-
-
-
 
 
 ## 第二步 使用Bower 构建前端基础结构
