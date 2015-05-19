@@ -48,14 +48,43 @@
             <a class="brand" href="#">Angular Demo2</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li class="active"><a href="slide.html">Home</a></li>
+                    <li><a href="slide.html">Demo1</a></li>
+                    <li><a href="demo2.html">Demo2</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </div>
 </div>
+
+<div class="container">
+
+    <h1>ngIf ngShow ngHide Demo2</h1>
+        <div>
+            <button ng-init="aaa=true" ng-click="aaa=false">改变AAA的值 隐藏AAA 显示BBB</button>
+            <button ng-init="ccc=true" ng-click="ccc=false">改变CCC的值 隐藏CCC</button>
+            <button ng-click="ccc=!ccc">反复改变CCC的值 </button>
+            <hr>
+            <ul>
+                <li >
+                    这里是AAA 没有任何ng指令
+                </li>
+                <li ng-show="aaa">
+                    这里是AAA
+                </li>
+                <li ng-hide="aaa">
+                    这里是BBB
+                </li>
+                <li ng-if="ccc">
+                    这里是CCC
+                </li>
+            </ul>
+        </div>
+
+</div> <!-- /container -->
+
+
+
 
 <div class="container">
 
@@ -73,6 +102,7 @@
         <li ng-repeat="item in items" ng-class="{liselected: $index == cssSelected, lastcss: $last}"> <a> Name: {{ item | uppercase }}</a></li>
     </div>
 </div> <!-- /container -->
+
 
 <!-- Le javascript
 ================================================== -->

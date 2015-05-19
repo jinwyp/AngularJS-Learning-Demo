@@ -11,7 +11,22 @@ pids
 logs
 results
 
+
+
+# Node Files Logs ignore
 npm-debug.log
 
 
+
+
+
+# Mac Files ignore
+.DS_Store
+
+
+# Windows Files ignore
+Thumbs.db
+
+
+# IDE Webstorm Files ignore
 *.idea*
