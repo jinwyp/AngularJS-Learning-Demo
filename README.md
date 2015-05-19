@@ -44,7 +44,7 @@ bower install reveal.js --save
 
 ## 第三步 运行网站
 
-进入app文件夹，键入 DEBUG=myapp npm start 运行网站  然后在浏览器 打开http://localhost:3000/ 就可以访问了
+进入app文件夹，键入 DEBUG=myapp npm start 运行网站  然后在浏览器 打开http://localhost:8080/ 就可以访问了
 
 
 
