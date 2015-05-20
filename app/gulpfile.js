@@ -11,7 +11,9 @@ var nodemon    = require('gulp-nodemon');
 var livereload = require('gulp-livereload');
 var jshint = require('gulp-jshint');
 var jshintReporter = require('jshint-stylish');
-
+var compass = require('gulp-compass');
+var autoprefixer = require('gulp-autoprefixer');
+var minifycss = require('gulp-minify-css');
 
 // 文件的路径
 var paths = {
@@ -27,6 +29,14 @@ var paths = {
     }
 };
 
+// Compass 文件的路径
+var compassConfig ={
+    css : 'public/angulardemo/css/stylesheets',
+    sass : 'public/angulardemo/css/sass',
+    image : 'public/angulardemo/css/images',
+    style : 'expanded',  //The output style for the compiled css. One of: nested, expanded, compact, or compressed.
+    comments : false
+};
 
 // nodemon 的配置
 var nodemonConfig = {
@@ -40,6 +50,9 @@ var nodemonConfig = {
         "NODE_ENV": "development"
     }
 };
+
+
+
 
 /********************  监视JS文件的变化 并用jshint 检查语法 注: jshint 可能会伤害你的感情  ********************/
 gulp.task('jshint',function(){
@@ -58,7 +71,10 @@ gulp.task('nodemon', function() {
 /********************  当客户端被监听的文件改变时，刷新浏览器  ********************/
 gulp.task('compass', function() {
 
-    return gulp.src(paths.client.css)
+    return gulp.src(paths.client.sass)
+    .pipe(compass(compassConfig))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
+    .pipe(gulp.dest(compassConfig.css))
     .pipe(livereload());
 
     //var server = livereload();
@@ -71,7 +87,7 @@ gulp.task('compass', function() {
 gulp.task('watch', function() {
     livereload.listen();
     gulp.watch(paths.client.js, ['jshint']);
-    gulp.watch(paths.client.css, ['compass']);
+    gulp.watch(paths.client.sass, ['compass']);
 });
 
 
@@ -80,4 +96,4 @@ gulp.task('watch', function() {
 
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', [ 'nodemon', 'watch']);
+gulp.task('default', ['compass', 'nodemon', 'watch']);

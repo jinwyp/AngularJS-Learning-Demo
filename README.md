@@ -55,4 +55,6 @@ bower install reveal.js --save
 
 gulp-nodemon 是重启服务器的插件。
 gulp-livereload 后端控制前端同步刷新，可能需要安装的 chrome 浏览器插件 LiveReload(也可以不用浏览器插件)
+gulp-livereload [浏览器插件](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
+[livereload-js](https://github.com/livereload/livereload-js)
 

@@ -21,13 +21,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(require('node-compass')({
-    mode: 'expanded',
-    project: path.join(__dirname, 'public/angulardemo/css'),
-    css: 'stylesheets',
-    sass: 'sass',
-    logging: true
-}));
+//app.use(require('node-compass')({
+//    mode: 'expanded',
+//    project: path.join(__dirname, 'public/angulardemo/css'),
+//    css: 'stylesheets',
+//    sass: 'sass',
+//    logging: true
+//}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
