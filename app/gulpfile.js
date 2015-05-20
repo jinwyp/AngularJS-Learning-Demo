@@ -18,7 +18,8 @@ var paths = {
     base: 'public/',
     client: {
         js : ['public/angulardemo/**/*.js', 'public/angularslide/**/*.js'],
-        sass : []
+        sass : ['public/angulardemo/css/sass/*'],
+        css : ['public/angulardemo/css/stylesheets/*']
     },
     server: {
         index: 'bin/www',
@@ -55,16 +56,22 @@ gulp.task('nodemon', function() {
 
 
 /********************  当客户端被监听的文件改变时，刷新浏览器  ********************/
-gulp.task('livereload', function() {
-    livereload.listen();
-    var server = livereload();
-    return gulp.watch(paths.client.sass, function(event) {
-        server.changed(event.path);
-    });
+gulp.task('compass', function() {
+
+    return gulp.src(paths.client.css)
+    .pipe(livereload());
+
+    //var server = livereload();
+    //return gulp.watch(paths.client.css, function(event) {
+    //    server.changed(event.path);
+    //});
 });
 
+
 gulp.task('watch', function() {
+    livereload.listen();
     gulp.watch(paths.client.js, ['jshint']);
+    gulp.watch(paths.client.css, ['compass']);
 });
 
 
@@ -73,4 +80,4 @@ gulp.task('watch', function() {
 
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'nodemon', 'livereload']);
+gulp.task('default', [ 'nodemon', 'watch']);
