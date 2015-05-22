@@ -1,5 +1,15 @@
 lib-cov
-*.seed
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.rej
+*.swo
+*.swp
+*.vi
+*.tags*
+
 *.log
 *.csv
 *.dat
@@ -8,9 +18,12 @@ lib-cov
 *.gz
 
 pids
-logs
-results
 
+
+
+# Folders to ignore for this project
+imgstorage
+uploadimage
 
 
 # Node Files Logs ignore
@@ -20,6 +33,11 @@ npm-debug.log
 # Sass cache
 .sass-cache
 
+
+# Version control
+.hg
+.svn
+.CVS
 
 # Mac Files ignore
 .DS_Store
@@ -31,3 +49,26 @@ Thumbs.db
 
 # IDE Webstorm Files ignore
 *.idea*
+
+
+# Editor folders
+.project
+.settings
+.tmproj
+*.esproj
+nbproject
+
+
+# Visual Studio 2013
+marksimos.sln
+marksimos.v12.suo
+
+# Dreamweaver added files
+_notes
+dwsync.xml
+
+
+
+# Komodo
+*.komodoproject
+.komodotools
