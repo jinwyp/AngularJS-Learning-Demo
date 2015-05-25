@@ -23,6 +23,10 @@
     "bootstrap": "~3.3.4",
     "reveal.js": "~3.0.0",
     "jquery-legacy": "jquery#1",
-    "google-code-prettify": "~1.0.4"
+    "google-code-prettify": "~1.0.4",
+    "prism": "*"
+  },
+  "devDependencies": {
+    "prism": "*"
   }
 }
