@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html ng-app>
+<head >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Learning AngularJS and Express NodeJS">
+    <meta name="author" content="JinWYP">
+
+    <title>AngularJS Demo 4 Loop and Event </title>
+
+    <!-- Bootstrap -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+
+
+    <link href="/angulardemo/css/stylesheets/style.css" rel="stylesheet">
+
+    <link href="/bower_components/prism/themes/prism.css" rel="stylesheet" />
+
+
+    <style>
+
+        .selected{
+            color:red;
+        }
+
+        .listfirst{
+            color:blue;
+        }
+
+        .listlast{
+            color:green;
+        }
+
+        .listselected{
+            color:red;
+            font-size: 16px;
+        }
+    </style>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Angular Demo4 循环 与 事件</h1>
+            <h5>(没有写任何javascript代码)</h5>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <h3>指令 ngRepeat ngClick </h3>
+            <hr>
+        </div>
+
+
+        <div class="col-sm-3" ng-init="items =['A','B','C','D','E']; currnet = {index:-1};">
+            <li ng-repeat="item in items" ng-class="{'listselected': $index == currnet.index, 'listfirst': $first, 'listlast': $last}">
+                <span ng-click="currnet.index=$index">位置:{{$index}},  Name:{{ item }} </span>
+            </li>
+        </div>
+
+
+        <div class="col-sm-9">
+<pre><code class="language-markup" ng-non-bindable>
+&lt;div class="col-sm-8" ng-init="items =['A','B','C','D','E']; currnet = {index:-1};">
+    &lt;li ng-repeat="item in items"
+        ng-class="{'listselected': $index == currnet.index, 'listfirst': $first, 'listlast': $last}">
+
+        &lt;span ng-click="currnet.index=$index">位置:{{$index}},  Name:{{item}} &lt;/span>
+    &lt;/li>
+&lt;/div>
+</code></pre>
+        </div>
+
+
+        <div class="col-sm-12">
+            <div class="alert alert-info" role="alert">注意: ngRepeat 每个循环会产生自己的作用域, 所以需要currnet.index这样使用对象的属性访问index, 而不直接使用currentIndex这样的javascript的基本类型primitives type, 否则会产生子作用域的currentIndex, 请看下面代码</div>
+            <hr>
+        </div>
+
+
+        <div class="col-sm-3" ng-init="items =['A','B','C','D','E']; currnetIndex = -1;">
+            <li ng-repeat="item in items" ng-class="{'listselected': $index == currnetIndex, 'listfirst': $first, 'listlast': $last}">
+                <span ng-click="currnetIndex=$index">位置:{{$index}},  Name:{{ item }} </span>
+            </li>
+        </div>
+
+
+        <div class="col-sm-9">
+<pre><code class="language-markup" ng-non-bindable>
+&lt;div class="col-sm-8" ng-init="items =['A','B','C','D','E']; currnetIndex = -1;">
+    &lt;li ng-repeat="item in items"
+        ng-class="{'listselected': $index == currnetIndex, 'listfirst': $first, 'listlast': $last}">
+
+        &lt;span ng-click="currnetIndex=$index">位置:{{$index}},  Name:{{item}} &lt;/span>
+    &lt;/li>
+&lt;/div>
+</code></pre>
+        </div>
+
+
+        <div class="col-sm-12">
+            <div class="alert alert-info" role="alert">注意: ngRepeat 的子作用域产生的错误效果. 也可以通过$parent.currentIndex调用父作用域的变量, 请看下面代码</div>
+            <hr>
+        </div>
+
+
+        <div class="col-sm-3" ng-init="items =['A','B','C','D','E']; currnetIndex2 = -1;">
+            <li ng-repeat="item in items" ng-class="{'listselected': $index == currnetIndex2, 'listfirst': $first, 'listlast': $last}">
+                <span ng-click="$parent.currnetIndex2=$index">位置:{{$index}},  Name:{{ item }} </span>
+            </li>
+        </div>
+
+
+        <div class="col-sm-9">
+<pre><code class="language-markup" ng-non-bindable>
+&lt;div class="col-sm-8" ng-init="items =['A','B','C','D','E']; currnetIndex = -1;">
+    &lt;li ng-repeat="item in items"
+    ng-class="{'listselected': $index == currnetIndex, 'listfirst': $first, 'listlast': $last}">
+
+        &lt;span ng-click="$parent.currnetIndex=$index">位置:{{$index}},  Name:{{item}} &lt;/span>
+    &lt;/li>
+&lt;/div>
+</code></pre>
+        </div>
+
+    </div>
+
+
+
+
+</div> <!-- /container -->
+
+
+
+
+
+
+<!-- Placed at the end of the document so the pages load faster -->
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/bower_components/jquery-legacy/dist/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="/bower_components/angular/angular.js"></script>
+
+<script src="/bower_components/prism/prism.js"></script>
+
+<script>
+
+//    jQuery(function($){
+//        $("#demo2 li").click(function(){
+//            $(this).addClass("liselected").siblings("li").removeClass("liselected");
+//        });
+//    });
+</script>
+
+</body>
+</html>
