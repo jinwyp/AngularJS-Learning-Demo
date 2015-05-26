@@ -1,10 +1,13 @@
-'use strict';
-
-/* Directives */
 
 
-angular.module('myApp.directives', [])
-    .directive('editMenu', function () {
+(function() {
+    'use strict';
+
+
+    /* Directives */
+
+
+    angular.module('myApp').directive('editMenu', function () {
         return {
             restrict: 'EA',
             templateUrl: 'tpl_demo10_edit.html',
@@ -38,9 +41,11 @@ angular.module('myApp.directives', [])
 
 
             }
-        }
-    })
-    .directive('addMenu', function () {
+        };
+    });
+
+
+    angular.module('myApp').directive('addMenu', function () {
         return {
             restrict: 'EA',
             templateUrl: 'tpl_demo10_add.html',
@@ -68,9 +73,11 @@ angular.module('myApp.directives', [])
                     }
                 };
 
-
             }
-        }
+        };
     });
+
+})();
+
 
 

@@ -1,0 +1,49 @@
+<% include ./include/head.ejs %>
+<% include ./include/header.ejs %>
+
+
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Angular Demo ngRepeat and Filter 循环与过滤器</h1>
+            <hr>
+        </div>
+
+
+        <div class="col-sm-12" ng-controller="PostCtrl">
+            <form>
+                <div class="form-group">
+                    <label for="searchText">关键词: </label>
+                    <input type="text" class="form-control" id="searchText" placeholder="Enter email" ng-model="nametext">
+                </div>
+            </form>
+
+            <ul>
+                <li ng-repeat="post in posts | filter:nametext" ng-mouseenter="showdiv()" ng-mouseleave="hidediv()">
+                    <span>Show Name:{{ post.tag }} <span ng-show="css.show">Mouseover show</span></span>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+
+    <div ng-controller="PostCtrl2">
+        <h3>--------------------华丽的分割线--------------------------------</h3>
+        <div id="demo3" ng-repeat="post in posts"  ng-class="{liselected: $index == cssSelected}">
+            <li ng-click="changecolor($index)">Show Name:{{ post.name }}</li>
+
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+
+
+
+
+<% include ./include/bottomscript.ejs %>

@@ -11,4 +11,8 @@ router.get('/angulardemo', function(req, res, next) {
   res.render('angulardemo/index', { title: 'Express' });
 });
 
+router.get('/angulardemo/demo', function(req, res, next) {
+  res.render('angulardemo/demo', { title: 'Express' });
+});
+
 module.exports = router;
