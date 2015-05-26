@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html ng-app>
+<head >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Learning AngularJS and Express NodeJS">
+    <meta name="author" content="JinWYP">
+
+    <title>AngularJS Demo 3 Change CSS</title>
+
+    <!-- Bootstrap -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+
+
+    <link href="/angulardemo/css/stylesheets/style.css" rel="stylesheet">
+
+    <link href="/bower_components/prism/themes/prism.css" rel="stylesheet" />
+
+
+    <style>
+
+        .selected{
+            color:red;
+        }
+
+        .listselected{
+            color:red;
+            font-size: 20px;
+        }
+
+        .listlast{
+            color:green;
+            font-size: 16px;
+        }
+    </style>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Angular Demo3 修改CSS</h1>
+            <h5>(没有写任何javascript代码)</h5>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <h3>指令 ngClass </h3>
+            <hr>
+        </div>
+
+
+        <div class="col-sm-8">
+            <label ng-init="cssSelected=false">Name:</label>
+            <input type="text" ng-model="yourName" placeholder="Enter a name here">
+            <button class="btn btn-default" ng-click="cssSelected = !cssSelected">反复改变cssSelected 的值  修改样式</button>
+            <br/><br/>
+
+            <p class="bg-info" > cssSelected变量值: {{cssSelected}} </p>
+            <p class="bg-info" class="selected"> 默认样式名称为'selected' </p>
+            <p class="bg-info" ng-class="{'selected': cssSelected}"> 这里显示样式改变的效果 Hello: {{yourName}} ! </p>
+        </div>
+
+
+
+        <div class="col-sm-12">
+<pre><code class="language-markup" ng-non-bindable>
+    &lt;div class="col-sm-8">
+        &lt;label ng-init="cssSelected=false">Name:&lt;/label>
+        &lt;input type="text" ng-model="yourName" placeholder="Enter a name here">
+        &lt;button class="btn btn-default" ng-click="cssSelected = !cssSelected">反复改变cssSelected 的值  修改样式&lt;/button>
+        &lt;br/>&lt;br/>
+
+        &lt;p class="bg-info" > cssSelected变量值: {{cssSelected}} &lt;/p>
+        &lt;p class="bg-info" class="selected"> 默认样式名称为'selected' &lt;/p>
+        &lt;p class="bg-info" ng-class="{'selected': cssSelected}"> 这里显示样式改变的效果 Hello: {{yourName}} ! &lt;/p>
+    &lt;/div>
+</code></pre>
+        </div>
+
+    </div>
+
+
+
+
+</div> <!-- /container -->
+
+
+
+
+<!-- Placed at the end of the document so the pages load faster -->
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/bower_components/jquery-legacy/dist/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="/bower_components/angular/angular.js"></script>
+
+<script src="/bower_components/prism/prism.js"></script>
+
+
+
+</body>
+</html>
