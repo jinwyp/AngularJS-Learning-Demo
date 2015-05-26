@@ -146,7 +146,40 @@
     </div>
 
 
+    <div class="row">
+        <div class="col-sm-12">
+            <hr>
+        </div>
+    </div>
 
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>使用jQuery 代码对比</h4>
+        </div>
+
+        <div class="col-sm-3" id="demo4">
+            <li ><span >位置:0,  Name:A </span></li>
+            <li ><span >位置:1,  Name:B </span></li>
+            <li ><span >位置:2,  Name:C </span></li>
+            <li ><span >位置:3,  Name:D </span></li>
+            <li ><span >位置:4,  Name:E </span></li>
+        </div>
+
+        <div class="col-sm-8">
+<pre><code class="language-javascript" ng-non-bindable>
+jQuery(function($){
+    $("#demo4 li").click(function(){
+        $(this).addClass("listselected").siblings("li").removeClass("listselected");
+    });
+
+    $("#demo4 li").first().addClass("listfirst");
+    $("#demo4 li").last().addClass("listlast");
+});
+</code></pre>
+        </div>
+    </div>
 
 </div> <!-- /container -->
 
@@ -169,11 +202,14 @@
 
 <script>
 
-//    jQuery(function($){
-//        $("#demo2 li").click(function(){
-//            $(this).addClass("liselected").siblings("li").removeClass("liselected");
-//        });
-//    });
+    jQuery(function($){
+        $("#demo4 li").click(function(){
+            $(this).addClass("listselected").siblings("li").removeClass("listselected");
+        });
+
+        $("#demo4 li").first().addClass("listfirst");
+        $("#demo4 li").last().addClass("listlast");
+    });
 </script>
 
 </body>
