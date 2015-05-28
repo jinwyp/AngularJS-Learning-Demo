@@ -13,13 +13,12 @@
             <hr>
         </div>
 
-
         <div class="col-sm-8" >
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="searchText" class="col-sm-2 control-label">关键词: </label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="searchText" placeholder="Enter email" ng-model="demo11.data.searchText">
+                        <input type="text" class="form-control" id="searchText" ng-model="demo11.data.searchText">
                     </div>
                 </div>
 
@@ -32,7 +31,6 @@
             </form>
         </div>
 
-
         <div class="col-sm-6" >
             <ul class="list-group demo">
                 <li class="list-group-item"  ng-repeat="article in demo11.data.articles | filter:demo11.data.searchText" ng-mouseenter="demo11.event.showArticleDeleteIcon($index)" ng-mouseleave="demo11.event.hideArticleDeleteIcon()">
@@ -45,19 +43,57 @@
     </div>
 
 
+
+
+
     <div class="row" ng-controller="demo12Controller as demo12">
         <div class="col-sm-12">
             <h1>Angular Demo Angular的作用范围 $timeout 与 setTimeout</h1>
             <hr>
         </div>
 
+        <div class="col-sm-8" >
+            <h4>使用setTimeout {{ demo12.data.setTimeOutMessage }} <button class="btn btn-default" ng-click="demo12.event.changeSetTimeOutMessage()">点击后 2秒后显示改变</button> </h4>
+
+            <h4>使用setTimeout 与 scope apply {{ demo12.data.setTimeOutMessage2 }} <button class="btn btn-default" ng-click="demo12.event.changeSetTimeOutMessage2()">点击后 2秒后显示改变</button> </h4>
+
+            <h4>使用$timeout {{ demo12.data.angularTimeOutMessage }} <button class="btn btn-default" ng-click="demo12.event.changeAngularTimeOutMessage()">点击后 2秒后显示改变</button> </h4>
+
+            <p class="bg-info"><a href="http://jimhoskins.com/2012/12/17/angularjs-and-apply.html">相关文章: angularjs-and-apply</a></p>
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="row" ng-controller="demo13Controller as demo13">
+        <div class="col-sm-12">
+            <h1>Angular Demo Scope的$watch 监听属性变化</h1>
+            <hr>
+        </div>
 
         <div class="col-sm-8" >
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label for="searchText" class="col-sm-2 control-label">关键词: </label>
+                    <label for="firstName" class="col-sm-2 control-label">First Name: </label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="searchText" placeholder="Enter email" ng-model="demo11.data.searchText">
+                        <input type="text" class="form-control" id="firstName" ng-model="demo13.data.firstName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName" class="col-sm-2 control-label">Last Name: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="lastName" ng-model="demo13.data.lastName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName" class="col-sm-2 control-label">Full Name: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="fullName" ng-model="demo13.data.fullName">
                     </div>
                 </div>
 
@@ -68,21 +104,9 @@
                 <!--</div>-->
 
             </form>
-        </div>
-
-
-        <div class="col-sm-6" >
-            <ul class="list-group demo">
-                <li class="list-group-item"  ng-repeat="article in demo11.data.articles | filter:demo11.data.searchText" ng-mouseenter="demo11.event.showArticleDeleteIcon($index)" ng-mouseleave="demo11.event.hideArticleDeleteIcon()">
-                    <span ng-class="{'listselected': $index === demo11.css.currentSelected}" ng-click="demo11.event.clickArticle($index)">Title: {{ article.title }} </span>
-                    <span class="glyphicon glyphicon-trash" ng-show="$index === demo11.css.currentDeleteIcon"></span>
-                </li>
-            </ul>
 
         </div>
     </div>
-
-
 </div> <!-- /container -->
 
 
