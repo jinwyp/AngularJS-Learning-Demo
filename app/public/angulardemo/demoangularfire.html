@@ -49,37 +49,74 @@
     <!--[if lt IE 9]>
     <script src="lib/bootstrap/js/html5shiv.js"></script>
     <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"> </script>
-    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-    <script src="http://firebase.github.io/angularFire/angularFire.js"></script>
+
+
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.1/angularfire.min.js"></script>
+
 
 </head>
 
 <body>
 
-<h2>JavaScript Projects</h2>
-<div ng-view></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Angular Demo Angular using FireBase</h1>
+            <h5>(没有写任何javascript代码)</h5>
+            <hr>
+        </div>
 
 
-<!-- Le javascript
-================================================== -->
+
+        <div class="col-sm-12">
+            <div ng-view></div>
+        </div>
+
+
+
+    </div>
+
+
+</div> <!-- /container -->
+
+
+
+
+
+
+
 <!-- Placed at the end of the document so the pages load faster -->
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/bower_components/jquery-legacy/dist/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="/bower_components/angular/angular.js"></script>
+
+<script src="/bower_components/prism/prism.js"></script>
+
 
 
 <script>
 
-    angular.module('project', ['firebase']).
-            value('fbURL', 'https://angularjs-projects.firebaseio.com/').
-            factory('Projects', function(angularFireCollection, fbURL) {
+    angular.module('project', ['firebase'])
+            .value('fbURL', 'https://angularjs-projects.firebaseio.com/')
+            .factory('Projects', function(angularFireCollection, fbURL) {
                 return angularFireCollection(fbURL);
-            }).
-            config(function($routeProvider) {
-                $routeProvider.
-                        when('/', {controller:ListCtrl, templateUrl:'list.html'}).
-                        when('/edit/:projectId', {controller:EditCtrl, templateUrl:'detail.html'}).
-                        when('/new', {controller:CreateCtrl, templateUrl:'detail.html'}).
-                        otherwise({redirectTo:'/'});
+            })
+            .config(function($routeProvider) {
+                $routeProvider
+                    .when('/', {controller:ListCtrl, templateUrl:'list.html'})
+                    .when('/edit/:projectId', {controller:EditCtrl, templateUrl:'detail.html'})
+                    .when('/new', {controller:CreateCtrl, templateUrl:'detail.html'})
+                    .otherwise({redirectTo:'/'});
             });
 
     function ListCtrl($scope, Projects) {
@@ -95,22 +132,24 @@
     }
 
     function EditCtrl($scope, $location, $routeParams, angularFire, fbURL) {
-        angularFire(fbURL + $routeParams.projectId, $scope, 'remote', {}).
-                then(function() {
-                    $scope.project = angular.copy($scope.remote);
-                    $scope.project.$id = $routeParams.projectId;
-                    $scope.isClean = function() {
-                        return angular.equals($scope.remote, $scope.project);
-                    }
-                    $scope.destroy = function() {
-                        $scope.remote = null;
-                        $location.path('/');
-                    };
-                    $scope.save = function() {
-                        $scope.remote = angular.copy($scope.project);
-                        $location.path('/');
-                    };
-                });
+        angularFire(fbURL + $routeParams.projectId, $scope, 'remote', {}).then(function() {
+            $scope.project = angular.copy($scope.remote);
+            $scope.project.$id = $routeParams.projectId;
+
+            $scope.isClean = function() {
+                return angular.equals($scope.remote, $scope.project);
+            };
+
+            $scope.destroy = function() {
+                $scope.remote = null;
+                $location.path('/');
+            };
+
+            $scope.save = function() {
+                $scope.remote = angular.copy($scope.project);
+                $location.path('/');
+            };
+        });
     }
 
 

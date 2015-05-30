@@ -14,6 +14,9 @@
 
         /* jshint validthis: true */
         var vm = this;
+        $scope.vm = vm;  // For $scope.$watch
+
+
 
         /**********  Data Binding For CSS style   **********/
 
@@ -44,12 +47,9 @@
         var app = {
             init : function(){
 
-                $scope.$watch('vm.data', function(newValue, oldValue) {
-                    $log.info('vm.name was %s', newValue);
-
+                $scope.$watch('vm.data.firstName + vm.data.lastName', function(newValue, oldValue) {
                     vm.data.fullName = vm.data.firstName + ' ' + vm.data.lastName;
                 });
-
 
 /*
                 //Beginning with AngularJS 1.1.5 you can use $watchCollection
