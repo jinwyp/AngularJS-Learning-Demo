@@ -15,11 +15,10 @@
         /* jshint validthis: true */
         var vm = this;
 
-        /**********  Data Binding For CSS style   **********/
 
+        /**********  Data Binding For CSS style   **********/
         vm.css = {
         };
-
 
 
         /**********  Data Binding For ViewModel  **********/
@@ -31,9 +30,7 @@
 
 
 
-
         /**********  Event Center  **********/
-
         vm.event = {
             changeSetTimeOutMessage : changeSetTimeOutMessage,
             changeSetTimeOutMessage2 : changeSetTimeOutMessage2,

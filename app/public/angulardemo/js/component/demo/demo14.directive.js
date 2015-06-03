@@ -6,21 +6,39 @@
 
     /* Directives */
 
+    /* recommended */
+    /* demo14.directive.js */
 
-    angular.module('myApp').directive('editMenu', function () {
-        return {
+    /**
+     * @desc order directive that is specific to the order module at a company named Acme
+     * @example <div my-nav-bar></div>
+     */
+
+
+    angular.module('myApp').directive('myNavBar', [myNavBarComponent]);
+
+
+    function myNavBarComponent() {
+
+        var directive = {
             restrict: 'EA',
-            templateUrl: 'tpl_demo10_edit.html',
+            templateUrl: 'js/component/demo/demo14_tpl.html',
             scope: {
-                menulist : '=datalistmodel',
-                menu : '=datamodel',
-                index : '=index'
+                data : '='
             },
 
             link: function (scope, element, attrs) {
-                scope.cssshowmenu = true;
-                scope.editMenuButton = function(){
-                    scope.cssshowmenu = false;
+                console.log(scope.dateSource);
+                scope.css = {
+                    editStatus : false,
+                    currentMenuIndex : -1,
+                    currentMenu : {}
+                };
+
+
+                scope.editMenuButton = function(index){
+                    scope.css.currentMenuIndex = index;
+                    scope.css.editStatus = true;
                 };
 
                 scope.saveEditMenuButton = function(){
@@ -42,7 +60,11 @@
 
             }
         };
-    });
+
+
+        return directive;
+
+    };
 
 
     angular.module('myApp').directive('addMenu', function () {

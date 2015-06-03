@@ -1,0 +1,18 @@
+
+    <ul class="nav nav-pills nav-stacked" >
+        <li role="presentation" class="active" ng-repeat="menu in dataSource">
+
+            <a href="#" ng-show="css.currentMenuIndex!==$index" ng-click="editMenuButton($index, menu)">{{menu.name}}</a>
+
+            <form class="form-horizontal" ng-show="css.currentMenuIndex===$index">
+
+                <input type="text" id="inputMenu" placeholder="Menu Name" ng-model="menu.name">
+
+                <button type="submit" class="btn" ng-click="saveEditMenuButton()">Save</button>
+                <button type="submit" class="btn" ng-click="deleteMenuButton()">Delete</button>
+
+            </form>
+
+        </li>
+    </ul>
+

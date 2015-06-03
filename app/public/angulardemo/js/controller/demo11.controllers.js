@@ -16,12 +16,10 @@
         var vm = this;
 
         /**********  Data Binding For CSS style   **********/
-
         vm.css = {
             currentDeleteIcon : -1,
             currentSelected : -1
         };
-
 
 
         /**********  Data Binding For ViewModel  **********/
@@ -36,10 +34,7 @@
         };
 
 
-
-
         /**********  Event Center  **********/
-
         vm.event = {
             showArticleDeleteIcon : showArticleDeleteIcon,
             hideArticleDeleteIcon : hideArticleDeleteIcon,
