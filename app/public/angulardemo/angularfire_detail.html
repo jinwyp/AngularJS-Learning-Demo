@@ -1,24 +1,55 @@
-<form name="myForm">
-    <div class="control-group" ng-class="{error: myForm.name.$invalid}">
-        <label>Name</label>
-        <input type="text" name="name" ng-model="project.name" required>
-        <span ng-show="myForm.name.$error.required" class="help-inline"> Required</span>
+<form class="form-horizontal" name="myForm">
+    <div class="form-group has-feedback" ng-class="{'has-success': myForm.name.$valid, 'has-error': myForm.name.$invalid}">
+        <label class="col-sm-3 control-label" for="name">Name :</label>
+
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="name" name="name" ng-model="project.name" required>
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="myForm.name.$valid"></span>
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="myForm.name.$invalid"></span>
+        </div>
+
+        <div class="col-sm-3">
+            <span ng-if="myForm.name.$error.required" class="help-block"> Required</span>
+        </div>
+
     </div>
 
 
-    <div class="control-group" ng-class="{error: myForm.site.$invalid}">
-        <label>Website</label>
-        <input type="url" name="site" ng-model="project.site" required>
-        <span ng-show="myForm.site.$error.required" class="help-inline">Required</span>
-        <span ng-show="myForm.site.$error.url" class="help-inline">Not a URL</span>
+    <div class="form-group has-feedback" ng-class="{'has-success': myForm.site.$valid, 'has-error': myForm.site.$invalid}">
+        <label class="col-sm-3 control-label" for="site">Website :</label>
+
+        <div class="col-sm-5">
+            <input type="url" class="form-control" id="site" name="site" ng-model="project.site" required>
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="myForm.site.$valid"></span>
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="myForm.site.$invalid"></span>
+        </div>
+
+        <div class="col-sm-3">
+            <span ng-if="myForm.site.$error.required" class="help-block"> Required</span>
+            <span ng-if="myForm.site.$error.url" class="help-block"> Not a URL </span>
+        </div>
     </div>
 
 
-    <label>Description</label>
-    <textarea name="description" ng-model="project.description"></textarea>
+    <div class="form-group has-feedback" ng-class="{'has-success': myForm.description.$valid, 'has-error': myForm.description.$invalid}">
+        <label class="col-sm-3 control-label" for="description">Description :</label>
 
-    <br>
-    <a href="#/" class="btn">Cancel</a>
-    <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid" class="btn btn-primary">Save </button>
-    <button ng-click="destroy()" ng-show="projectId" class="btn btn-danger">Delete </button>
+        <div class="col-sm-5">
+            <textarea class="form-control" id="description" name="description" ng-model="project.description"></textarea>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <button class="btn btn-danger" ng-click="destroy()" ng-show="projectId">Delete </button>
+            <button class="btn btn-primary" ng-click="save()" ng-disabled="isClean() || myForm.$invalid">Save </button>
+            <a href="#/" class="btn btn-default">Cancel</a>
+
+        </div>
+    </div>
+
+
+
 </form>

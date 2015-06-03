@@ -7,8 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -43,7 +44,6 @@
             height: 0px;
         }
     </style>
-    <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -63,13 +63,13 @@
     <div class="row">
         <div class="col-sm-12">
             <h1>Angular Demo Angular using FireBase</h1>
-            <h5>(使用firebase作为后端数据库)</h5>
+            <h5>(使用Firebase作为后端数据库)</h5>
             <hr>
         </div>
 
 
 
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <div ng-view></div>
         </div>
 
@@ -159,16 +159,18 @@
 
             $scope.projects.$loaded().then(function(results) {
                 $scope.project = $scope.projects.$getRecord($routeParams.projectId);
-            })
-            .catch(function(error) {
+
+                $scope.origin = angular.copy($scope.project)
+
+            }).catch(function(error) {
                 console.log("Error:", error);
             });
 
 
-
             $scope.isClean = function() {
-                return angular.equals($scope.remote, $scope.project);
+                return angular.equals($scope.origin, $scope.project);
             };
+
 
             $scope.destroy = function() {
                 $scope.projects.$remove($scope.project).then(function(ref) {
@@ -179,8 +181,11 @@
             };
 
             $scope.save = function() {
-                $scope.remote = angular.copy($scope.project);
-                $location.path('/');
+                $scope.projects.$save($scope.project).then(function(ref) {
+                    console.log('Save: ', ref.key() === $scope.projectId); // true
+                    $location.path('/');
+
+                });
             };
         }
 
