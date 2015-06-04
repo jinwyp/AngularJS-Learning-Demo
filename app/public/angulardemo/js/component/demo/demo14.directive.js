@@ -24,11 +24,11 @@
             restrict: 'EA',
             templateUrl: 'js/component/demo/demo14_tpl.html',
             scope: {
-                data : '='
+                menulist : '='
             },
 
             link: function (scope, element, attrs) {
-                console.log(scope.dateSource);
+                console.log(scope.menulist);
                 scope.css = {
                     editStatus : false,
                     currentMenuIndex : -1,
@@ -64,7 +64,7 @@
 
         return directive;
 
-    };
+    }
 
 
     angular.module('myApp').directive('addMenu', function () {
