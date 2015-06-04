@@ -27,77 +27,69 @@
                 menulist : '='
             },
 
-            link: function (scope, element, attrs) {
-                console.log(scope.menulist);
-                scope.css = {
-                    editStatus : false,
-                    currentMenuIndex : -1,
-                    currentMenu : {}
-                };
-
-
-                scope.editMenuButton = function(index){
-                    scope.css.currentMenuIndex = index;
-                    scope.css.editStatus = true;
-                };
-
-                scope.saveEditMenuButton = function(){
-                    scope.cssshowmenu = true;
-                };
-                scope.deleteMenuButton = function(){
-                    scope.cssshowmenu = true;
-
-                    for(var i = scope.menulist.length-1; i >= 0; i--){
-                        if (scope.menulist[i].id == scope.menu.id) {
-//                            console.log(i, scope.menulist[i].id, scope.menu.id, scope.menulist);
-                            scope.menulist.splice(i, 1);
-                            element.remove();
-                            break;
-                        }
-                    }
-                };
-
-
-            }
+            link: linkFunc
         };
 
-
         return directive;
+
+
+        function linkFunc (scope, element, attrs) {
+            scope.css = {
+                currentEditMenuIndex : -1,
+                currentSelectMenuIndex : -1,
+                currentHoverMenuIndex : -1,
+                showAddNewMenuForm : false
+            };
+            scope.data = {
+                newMenu : {
+                    id : scope.menulist[scope.menulist.length-1].id + 1,
+                    name : ''
+                }
+            };
+
+
+            scope.addMenu = function(){
+                scope.css.showAddNewMenuForm = true;
+            };
+            scope.saveNewMenu = function(){
+                scope.data.newMenu.id =scope.menulist[scope.menulist.length-1].id + 1;
+                scope.menulist.push(angular.copy(scope.data.newMenu));
+                scope.css.showAddNewMenuForm = false;
+            };
+
+
+            scope.editMenu = function(index){
+                scope.css.currentEditMenuIndex = index;
+
+            };
+            scope.saveEditMenu = function(){
+                scope.css.currentEditMenuIndex = -1;
+            };
+
+
+            scope.deleteMenu = function(index){
+
+                scope.menulist.splice(index, 1);
+                scope.css.currentEditMenuIndex = -1;
+
+            };
+            scope.deleteMenu2 = function(menu){
+
+                for(var i = scope.menulist.length-1; i >= 0; i--){
+                    if (scope.menulist[i].id === menu.id) {
+                        scope.menulist.splice(i, 1);
+                        break;
+                    }
+                }
+
+                scope.css.currentEditMenuIndex = -1;
+            };
+
+        }
 
     }
 
 
-    angular.module('myApp').directive('addMenu', function () {
-        return {
-            restrict: 'EA',
-            templateUrl: 'tpl_demo10_add.html',
-            scope: false,
-            link: function (scope, elem, attrs) {
-                scope.maxmenu = Number(attrs.maxmemu);
-                console.log(Number(attrs.maxmemu));
-                scope.newmemu = {id:100, name:"" };
-                scope.cssshowmenu = true;
-                scope.cssshowbox = true;
-
-                if(scope.menulist.length >= scope.maxmenu){
-                    scope.cssshowbox = false;
-                }
-
-                scope.addMenuButton = function(){
-                    scope.cssshowmenu = false;
-                };
-
-                scope.saveNewMenuButton = function(){
-                    scope.cssshowmenu = true;
-                    scope.menulist.push(angular.copy(scope.newmemu));
-                    if(scope.menulist.length >= scope.maxmenu){
-                        scope.cssshowbox = false;
-                    }
-                };
-
-            }
-        };
-    });
 
 })();
 
