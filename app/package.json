@@ -19,10 +19,11 @@
     "serve-favicon": "~2.2.0"
   },
   "devDependencies": {
+    "autoprefixer": "^5.2.0",
     "express-generator": "^4.12.1",
     "gulp": "^3.8.11",
     "gulp-angular-templatecache": "^1.6.0",
-    "gulp-autoprefixer": "^2.3.0",
+    "gulp-autoprefixer": "^2.3.1",
     "gulp-compass": "^2.0.4",
     "gulp-concat": "^2.5.2",
     "gulp-inject": "^1.2.0",

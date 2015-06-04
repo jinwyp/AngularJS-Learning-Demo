@@ -31,7 +31,7 @@ npm-debug.log
 node_modules
 
 # Sass cache
-*.sass-cache/*
+.sass-cache
 
 
 # Version control
