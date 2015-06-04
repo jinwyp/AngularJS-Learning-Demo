@@ -7,34 +7,39 @@
 
 <div class="container">
 
+
     <div class="row" ng-controller="demo11Controller as demo11">
         <div class="col-sm-12">
             <h1>Angular Demo ngRepeat and Filter 循环与过滤器</h1>
             <hr>
         </div>
 
-        <div class="col-sm-8" >
+        <div class="col-sm-8">
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="searchText" class="col-sm-2 control-label">关键词: </label>
+
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="searchText" ng-model="demo11.data.searchText">
                     </div>
                 </div>
 
                 <!--<div class="form-group">-->
-                    <!--<div class="col-sm-offset-2 col-sm-10">-->
-                        <!--<button type="submit" class="btn btn-default">Search</button>-->
-                    <!--</div>-->
+                <!--<div class="col-sm-offset-2 col-sm-10">-->
+                <!--<button type="submit" class="btn btn-default">Search</button>-->
+                <!--</div>-->
                 <!--</div>-->
 
             </form>
         </div>
 
-        <div class="col-sm-6" >
+        <div class="col-sm-6">
             <ul class="list-group demo">
-                <li class="list-group-item"  ng-repeat="article in demo11.data.articles | filter:demo11.data.searchText" ng-mouseenter="demo11.event.showArticleDeleteIcon($index)" ng-mouseleave="demo11.event.hideArticleDeleteIcon()">
-                    <span ng-class="{'listselected': $index === demo11.css.currentSelected}" ng-click="demo11.event.clickArticle($index)">Title: {{ article.title }} </span>
+                <li class="list-group-item" ng-repeat="article in demo11.data.articles | filter:demo11.data.searchText"
+                    ng-mouseenter="demo11.event.showArticleDeleteIcon($index)"
+                    ng-mouseleave="demo11.event.hideArticleDeleteIcon()">
+                    <span ng-class="{'listselected': $index === demo11.css.currentSelected}"
+                          ng-click="demo11.event.clickArticle($index)">Title: {{ article.title }} </span>
                     <span class="glyphicon glyphicon-trash" ng-show="$index === demo11.css.currentDeleteIcon"></span>
                 </li>
             </ul>
@@ -43,29 +48,31 @@
     </div>
 
 
-
-
-
     <div class="row" ng-controller="demo12Controller as demo12">
         <div class="col-sm-12">
             <h1>Angular Demo Angular的作用范围 $timeout 与 setTimeout</h1>
             <hr>
         </div>
 
-        <div class="col-sm-8" >
-            <h4>使用setTimeout {{ demo12.data.setTimeOutMessage }} <button class="btn btn-default" ng-click="demo12.event.changeSetTimeOutMessage()">点击后 2秒后显示改变</button> </h4>
+        <div class="col-sm-8">
+            <h4>使用setTimeout {{ demo12.data.setTimeOutMessage }}
+                <button class="btn btn-default" ng-click="demo12.event.changeSetTimeOutMessage()">点击后 2秒后显示改变</button>
+            </h4>
 
-            <h4>使用setTimeout 与 scope apply {{ demo12.data.setTimeOutMessage2 }} <button class="btn btn-default" ng-click="demo12.event.changeSetTimeOutMessage2()">点击后 2秒后显示改变</button> </h4>
+            <h4>使用setTimeout 与 scope apply {{ demo12.data.setTimeOutMessage2 }}
+                <button class="btn btn-default" ng-click="demo12.event.changeSetTimeOutMessage2()">点击后 2秒后显示改变</button>
+            </h4>
 
-            <h4>使用$timeout {{ demo12.data.angularTimeOutMessage }} <button class="btn btn-default" ng-click="demo12.event.changeAngularTimeOutMessage()">点击后 2秒后显示改变</button> </h4>
+            <h4>使用$timeout {{ demo12.data.angularTimeOutMessage }}
+                <button class="btn btn-default" ng-click="demo12.event.changeAngularTimeOutMessage()">点击后 2秒后显示改变
+                </button>
+            </h4>
 
-            <p class="bg-info"><a href="http://jimhoskins.com/2012/12/17/angularjs-and-apply.html">相关文章: angularjs and scope apply</a></p>
+            <p class="bg-info"><a href="http://jimhoskins.com/2012/12/17/angularjs-and-apply.html">相关文章: angularjs and
+                    scope apply</a></p>
             <hr>
         </div>
     </div>
-
-
-
 
 
     <div class="row" ng-controller="demo13Controller as demo13">
@@ -74,10 +81,11 @@
             <hr>
         </div>
 
-        <div class="col-sm-8" >
+        <div class="col-sm-8">
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="firstName" class="col-sm-2 control-label">First Name: </label>
+
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="firstName" ng-model="demo13.data.firstName">
                     </div>
@@ -85,6 +93,7 @@
 
                 <div class="form-group">
                     <label for="lastName" class="col-sm-2 control-label">Last Name: </label>
+
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="lastName" ng-model="demo13.data.lastName">
                     </div>
@@ -92,6 +101,7 @@
 
                 <div class="form-group">
                     <label for="fullName" class="col-sm-2 control-label">Full Name: </label>
+
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="fullName" ng-model="demo13.data.fullName">
                     </div>
@@ -109,19 +119,17 @@
     </div>
 
 
-
-
-
     <div class="row" ng-controller="demo132Controller">
         <div class="col-sm-12">
             <h1>Angular Demo Scope的$watch 不使用controller as 语法. 使用$scope</h1>
             <hr>
         </div>
 
-        <div class="col-sm-8" >
+        <div class="col-sm-8">
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="firstName" class="col-sm-2 control-label">First Name: </label>
+
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="firstName" ng-model="data.firstName">
                     </div>
@@ -129,6 +137,7 @@
 
                 <div class="form-group">
                     <label for="lastName" class="col-sm-2 control-label">Last Name: </label>
+
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="lastName" ng-model="data.lastName">
                     </div>
@@ -136,6 +145,7 @@
 
                 <div class="form-group">
                     <label for="fullName" class="col-sm-2 control-label">Full Name: </label>
+
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="fullName" ng-model="data.fullName">
                     </div>
@@ -153,21 +163,141 @@
     </div>
 
 
-
-
-
     <div class="row" ng-controller="demo14Controller as demo14">
         <div class="col-sm-12">
             <h1>Angular Demo 指令Directive(组件) 入门</h1>
             <hr>
         </div>
 
-        <div class="col-sm-6" >
+        <div class="col-sm-6">
             <my-nav-bar menulist="demo14.data.menulist"></my-nav-bar>
             <hr>
+        </div>
+    </div>
 
 
+    <div class="row" >
+        <div class="col-sm-12">
+            <h1>Angular Demo 表单与验证</h1>
             <hr>
+        </div>
+
+        <div class="col-sm-12" >
+            <form class="form-horizontal" name="loginForm">
+
+                <div class="form-group has-feedback" ng-class="{'has-success': loginForm.username.$dirty&&loginForm.username.$valid, 'has-error': loginForm.username.$dirty&&loginForm.username.$invalid}">
+                    <label for="inputUsername" class="col-sm-2 control-label">Username :</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="inputUsername" name="username" placeholder="User name" ng-model="user.name" required ng-minlength="4" ng-maxlength="16">
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="loginForm.username.$dirty&&loginForm.username.$valid"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="loginForm.username.$dirty&&loginForm.username.$invalid"></span>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <span class="help-block" ng-if="loginForm.username.$dirty&&loginForm.username.$error.required">用户名不能为空</span>
+                        <span class="help-block" ng-if="loginForm.username.$dirty&&loginForm.username.$error.minlength">用户名不能少于4位</span>
+                        <span class="help-block" ng-if="loginForm.username.$dirty&&loginForm.username.$error.maxlength">用户名不能多于16位</span>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <span class="help-block">校验是否成功: {{loginForm.username.$valid }}</span>
+                        <span class="help-block">错误 $error 值: {{loginForm.username.$error }}</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group has-feedback" ng-class="{'has-success': loginForm.email.$dirty&&loginForm.email.$valid, 'has-error': loginForm.email.$dirty&&loginForm.email.$invalid}">
+                    <label for="inputEmail" class="col-sm-2 control-label">Email :</label>
+                    <div class="col-sm-3">
+                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" ng-model="user.email" required >
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="loginForm.email.$dirty&&loginForm.email.$valid"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="loginForm.email.$dirty&&loginForm.email.$invalid"></span>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <span class="help-block" ng-if="loginForm.email.$dirty&&loginForm.email.$error.required">邮箱不能为空</span>
+                        <span class="help-block" ng-if="loginForm.email.$dirty&&loginForm.email.$error.email">邮箱格式不对</span>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <span class="help-block">校验是否成功: {{loginForm.email.$valid }}</span>
+                        <span class="help-block">错误 $error 值: {{loginForm.email.$error }}</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" >提交</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="col-sm-12">
+<pre><code class="language-markup" ng-non-bindable>
+&lt;form class="form-horizontal" name="loginForm">
+
+    &lt;div class="form-group has-feedback"
+        ng-class="{'has-success': loginForm.username.$dirty&&loginForm.username.$valid, 'has-error': loginForm.username.$dirty&&loginForm.username.$invalid}">
+
+        &lt;label for="inputUsername" class="col-sm-2 control-label">Username :&lt;/label>
+        &lt;div class="col-sm-3">
+            &lt;input type="text" class="form-control" id="inputUsername" name="username" placeholder="User name"
+                ng-model="user.name" required ng-minlength="4" ng-maxlength="16">
+
+            &lt;span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                ng-if="loginForm.username.$dirty&&loginForm.username.$valid">&lt;/span>
+            &lt;span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                ng-if="loginForm.username.$dirty&&loginForm.username.$invalid">&lt;/span>
+        &lt;/div>
+
+        &lt;div class="col-sm-3">
+            &lt;span class="help-block" ng-if="loginForm.username.$dirty&&loginForm.username.$error.required">用户名不能为空&lt;/span>
+            &lt;span class="help-block" ng-if="loginForm.username.$dirty&&loginForm.username.$error.minlength">用户名不能少于4位&lt;/span>
+            &lt;span class="help-block" ng-if="loginForm.username.$dirty&&loginForm.username.$error.maxlength">用户名不能多于16位&lt;/span>
+        &lt;/div>
+
+        &lt;div class="col-sm-3">
+            &lt;span class="help-block">校验是否成功: {{loginForm.username.$valid }}&lt;/span>
+            &lt;span class="help-block">错误 $error 值: {{loginForm.username.$error }}&lt;/span>
+        &lt;/div>
+    &lt;/div>
+
+
+    &lt;div class="form-group has-feedback"
+        ng-class="{'has-success': loginForm.email.$dirty&&loginForm.email.$valid, 'has-error': loginForm.email.$dirty&&loginForm.email.$invalid}">
+
+        &lt;label for="inputEmail" class="col-sm-2 control-label">Email :&lt;/label>
+        &lt;div class="col-sm-3">
+            &lt;input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" ng-model="user.email" required >
+            &lt;span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                ng-if="loginForm.email.$dirty&&loginForm.email.$valid">&lt;/span>
+            &lt;span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                ng-if="loginForm.email.$dirty&&loginForm.email.$invalid">&lt;/span>
+        &lt;/div>
+
+        &lt;div class="col-sm-3">
+            &lt;span class="help-block" ng-if="loginForm.email.$dirty&&loginForm.email.$error.required">邮箱不能为空&lt;/span>
+            &lt;span class="help-block" ng-if="loginForm.email.$dirty&&loginForm.email.$error.email">邮箱格式不对&lt;/span>
+        &lt;/div>
+
+        &lt;div class="col-sm-3">
+            &lt;span class="help-block">校验是否成功: {{loginForm.email.$valid }}&lt;/span>
+            &lt;span class="help-block">错误 $error 值: {{loginForm.email.$error }}&lt;/span>
+        &lt;/div>
+    &lt;/div>
+
+
+    &lt;div class="form-group">
+        &lt;div class="col-sm-offset-2 col-sm-10">
+            &lt;button type="submit" class="btn btn-primary" >提交&lt;/button>
+        &lt;/div>
+    &lt;/div>
+
+&lt;/form>
+    </code></pre>
         </div>
 
 
