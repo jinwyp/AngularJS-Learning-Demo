@@ -7,12 +7,13 @@
 var app = require('../app');
 var debug = require('debug')('app:server');
 var http = require('http');
+var config = require('config');
 
 /**
- * Get port from environment and store in Express.
+ * Get port from config and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '8080');
+var port = normalizePort(config.get('port') || '8080');
 app.set('port', port);
 
 /**
@@ -26,6 +27,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port, function() {
+  console.log('env=', process.env.NODE_ENV || 'default');
   console.log('Express Http server listening on port ' + server.address().port);
 });
 server.on('error', onError);
