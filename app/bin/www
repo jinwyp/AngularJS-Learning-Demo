@@ -27,7 +27,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port, function() {
-  console.log('env=', process.env.NODE_ENV || 'default');
+  console.log('env.NODE_ENV: ', process.env.NODE_ENV || 'default');
   console.log('Express Http server listening on port ' + server.address().port);
 });
 server.on('error', onError);
