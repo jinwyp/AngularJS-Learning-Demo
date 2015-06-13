@@ -1,0 +1,16 @@
+{
+  "verbose": true,
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "tmp/**",
+    "public/**",
+    "views/**"
+  ],
+  "execMap": {
+  },
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json"
+}
