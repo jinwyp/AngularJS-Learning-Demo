@@ -61,7 +61,9 @@ var nodemonConfig = {
     ignore : [
         "tmp/**",
         "public/**",
-        "views/**"
+        "views/**",
+        ".git",
+        "node_modules/**"
     ],
     env    : {
         "NODE_ENV": "development",
