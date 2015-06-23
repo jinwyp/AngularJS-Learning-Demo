@@ -67,7 +67,7 @@ var nodemonConfig = {
     ],
     env    : {
         "NODE_ENV": "development",
-        "DEBUG": "*"
+        "DEBUG": "app:*"
     }
 };
 
