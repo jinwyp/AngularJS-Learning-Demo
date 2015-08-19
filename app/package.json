@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "express-generator": "^4.12.1",
+    "gitbook-cli": "^0.3.4",
     "gulp": "^3.8.11",
     "gulp-angular-templatecache": "^1.6.0",
     "gulp-autoprefixer": "^2.3.0",
