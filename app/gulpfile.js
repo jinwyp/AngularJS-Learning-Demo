@@ -123,7 +123,7 @@ gulp.task('minifyjs', ['jshint'], function(){
     .pipe(ngAnnotate())
     .pipe(concat('app.min.js'))
     .pipe(uglifyJS())
-    .pipe(gulp.dest(paths.client.dist))
+    .pipe(gulp.dest(paths.client.dist));
 });
 
 
