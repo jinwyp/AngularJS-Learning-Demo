@@ -82,9 +82,16 @@ Gulp可以处理一系列的工作, 例如编译Sass为css,压缩js代码,合并
 
 
 
-### 安装Gulp 和 Gulp插件
+#### 安装Gulp [Gulp.js - streaming build system](http://gulpjs.com/) 和 Gulp插件 [学习资料](http://i5ting.github.io/stuq-gulp/)
 
-    npm install -g gulp --save-dev
+使用以下命令 安装Gulp
+
+    sudo npm install -g gulp --save-dev
+
+安装 gulp-nodemon 插件  [nodemon](http://nodemon.io/) 是用来修改代码后自动重启nodejs服务器工具. gulp-nodemon 是在gulp中使用nodemon启动服务器
+
+    sudo npm install gulp-nodemon --save-dev
+
 
 gulp-nodemon 是重启服务器的插件。 因为我们修改后端的nodejs代码, 需要人工重启服务器才能看到更新, 使用nodemon就可以自动监视文件变化重启服务器。
 
@@ -98,11 +105,11 @@ gulp-livereload 是自动刷新前端页面的插件, 这样修改了css不用�
     </script>
 
 
-### 编写Gulp 任务
+#### 编写Gulp 任务
 
 具体请查看gulpfile.js内容, 默认gulp会读取gulpfile.js的任务
 
-### 运行Gulp 任务
+#### 运行Gulp 任务
 
 在命令行运行以下命令启动网站, 打开http://localhost:8080/ 就可以访问了。
 
