@@ -4,14 +4,14 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./app/bin/www"
   },
   "author": "Jin WYP",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.1.1",
     "body-parser": "^1.14.2",
-    "config": "^1.16.0",
+    "config": "^1.17.1",
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
     "ejs": "^2.3.4",
@@ -24,9 +24,8 @@
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
-    "autoprefixer": "^6.0.3",
+    "autoprefixer": "^6.2.1",
     "express-generator": "^4.13.1",
-    "gitbook-cli": "^1.0.0",
     "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-autoprefixer": "^3.1.0",

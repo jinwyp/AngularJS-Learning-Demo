@@ -12,7 +12,13 @@
 
 同时安装express 命令行工具 [express-generator](http://expressjs.com/starter/generator.html)
 
-    npm install express-generator --save-dev -g
+    npm install express-generator --save-dev 或 npm install express-generator --save-dev -g
+
+
+说明: 项目所需要的后端依赖的库都在 node_modules 下。后端文件和库使用npm install 命令安装。在使用 npm install --save 命令会自动把信息保存在 package.json 里面。 在package.json 文件的属性 dependencies 下面是项目运行需要的库, devDependencies 是项目搭建环境和测试等工具需要的库
+
+其中 npm install 参数 --save 是安装并把安装的库写入 package.json 文件中的 dependencies 属性里面, 而 --save-dev 写入package.json文件中的 devDependencies 属性里面. 参数 -g 是全局安装, 会安装到系统的node_modules下面,而不是安装到该项目的node_modules目录下面.
+
 
 注意: 在MAC系统下 可能需要管理员权限安装 请在原命令前增加sudo
 
@@ -29,11 +35,13 @@
 
 创建完毕后, 在当前文件夹下会增加一个app文件夹
 
-注意: 项目所需要的后端依赖的库都在 node_modules 下。后端文件和库使用npm install 命令安装。在使用 npm install --save 命令会自动把信息保存在 package.json 里面。
+
 
 
 ## 第二步 使用Bower 构建前端基础结构
 
+
+### 按照Bower 前端库管理工具  [Bower A package manager for the web](http://bower.io/)
 进入项目目录 app/public   命令 cd app/public
 
 创建bower 初始配置  bower init
@@ -48,16 +56,24 @@
 注意: 项目所需要的前端依赖的库都在 bower_components 下。 .bowerrc文件记录着文件存放的路径默认是bower_components
 
 
+
+
 ## 第三步 运行网站
 
-进入app文件夹，键入 DEBUG=myapp npm start 运行网站  然后在浏览器 打开http://localhost:8080/ 就可以访问了。
+进入app文件夹，键入 DEBUG=app:* npm start 或 DEBUG=app:* NODE_ENV=development npm start 运行网站  然后在浏览器 打开http://localhost:8088/ 就可以访问了。
+
+说明: npm start 前面的 DEBUG=app:* 和 NODE_ENV=development 是运行node的环境变量. DEBUG=app:* 是传入DEBUG变量用来调试控制台只输出app的命名的日志.  NODE_ENV=development 是传入NODE_ENV变量用来读取app/config下面的对应环境的配置文件
+
+
 
 
 ## 第四步 使用Gulp 批处理任务工具 来运行网站
 
 Gulp可以处理一系列的工作, 例如编译Sass为css,压缩js代码,合并js和css文件, 最后启动网站。
 
-### 安装Gulp
+
+
+### 安装Gulp 和 Gulp插件
 
     npm install -g gulp --save-dev
 
@@ -82,6 +98,3 @@ gulp-livereload 是自动刷新前端页面的插件, 这样修改了css不用�
 在命令行运行以下命令启动网站, 打开http://localhost:8080/ 就可以访问了。
 
     gulp 或 gulp default
-
-
-

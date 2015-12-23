@@ -1,10 +1,5 @@
 {
-  "host": "localhost",
-  "port": 8080,
-
-  "mongo" : {
-
-  }
-
-
+    "host": "localhost",
+    "port": 8088,
+    "mongo": {}
 }
