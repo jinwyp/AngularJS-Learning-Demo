@@ -50,20 +50,19 @@
 #### 安装 前端依赖库
 
 
-进入项目目录 app/public   命令 cd app/public
+app/public 文件夹为放置网站的静态文件. 进入目录 app/public  键入命令
+    cd app/public
 
-app/public 文件夹为放置网站的静态文件
-
-创建bower 初始配置  bower init
+可以通过 bower init 创建bower 初始配置  
 
 安装前端所需要依赖的库
 
     bower install angular --save
     bower install jquery --save
     bower install bootstrap --save
-    bower install reveal.js --save
+    bower install reveal.js --save (用来做幻灯片的库)
 
-注意: 项目所需要的前端依赖的库都在 bower_components 下。 .bowerrc文件记录着文件存放的路径默认是bower_components
+注意: 项目所需要的前端依赖的库都在 bower_components 下。 .bowerrc文件记录着文件存放的路径默认是bower_components, 本项目的路径放在了public/bower_components
 
 
 
@@ -108,3 +107,19 @@ gulp-livereload 是自动刷新前端页面的插件, 这样修改了css不用�
 在命令行运行以下命令启动网站, 打开http://localhost:8080/ 就可以访问了。
 
     gulp 或 gulp default
+
+
+
+
+
+
+
+
+[Homebrew]: https://brew.sh
+[nodejs]: https://nodejs.org
+[mongodb]: https://www.mongodb.org
+[redis]: http://redis.io
+[nginx]: http://nginx.org
+[GitBook]: https://gitbook.com
+[lunchy]: https://github.com/eddiezane/lunchy
+[paw]: https://luckymarmot.com/paw

@@ -1,7 +1,7 @@
 {
   "name": "angularfire",
   "description": "The officially supported AngularJS binding for Firebase",
-  "version": "1.1.1",
+  "version": "1.1.3",
   "authors": [
     "Firebase <support@firebase.com> (https://www.firebase.com/)"
   ],
@@ -31,20 +31,20 @@
   ],
   "dependencies": {
     "angular": "1.3.x || 1.4.x",
-    "firebase": "2.2.x"
+    "firebase": "2.x.x"
   },
   "devDependencies": {
-    "angular-mocks": "~1.3.11",
+    "angular-mocks": "~1.4.6",
     "mockfirebase": "~0.10.1"
   },
-  "_release": "1.1.1",
+  "_release": "1.1.3",
   "_resolution": {
     "type": "version",
-    "tag": "v1.1.1",
-    "commit": "1aa81906cdfb3e35e7c31fc6dee8a4922b1470ae"
+    "tag": "v1.1.3",
+    "commit": "9ced50e620f6f367bbb4d946d63bb5bc5ccaf6b7"
   },
   "_source": "git://github.com/firebase/angularFire.git",
-  "_target": "~1.1.1",
+  "_target": "~1.1.3",
   "_originalSource": "angularfire",
   "_direct": true
 }
