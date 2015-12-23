@@ -3,7 +3,7 @@
 
 ## 第一步 开始一个项目
 
-### 安装Express框架
+#### 安装Express框架
 先确保系统已经安装好 [NodeJS](https://nodejs.org/)
 
 然后在命令行运行以下命令安装[Express](http://expressjs.com/) (Express 是基于Nodejs做网站的一个开发框架)
@@ -25,13 +25,13 @@
     sudo npm install express --save
 
 
-### 创建一个项目
+#### 创建一个项目
 
 然后 创建一个项目 名字叫app
 
     express app -e 或 express app -e -c compass
 
-参数 -e 是使用ejs模板引擎, -c compass 是使用compass sass CSS预处理
+参数 -e 是使用ejs模板引擎, -c compass 是使用compass sass CSS预处理工具
 
 创建完毕后, 在当前文件夹下会增加一个app文件夹
 
@@ -41,8 +41,18 @@
 ## 第二步 使用Bower 构建前端基础结构
 
 
-### 按照Bower 前端库管理工具  [Bower A package manager for the web](http://bower.io/)
+#### 安装 Bower 前端库管理工具 [Bower A package manager for the web](http://bower.io/)
+
+    npm install -g bower 或 sudo npm install -g bower (mac 或 linux 下)
+
+需要先安装好 node, npm and git.    
+
+#### 安装 前端依赖库
+
+
 进入项目目录 app/public   命令 cd app/public
+
+app/public 文件夹为放置网站的静态文件
 
 创建bower 初始配置  bower init
 
