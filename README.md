@@ -49,11 +49,16 @@
 
 #### 安装 前端依赖库
 
+可以通过 bower init 创建bower 初始配置  进入 app目录 键入命令
 
-app/public 文件夹为放置网站的静态文件. 进入目录 app/public  键入命令
-    cd app/public
+    cd app
 
-可以通过 bower init 创建bower 初始配置  
+然后 通过向导创建bower 初始配置文件
+
+    bower init
+
+注意: app/public 文件夹为放置网站的静态文件. 项目所需要的前端依赖的库都在 bower_components 下。 .bowerrc文件记录着文件存放的路径,默认是bower_components, 本项目的路径放在了public/bower_components,需要编辑.bowerrc文件修改为public/bower_components
+
 
 安装前端所需要依赖的库
 
@@ -62,7 +67,8 @@ app/public 文件夹为放置网站的静态文件. 进入目录 app/public  键
     bower install bootstrap --save
     bower install reveal.js --save (用来做幻灯片的库)
 
-注意: 项目所需要的前端依赖的库都在 bower_components 下。 .bowerrc文件记录着文件存放的路径默认是bower_components, 本项目的路径放在了public/bower_components
+
+ 进入目录 app/public 查看bower安装下载的库
 
 
 

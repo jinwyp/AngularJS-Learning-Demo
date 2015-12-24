@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.2.1",
+    "browser-sync": "^2.10.1",
     "express-generator": "^4.13.1",
     "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.8.0",

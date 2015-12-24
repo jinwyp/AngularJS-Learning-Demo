@@ -3,9 +3,9 @@
  */
 
 
-var gulp =    require("gulp");
-var nodemon = require('gulp-nodemon');
-
+var gulp        = require("gulp");
+var nodemon     = require('gulp-nodemon');
+var browserSync = require('browser-sync').create();
 
 
 
@@ -33,5 +33,18 @@ var nodemonConfig = {
 
 /********************  使用nodemon 自动重启服务器  ********************/
 gulp.task('nodemon', function() {
-    return nodemon(nodemonConfig);
+    return nodemon(nodemonConfig).on('restart', function () {
+        console.log('-------------------- Nodejs server restarted! --------------------');
+    });
+});
+
+
+/********************  使用 browser-sync 自动刷新页面  ********************/
+gulp.task('browser-sync', ['nodemon'], function() {
+	browserSync.init({
+		proxy: "http://localhost:8088",
+        files: ["app/public/**/*.css", "app/public/**/*.html", "app/views/**/*.*"],
+        browser: ["google chrome", "firefox"],
+        port: 8089,
+	});
 });
