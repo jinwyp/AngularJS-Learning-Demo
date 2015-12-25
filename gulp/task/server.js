@@ -40,7 +40,7 @@ gulp.task('nodemon', function() {
 
 
 /********************  使用 browser-sync 自动刷新页面  ********************/
-gulp.task('browser-sync', ['nodemon'], function() {
+gulp.task('browsersync', ['nodemon'], function() {
 	browserSync.init({
 		proxy: "http://localhost:8088",
         files: ["app/public/**/*.css", "app/public/**/*.html", "app/views/**/*.*"],

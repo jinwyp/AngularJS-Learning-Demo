@@ -25,6 +25,18 @@
     sudo npm install express --save
 
 
+#### 安装MongoDB 数据库
+[官方文档](https://docs.mongodb.org/v3.0/tutorial/install-mongodb-on-os-x/)
+或使用homebrew 安装,  先更新一下homebrew 键入命令
+
+    brew update
+
+然后安装mongodb
+
+    brew install mongodb
+
+
+
 #### 创建一个项目
 
 然后 创建一个项目 名字叫app
@@ -82,7 +94,7 @@
 
 
 
-## 第四步 使用Gulp 批处理任务工具 来运行网站
+## 第四步 使用Gulp 任务工具 来运行网站
 
 Gulp可以处理一系列的工作, 例如编译Sass为css,压缩js代码,合并js和css文件, 最后启动网站。
 
@@ -98,26 +110,49 @@ Gulp可以处理一系列的工作, 例如编译Sass为css,压缩js代码,合并
 
     sudo npm install gulp-nodemon --save-dev
 
-
 gulp-nodemon 是重启服务器的插件。 因为我们修改后端的nodejs代码, 需要人工重启服务器才能看到更新, 使用nodemon就可以自动监视文件变化重启服务器。
 
-gulp-livereload 是自动刷新前端页面的插件, 这样修改了css不用手动刷新页面就能看到最新的修改, 而且可以在电脑,手机上同步刷新。
+安装 gulp-livereload 和 browser-sync 插件
 
-需要安装的 chrome 浏览器插件 LiveReload(也可以不用浏览器插件) [浏览器插件](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
+    npm install browser-sync --save-dev
+
+gulp-livereload 和 browser-sync 都是自动刷新前端页面的插件, 这样修改了css不用手动刷新页面就能看到最新的修改, 而且可以在电脑,手机上同步刷新。本项目使用了browser-sync 替代了gulp-livereload
+
+##### gulp-livereload 使用方法
+
+需要安装的 [chrome 浏览器插件 LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
 或不用浏览器插件 在页面中插入以下代码 [livereload-js](https://github.com/livereload/livereload-js)
 
     <script type="text/javascript">
         document.write('<script src="' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
     </script>
 
+##### browser-sync 使用方法
+
+按照[官方文档](https://www.browsersync.io/docs/gulp/) 使用 proxy 代理的方式 原来的网站是运行在8088端口,使用browsersync后运行在8089端口,这样使用http://localhost:8089 访问页面修改后就会自动刷新了,而且不需要装浏览器插件或嵌入js代码
+
+    browserSync.init({
+        proxy: "http://localhost:8088",
+        files: ["app/public/**/*.css", "app/public/**/*.html", "app/views/**/*.*"],
+        browser: ["google chrome", "firefox"],
+        port: 8089,
+    });
+
+
 
 #### 编写Gulp 任务
 
 具体请查看gulpfile.js内容, 默认gulp会读取gulpfile.js的任务
 
+如果gulp任务多了,为了更好的结构化gulp 任务可以参考以下文章
+[gulp实战](http://i5ting.github.io/stuq-gulp/)
+[结构化组织gulp任务](https://blog.simpleblend.net/gulp-organization-structure/)
+[gulp教程](https://github.com/streakq/js-tools-best-practice/blob/master/doc/Gulp.md)
+
+
 #### 运行Gulp 任务
 
-在命令行运行以下命令启动网站, 打开http://localhost:8080/ 就可以访问了。
+在命令行运行以下命令启动网站, 打开http://localhost:8089/ 就可以访问了。
 
     gulp 或 gulp default
 

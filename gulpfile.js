@@ -32,4 +32,4 @@ var env        = process.env.NODE_ENV || 'development';
 
 // The default task (called when you run `gulp` from cli)
 //
-gulp.task('default', ['minifyjs', 'watch', 'compass', 'browser-sync' ]);
+gulp.task('default', ['minifyjs', 'watch', 'compass', 'browsersync' ]);
