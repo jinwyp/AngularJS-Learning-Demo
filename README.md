@@ -118,6 +118,8 @@ gulp-nodemon 是重启服务器的插件。 因为我们修改后端的nodejs代
 
 gulp-livereload 和 browser-sync 都是自动刷新前端页面的插件, 这样修改了css不用手动刷新页面就能看到最新的修改, 而且可以在电脑,手机上同步刷新。本项目使用了browser-sync 替代了gulp-livereload
 
+
+
 ##### gulp-livereload 使用方法
 
 需要安装的 [chrome 浏览器插件 LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
@@ -126,6 +128,8 @@ gulp-livereload 和 browser-sync 都是自动刷新前端页面的插件, 这样
     <script type="text/javascript">
         document.write('<script src="' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
     </script>
+
+
 
 ##### browser-sync 使用方法
 

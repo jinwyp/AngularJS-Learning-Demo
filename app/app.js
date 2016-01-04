@@ -1,14 +1,15 @@
 // call the packages we need
+var mongoose      = require('mongoose');
+var express       = require('express');
+var path          = require('path');
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var favicon       = require('serve-favicon');
+var morgan        = require('morgan');
+var cookieParser  = require('cookie-parser');
+var bodyParser    = require('body-parser');
 
 var routesWebsite = require('./routes/website');
-var routesApi = require('./routes/api');
+var routesApi     = require('./routes/api');
 
 var app = express();
 
@@ -19,7 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.use(morgan('dev'));
 
@@ -70,7 +71,7 @@ app.use(function(err, req, res, next) {
 
 
 
-var mongoose   = require('mongoose');
+
 //mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o');
 mongoose.connect('mongodb://localhost/angulardemo');
 

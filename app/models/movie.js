@@ -2,28 +2,40 @@
  * Created by jinwyp on 7/8/15.
  */
 
-'use strict';
 
-/*!
+/**
  * Module dependencies
  */
-//var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var schemaObjectId = Schema.Types.ObjectId;
-//var Q = require('q');
-//var mongooseTimestamps = require('mongoose-timestamp');
+var ObjectId = Schema.Types.ObjectId;
+var mongooseTimestamps = require('mongoose-timestamp');
 
 
 /**
  * Mongoose schema
  */
-var campaignSchema = new Schema({
+var MovieSchema = new Schema({
 
-    name: { type: String },
+    title: { type: String },
     description: { type: String },
-    location: { type: String },
-    matchDate: { type: String },
+
+    country : { type: String },
+    year : { type: Number },
+    month : { type: Number },
+    date : { type: Number },
+
+
+    director : [{
+        name : {type: String}
+    }],
+
+    actor : [{
+        name : {type: String}
+    }]
+
+
 
     //creator: { type: schemaObjectId, ref: 'User' },
     //
@@ -43,16 +55,15 @@ var campaignSchema = new Schema({
     //    processBackgroundColor : {type: String, default: '#FFFFFF'}
     //},
 
-    memberNumberBase: { type: Number, default: 0 },
-
-    activated: { type: Boolean, default: false }
 
 });
 
 /**
  * Mongoose plugin
  */
-//campaignSchema.plugin(mongooseTimestamps);
+
+ MovieSchema.plugin(mongooseTimestamps);
+
 
 
 /**
@@ -64,9 +75,17 @@ var campaignSchema = new Schema({
 
 
 
+
+
+
+
+
 /**
  * Statics
  */
+
+
+
 //
 //campaignSchema.statics.updateValidations = function(req){
 //
@@ -122,6 +141,11 @@ var campaignSchema = new Schema({
 //};
 
 
+
+
+
+
+
 /**
  * Methods
  */
@@ -132,6 +156,5 @@ var campaignSchema = new Schema({
  * Register Model
  */
 
-
-var Campaign = mongoose.model("Campaign", campaignSchema);
-module.exports = Campaign;
+var Movie = mongoose.model("Movie", MovieSchema);
+module.exports = Movie;
