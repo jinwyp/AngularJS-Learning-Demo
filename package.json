@@ -18,6 +18,7 @@
     "express": "^4.13.3",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
+    "mongodb-uri": "^0.9.7",
     "mongoose": "^4.3.3",
     "mongoose-timestamp": "^0.4.0",
     "morgan": "^1.6.1",

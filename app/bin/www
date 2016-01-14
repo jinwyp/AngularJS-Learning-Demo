@@ -14,14 +14,14 @@ var config = require('config');
 
 debug('NodeJS process.env.NODE_ENV: ' + process.env.NODE_ENV);
 debug('NODE_CONFIG_ENV: ' + config.util.getEnv('NODE_ENV') + '  NODE_CONFIG_DIR: ' + config.util.getEnv('NODE_CONFIG_DIR'));
-debug('NODE_CONFIG Variable: ' + config.util.getEnv('NODE_CONFIG'));
+// debug('NODE_CONFIG Variable: ' + config.util.getEnv('NODE_CONFIG'));
 
 
 /**
  * Get port from config and store in Express.
  */
 
-var port = normalizePort(config.get('port') || '8080');
+var port = normalizePort(config.get('port') || '8088');
 app.set('port', port);
 
 /**

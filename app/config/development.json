@@ -1,5 +1,19 @@
 {
     "host": "localhost",
     "port": 8088,
-    "mongo": {}
+
+    "mongodb": {
+        "username": "",
+        "password": "",
+        "hosts": [
+            {
+                "host": "localhost",
+                "port": 27017
+            }
+        ],
+        "database": "angulardemo"
+        //"options": {
+        //    "authSource": "admin"
+        //}
+    }
 }
