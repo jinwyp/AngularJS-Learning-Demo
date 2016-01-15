@@ -61,9 +61,8 @@ app.use('/', routesWebsite);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var NotFoundError = require('./errors/NotFoundError');
+    next(new NotFoundError('404' ,{message : 'Page Not Found'}));
 });
 
 
@@ -74,6 +73,8 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
+
+    // return res.status(code).json(err.message);
     res.render('error', {
       message: err.message,
       error: err
