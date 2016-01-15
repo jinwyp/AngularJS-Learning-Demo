@@ -9,11 +9,13 @@ var config = require('config');
 var DBUrl = mongodbUri.format(config.get('mongodb'));
 
 
-var debug = require('debug')('app:appstart');
-var favicon       = require('serve-favicon');
-var morgan        = require('morgan');
-var cookieParser  = require('cookie-parser');
-var bodyParser    = require('body-parser');
+var responseTime = require('response-time');
+var debug        = require('debug')('app:appstart');
+var favicon      = require('serve-favicon');
+var morgan       = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var compression  = require('compression');
 
 var routesWebsite = require('./routes/website');
 var routesApi     = require('./routes/api');
@@ -22,23 +24,35 @@ var app = express();
 
 
 
+// compress all requests
+app.use(compression());
+
+app.use(morgan('dev'));
+app.use(responseTime());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
-app.use(morgan('dev'));
 
 app.use(bodyParser.json()); // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
+
+// Start Router
 app.use('/api', routesApi);
 app.use('/', routesWebsite);
 
@@ -108,7 +122,7 @@ db.on('disconnected', function () {
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', function() {
   db.close(function () {
-    debug('Mongoose default connection disconnected through nodejs app termination');
+    debug('Mongoose default connection closed through nodejs app termination');
     process.exit(0);
   });
 });

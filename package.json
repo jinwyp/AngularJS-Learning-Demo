@@ -9,13 +9,17 @@
   "author": "Jin WYP",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.3.0",
     "bluebird": "^3.1.1",
     "body-parser": "^1.14.2",
+    "compression": "^1.6.0",
     "config": "^1.17.1",
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
+    "express-jwt": "^3.3.0",
+    "jsonwebtoken": "^5.5.4",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "mongodb-uri": "^0.9.7",
@@ -23,6 +27,7 @@
     "mongoose-timestamp": "^0.4.0",
     "morgan": "^1.6.1",
     "request": "^2.67.0",
+    "response-time": "^2.3.1",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
