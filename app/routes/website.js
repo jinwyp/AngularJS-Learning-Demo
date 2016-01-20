@@ -8,6 +8,7 @@ var jwtCheck = jwt({
 });
 
 
+
 /* GET home page. */
 
 website.get('/', function(req, res, next) {
@@ -23,7 +24,6 @@ website.get('/angular', jwtCheck, function(req, res, next) {
 website.get('/angular/demo', function(req, res, next) {
   res.render('angulardemo/demo', { title: 'Express' });
 });
-
 
 
 

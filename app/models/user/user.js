@@ -10,8 +10,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
-var mongooseTimestamps = require('mongoose-timestamp');
+// var mongooseTimestamps = require('mongoose-timestamp');
+mongoose.Promise = require('bluebird');
 
+var validator = require('validator');
 var bcrypt = require("bcryptjs");
 
 
@@ -19,25 +21,38 @@ var bcrypt = require("bcryptjs");
 /**
  * Mongoose schema
  */
+
+ var encryptPassword = function (password) {
+     var salt = bcrypt.genSaltSync(10);
+     return bcrypt.hashSync(password, salt);
+ };
+
+
 var UserSchema = new Schema({
 
-    username: { type: String, unique: true},
+    username: { type: String, unique: true, trim: true},
     mobile: { type: String, unique: true},
-    email: { type: String, unique: true},
+    email: { type: String, unique: true, lowercase: true, trim: true },
 
-    password: { type: String, required: true, set : encryptPassword},
+    password: { type: String, required: true, default: '123456', set : encryptPassword},
+
+
+    firstName: { type: String, trim: true},
+    lastName: { type: String, trim: true },
+    fullName: { type: String, trim: true}
 
 
 }, {
     toObject: { virtuals: true },
-    toJSON: { virtuals: true }
+    toJSON: { virtuals: true },
+    timestamps: true
 });
 
 /**
  * Mongoose plugin
  */
 
- UserSchema.plugin(mongooseTimestamps);
+ // UserSchema.plugin(mongooseTimestamps);
 
 
 
@@ -74,8 +89,24 @@ var UserSchema = new Schema({
 
 
 /**
- * Statics
+ * Mongoose Schema Statics
+ *
+ * http://mongoosejs.com/docs/guide.html
+ *
  */
+
+var validation = {
+    newUser : function (user){
+        if (!validator.isEmail(user.email))  throw new Error("Field validation error,  email format wrong");
+
+        if (!validator.isLength(user.username, 6, 30))  throw new Error("Field validation error,  username length must be 6-30");
+
+        return false;
+    }
+};
+
+
+UserSchema.statics.validateNewUser = validation.newUser;
 
 
 
@@ -140,29 +171,33 @@ var UserSchema = new Schema({
 
 
 /**
- * Methods
+ * Mongoose Schema Instance Methods
+ *
+ * Instances of Models are documents. Documents have many of their own built-in instance methods. We may also define our own custom document instance methods too.
+ *
+ * http://mongoosejs.com/docs/guide.html
  */
 
 
 
 
-UserSchema.methods.comparePassword = function (passw, cb) {
-  bcrypt.compare(passw, this.password, function (err, isMatch) {
-      if (err) {
-          return cb(err);
-      }
-      cb(null, isMatch);
-  });
+UserSchema.methods.comparePassword = function (passw) {
 
-
-  // bcrypt.compareSync("B4c0/\/", hash); // true
+    return bcrypt.compareSync(passw, this.password);
 };
 
 
-UserSchema.methods.encryptPassword = function (password) {
-    var salt = bcrypt.genSaltSync(10);
-    return bcrypt.hashSync(password, salt);
+UserSchema.methods.comparePasswordCB = function (passw, callback) {
+    bcrypt.compare(passw, this.password, function (err, isMatch) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, isMatch);
+    });
 };
+
+
+UserSchema.methods.encryptPassword = encryptPassword;
 
 
 

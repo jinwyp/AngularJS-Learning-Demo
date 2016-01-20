@@ -74,11 +74,23 @@ if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
 
-    // return res.status(code).json(err.message);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+    var newError = {
+        name : err.name,
+        status: err.status || 500,
+        message: err.message,
+        stack: err.stack,
+        error: err
+    };
+
+    debug(JSON.stringify(newError, null, 4));
+
+    if (req.is('application/json')){
+        return res.json(newError);
+    }else{
+        res.render('error', newError);
+    }
+
+
   });
 }
 

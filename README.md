@@ -1,4 +1,8 @@
-# Express4 AngularJS Learning Demo
+# Express4 Mongoose AngularJS Learning Demo
+
+## Synopsis
+
+This is a functional demo how to setup a project that uses Express 4, Mongoose 4, bluebird, JsonWebToken, Angular 1 & Angular 2, Sass 3, Gulp 3, BrowserSync, and nodemon.
 
 
 ## 第一步 开始一个项目
