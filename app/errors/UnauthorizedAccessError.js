@@ -1,12 +1,13 @@
 
-function UnauthorizedAccessError(code, error) {
-    Error.call(this, typeof error === "undefined" ? undefined : error.message);
+function UnauthorizedAccessError(code, message) {
     Error.captureStackTrace(this, this.constructor);
+
+    this.type = "UserLevelOperationalError";
     this.name = "UnauthorizedAccessError";
-    this.message = typeof error === "undefined" ? "Unauthorized Access" : error.message;
-    this.code = typeof code === "undefined" ? "401" : code;
+    this.message = message || "Unauthorized Access Token";
+
+    this.code = code || "401";
     this.status = 401;
-    this.inner = error;
 }
 
 UnauthorizedAccessError.prototype = Object.create(Error.prototype);

@@ -75,9 +75,11 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
 
     var newError = {
+        type : err.type,
         name : err.name,
-        status: err.status || 500,
         message: err.message,
+        status: err.status,
+        code: err.code,
         stack: err.stack,
         error: err
     };
@@ -87,7 +89,7 @@ if (app.get('env') === 'development') {
     if (req.is('application/json')){
         return res.json(newError);
     }else{
-        res.render('error', newError);
+        return res.render('error', newError);
     }
 
 
@@ -97,11 +99,12 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+    res.status(err.status || 500);
+    res.render('error', {
+        name : err.name,
+        message: err.message,
+        code: err.code
+    });
 });
 
 

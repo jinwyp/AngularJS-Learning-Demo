@@ -113,7 +113,7 @@
     <object type="LMENVIRONMENT" id="z108">
         <attribute name="uuid" type="string">8D87B474-48AB-4046-8BE6-B8C4F1BAB1FD</attribute>
         <attribute name="order" type="int64">0</attribute>
-        <attribute name="name" type="string">Localhost</attribute>
+        <attribute name="name" type="string">Localhost macbook  pro</attribute>
         <relationship name="domain" type="0/1" destination="LMENVIRONMENTDOMAIN" idrefs="z109"></relationship>
         <relationship name="variablesvalues" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z110 z117"></relationship>
     </object>
