@@ -6,22 +6,24 @@
 
     /* Controllers */
 
-    angular.module('myApp').controller('demo132Controller', demo132Controller);
+    angular.module('myApp').controller('demo31Controller', demo31Controller);
 
-    demo132Controller.$inject = ['$http', '$log', '$scope', '$timeout'];
+    demo31Controller.$inject = ['$http', '$log', '$scope', '$timeout'];
 
-    function demo132Controller($http, $log, $scope, $timeout) {
+    function demo31Controller($http, $log, $scope, $timeout) {
 
         /* jshint validthis: true */
+        var vm = this;
+        $scope.vm = vm;  // For $scope.$watch
 
 
         /**********  Data Binding For CSS style   **********/
-        $scope.css = {
+        vm.css = {
         };
 
 
         /**********  Data Binding For ViewModel  **********/
-        $scope.data = {
+        vm.data = {
             firstName : 'aaa',
             lastName : '',
             fullName : ''
@@ -29,7 +31,7 @@
 
 
         /**********  Event Center  **********/
-        $scope.event = {
+        vm.event = {
         };
 
 
@@ -39,8 +41,8 @@
         var app = {
             init : function(){
 
-                $scope.$watch('data.firstName + data.lastName', function(newValue, oldValue) {
-                    $scope.data.fullName = $scope.data.firstName + ' ' + $scope.data.lastName;
+                $http.get('/api/users').then(function(result){
+                    alert(result.data);
                 });
 
 /*

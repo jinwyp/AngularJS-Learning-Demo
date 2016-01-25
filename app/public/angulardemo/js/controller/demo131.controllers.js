@@ -6,11 +6,11 @@
 
     /* Controllers */
 
-    angular.module('myApp').controller('demo13Controller', demo13Controller);
+    angular.module('myApp').controller('demo131Controller', demo131Controller);
 
-    demo13Controller.$inject = ['$http', '$log', '$scope', '$timeout'];
+    demo131Controller.$inject = ['$http', '$log', '$scope', '$timeout'];
 
-    function demo13Controller($http, $log, $scope, $timeout) {
+    function demo131Controller($http, $log, $scope, $timeout) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -67,7 +67,3 @@
 
 
 })();
-
-
-
-

@@ -22,7 +22,7 @@
 
         var directive = {
             restrict: 'EA',
-            templateUrl: 'js/component/demo/demo14_tpl.html',
+            templateUrl: '/angulardemo/js/component/demo/demo14_tpl.html',
             scope: {
                 menulist : '='
             },
@@ -92,6 +92,3 @@
 
 
 })();
-
-
-

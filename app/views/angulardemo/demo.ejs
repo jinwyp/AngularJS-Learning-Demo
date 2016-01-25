@@ -7,6 +7,9 @@
 
 <div class="container">
 
+    <div ng-controller="demo31Controller">
+
+    </div>
 
     <div class="row" ng-controller="demo11Controller as demo11">
         <div class="col-sm-12">
@@ -38,8 +41,7 @@
                 <li class="list-group-item" ng-repeat="article in demo11.data.articles | filter:demo11.data.searchText"
                     ng-mouseenter="demo11.event.showArticleDeleteIcon($index)"
                     ng-mouseleave="demo11.event.hideArticleDeleteIcon()">
-                    <span ng-class="{'listselected': $index === demo11.css.currentSelected}"
-                          ng-click="demo11.event.clickArticle($index)">Title: {{ article.title }} </span>
+                    <span ng-class="{'listselected': $index === demo11.css.currentSelected}" ng-click="demo11.event.clickArticle($index)">Title: {{ article.title }} </span>
                     <span class="glyphicon glyphicon-trash" ng-show="$index === demo11.css.currentDeleteIcon"></span>
                 </li>
             </ul>
@@ -75,7 +77,7 @@
     </div>
 
 
-    <div class="row" ng-controller="demo13Controller as demo13">
+    <div class="row" ng-controller="demo131Controller as demo131">
         <div class="col-sm-12">
             <h1>Angular Demo Scope的$watch 监听属性变化</h1>
             <hr>
@@ -87,7 +89,7 @@
                     <label for="firstName" class="col-sm-2 control-label">First Name: </label>
 
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="firstName" ng-model="demo13.data.firstName">
+                        <input type="text" class="form-control" id="firstName" ng-model="demo131.data.firstName">
                     </div>
                 </div>
 
@@ -95,7 +97,7 @@
                     <label for="lastName" class="col-sm-2 control-label">Last Name: </label>
 
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="lastName" ng-model="demo13.data.lastName">
+                        <input type="text" class="form-control" id="lastName" ng-model="demo131.data.lastName">
                     </div>
                 </div>
 
@@ -103,7 +105,7 @@
                     <label for="fullName" class="col-sm-2 control-label">Full Name: </label>
 
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="fullName" ng-model="demo13.data.fullName">
+                        <input type="text" class="form-control" id="fullName" ng-model="demo131.data.fullName">
                     </div>
                 </div>
 

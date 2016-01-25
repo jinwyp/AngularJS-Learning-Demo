@@ -16,6 +16,7 @@ api.get('/movieadd', movieController.addCampaign);
 
 /* GET users listing. */
 api.get('/users', function(req, res, next) {
+    console.log(req.xhr)
   res.send('respond with a resource');
 });
 

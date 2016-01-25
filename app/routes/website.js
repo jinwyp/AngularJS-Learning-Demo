@@ -17,7 +17,7 @@ website.get('/', function(req, res, next) {
 
 
 
-website.get('/angular', jwtCheck, function(req, res, next) {
+website.get('/angular', function(req, res, next) {
   res.render('angulardemo/index', { title: 'Express' });
 });
 
