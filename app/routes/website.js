@@ -2,10 +2,6 @@ var express = require('express');
 var website = express.Router();
 
 
-var jwt = require("express-jwt");
-var jwtCheck = jwt({
-    secret: 'shhhhhhared-secret'
-});
 
 
 

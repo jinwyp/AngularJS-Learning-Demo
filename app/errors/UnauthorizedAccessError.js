@@ -1,5 +1,5 @@
 
-function UnauthorizedAccessError(code, message) {
+function UnauthorizedAccessError(code, message, field) {
     Error.captureStackTrace(this, this.constructor);
 
     this.type = "UserLevelOperationalError";
@@ -7,6 +7,7 @@ function UnauthorizedAccessError(code, message) {
     this.message = message || "Unauthorized Access Token";
 
     this.code = code || 401;
+    this.field = field || "unknownfield";
     this.status = 401;
 }
 

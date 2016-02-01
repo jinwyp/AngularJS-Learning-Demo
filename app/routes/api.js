@@ -6,6 +6,11 @@ var userController = require('../controllers/user/user.js');
 
 
 
+var jwt = require("express-jwt");
+var jwtCheck = jwt({
+    secret: 'shhhhhhared-secret'
+});
+
 
 
 api.get('/movie', movieController.campaignSingleInfo);
@@ -16,12 +21,12 @@ api.get('/movieadd', movieController.addCampaign);
 
 /* GET users listing. */
 api.get('/users', function(req, res, next) {
-    console.log(req.xhr)
-  res.send('respond with a resource');
+    res.send('respond with a resource');
 });
 
 
-api.post('/user', userController.signUp);
+api.post('/user/signup', userController.signUp);
+api.post('/user/login', userController.login);
 
 
 

@@ -1,3 +1,5 @@
+var validationCode = require('./ValidationCode.js');
+
 
 function ValidationError(code, message, field) {
     Error.captureStackTrace(this, this.constructor);
@@ -13,5 +15,9 @@ function ValidationError(code, message, field) {
 
 ValidationError.prototype = Object.create(Error.prototype);
 ValidationError.prototype.constructor = ValidationError;
+
+ValidationError.code = validationCode;
+
+
 
 module.exports = ValidationError;

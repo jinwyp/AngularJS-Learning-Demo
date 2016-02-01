@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>73B6BE29-AB2F-4FCF-BE4A-A1E562922732</UUID>
-        <nextObjectID>125</nextObjectID>
+        <nextObjectID>128</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -61,9 +61,9 @@
         </metadata>
     </databaseInfo>
     <object type="LMREQUEST" id="z102">
-        <attribute name="body" type="string">[{"data":{"json":"{\\"username\\":\\"jinwyp\\",\\"email\\":\\"jinwyp@3213.com\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"username\\":\\"jinwyp\\",\\"password\\":\\"123456\\",\\"email\\":\\"jinwyp@163.com\\",\\"mobile\\":\\"13564568304\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="uuid" type="string">119415CB-0D39-4BAA-BD04-9CF7081BE36B</attribute>
-        <attribute name="url" type="string">[{"data":{"environmentVariable":"E30B6FA6-9BD3-4A21-A5D1-AA9C12DD1D4C"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},{"data":{"environmentVariable":"EAC36389-7777-4E8B-A374-353143D60AA2"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/user"]</attribute>
+        <attribute name="url" type="string">[{"data":{"environmentVariable":"E30B6FA6-9BD3-4A21-A5D1-AA9C12DD1D4C"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},{"data":{"environmentVariable":"EAC36389-7777-4E8B-A374-353143D60AA2"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/user\\/signup"]</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -71,7 +71,7 @@
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="order" type="int64">0</attribute>
-        <attribute name="name" type="string">SingUp</attribute>
+        <attribute name="name" type="string">SignUp</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z107"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z111 z124"></relationship>
@@ -105,7 +105,7 @@
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">user</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z102"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z102 z126"></relationship>
         <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE"></relationship>
         <relationship name="urlparameters" type="0/0" destination="LMKEYVALUE"></relationship>
@@ -229,5 +229,39 @@
         <attribute name="value" type="string"></attribute>
         <relationship name="environment" type="1/1" destination="LMENVIRONMENT" idrefs="z121"></relationship>
         <relationship name="variable" type="1/1" destination="LMENVIRONMENTVARIABLE" idrefs="z123"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z126">
+        <attribute name="uuid" type="string">CEF5364B-64B1-476E-B68F-6F5E26D7F924</attribute>
+        <attribute name="url" type="string">[{"data":{"environmentVariable":"E30B6FA6-9BD3-4A21-A5D1-AA9C12DD1D4C"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},{"data":{"environmentVariable":"EAC36389-7777-4E8B-A374-353143D60AA2"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/user\\/login"]</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"username\\":\\"jinwyp\\",\\"password\\":\\"1234567\\"\\/*,\\"email\\":\\"jinwyp@163.com\\",\\"mobile\\":\\"13564568304\\"*\\/}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="name" type="string">Login</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z107"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z128 z127"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z127">
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z126"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z128">
+        <attribute name="value" type="string">[{"data":{"environmentVariable":"C9501557-4372-4CAE-867C-3432EC8A9883"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"}]</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string">X-Requested-With</attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z126"></relationship>
     </object>
 </database>
