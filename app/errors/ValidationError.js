@@ -6,7 +6,7 @@ function ValidationError(code, message, field) {
     this.name = "ValidationError";
     this.message = message || "Field Validation Error";
 
-    this.code = code || "400";
+    this.code = code || 400;
     this.field = field || "unknownfield";
     this.status = 400;
 }

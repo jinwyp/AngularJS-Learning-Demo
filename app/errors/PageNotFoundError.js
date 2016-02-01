@@ -13,20 +13,20 @@
  */
 
 
-function NotFoundError(code, message) {
+function PageNotFoundError(code, message) {
     // Error.call(this, typeof error === "undefined" ? undefined : error.message);
     Error.captureStackTrace(this, this.constructor);
 
     this.type = "UserLevelOperationalError";
-    this.name = "NotFoundError";
+    this.name = "PageNotFoundError";
     this.message = message || "Requested Page Not Found";
 
-    this.code = code || "404";
+    this.code = code || 404;
     this.status = 404;
     // this.inner = error;
 }
 
-NotFoundError.prototype = Object.create(Error.prototype);
-NotFoundError.prototype.constructor = NotFoundError;
+PageNotFoundError.prototype = Object.create(Error.prototype);
+PageNotFoundError.prototype.constructor = PageNotFoundError;
 
-module.exports = NotFoundError;
+module.exports = PageNotFoundError;

@@ -8,9 +8,9 @@ process.env.NODE_CONFIG_DIR= path.resolve(__dirname, './config');
 var config = require('config');
 var DBUrl = mongodbUri.format(config.get('mongodb'));
 
-
+var debug        = require('debug')('app:appindex');
 var responseTime = require('response-time');
-var debug        = require('debug')('app:appstart');
+
 var favicon      = require('serve-favicon');
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -19,6 +19,7 @@ var compression  = require('compression');
 
 var routesWebsite = require('./routes/website');
 var routesApi     = require('./routes/api');
+var errorHandler = require('./expressmidderware/errorhandler');
 
 var app = express();
 
@@ -60,10 +61,7 @@ app.use('/', routesWebsite);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var NotFoundError = require('./errors/NotFoundError');
-    next(new NotFoundError('404' , 'Page Not Found'));
-});
+app.use(errorHandler.PageNotFoundMiddleware);
 
 
 // error handlers
@@ -71,41 +69,12 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-
-    var newError = {
-        type : err.type,
-        name : err.name,
-        message: err.message,
-        status: err.status,
-        code: err.code,
-        stack: err.stack,
-        error: err
-    };
-
-    debug(JSON.stringify(newError, null, 4));
-
-    if (req.is('application/json')){
-        return res.json(newError);
-    }else{
-        return res.render('error', newError);
-    }
-
-
-  });
+  app.use(errorHandler.DevelopmentHandlerMiddleware);
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        name : err.name,
-        message: err.message,
-        code: err.code
-    });
-});
+app.use(errorHandler.ProductionHandlerMiddleware);
 
 
 

@@ -6,7 +6,7 @@ function UnauthorizedAccessError(code, message) {
     this.name = "UnauthorizedAccessError";
     this.message = message || "Unauthorized Access Token";
 
-    this.code = code || "401";
+    this.code = code || 401;
     this.status = 401;
 }
 

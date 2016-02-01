@@ -22,7 +22,7 @@ function SystemError(code, error) {
     this.name = "SystemError";
     this.message = typeof error === "undefined" ? "System Operational Error" : error.message;
 
-    this.code = code || "500";
+    this.code = code || 500;
 
     this.status = 500;
     this.inner = error;
