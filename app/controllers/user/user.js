@@ -1,5 +1,6 @@
 
 var MUser = require('../../models/user/user.js');
+var MUserToken = require('../../models/user/usertoken.js');
 
 
 
@@ -34,6 +35,8 @@ exports.signUp = function (req, res, next) {
 
 
 
+
+
 /**
  * User Login
  */
@@ -43,8 +46,13 @@ exports.login = function (req, res, next) {
 
 
     MUser.login(req.body).then(function(resultUser){
-        console.log(resultUser)
-        return res.status(200).json(resultUser);
+        console.log(resultUser);
+
+        return MUserToken.createToken(resultUser, req);
+
+    }).then(function(resultToken){
+
+        return res.status(200).json(resultToken);
 
       // Remove sensitive data before login
     //   user.password = undefined;

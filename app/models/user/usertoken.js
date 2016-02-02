@@ -1,5 +1,5 @@
 /**
- * Created by jinwyp on 7/8/15.
+ * Created by jinwyp on 2/2/2016.
  */
 
 
@@ -7,13 +7,26 @@
  * Module dependencies
  */
 
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
+ // var mongooseTimestamps = require('mongoose-timestamp');
 
-mongoose.Promise = require('bluebird');
+mongoose.Promise = Promise;
 
 var validator = require('validator');
+var moment = require('moment');
+
+var config = require('config');
+var tokenConfig = config.get('userlogin');
+
+var jsonwebtoken = require("jsonwebtoken");
+
+var TOKEN_EXPIRATION_SEC = 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay; // 1 day
+var TOKEN_EXPIRATION_SEC_RememberMe = 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay * 6;
+var TOKEN_EXPIRATION_DAY_RememberMe = tokenConfig.jwtTokenExpireDay * 6; // 1 day
+
 
 
 
@@ -27,16 +40,13 @@ var validator = require('validator');
 
 var UserTokenSchema = new Schema({
 
-    username: { type: String, unique: true, trim: true},
-    mobile: { type: String, unique: true},
-    email: { type: String, unique: true, lowercase: true, trim: true },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    accessToken: { type: String, required: true },
 
-    password: { type: String, required: true, default: '123456'},
+    expireDate: { type: Date, required: true },
 
-
-    firstName: { type: String, trim: true},
-    lastName: { type: String, trim: true },
-    fullName: { type: String, trim: true}
+    ip: { type: String },
+    userAgent: { type: String}
 
 
 }, {
@@ -65,26 +75,6 @@ var UserTokenSchema = new Schema({
  */
 
 
- //
- // UserSchema.pre('save', function (next) {
- //     var user = this;
- //     if (this.isModified('password') || this.isNew) {
- //         bcrypt.genSalt(10, function (err, salt) {
- //             if (err) {
- //                 return next(err);
- //             }
- //             bcrypt.hash(user.password, salt, function (err, hash) {
- //                 if (err) {
- //                     return next(err);
- //                 }
- //                 user.password = hash;
- //                 next();
- //             });
- //         });
- //     } else {
- //         return next();
- //     }
- // });
 
 
 
@@ -111,60 +101,41 @@ UserTokenSchema.statics.validateNewUser = validation.newUser;
 
 
 
-//
-//campaignSchema.statics.updateValidations = function(req){
-//
-//    req.sanitize('activated').toBoolean();
-//
-//    req.checkBody('name', 'Campaign name should be 2-50 characters').notEmpty().len(2, 50);
-//    req.checkBody('description', 'Campaign description should be 2-10000 characters').notEmpty().len(2, 10000);
-//
-//    req.checkBody('activated', 'Campaign activated should Boolean true or false').notEmpty();
-//
-//    return req.validationErrors();
-//};
-//
-//
-//campaignSchema.statics.searchQueryValidations = function(req){
-//    if (req.query.keyword) {
-//        req.checkQuery('keyword', 'Campaign name should be 2-500 characters').optional().len(2, 500);
-//    }
-//    req.checkQuery('activated', 'Campaign activated should Boolean true or false').optional();
-//
-//    return req.validationErrors();
-//};
-//
-//campaignSchema.statics.addSeminarValidations = function(req){
-//
-//    req.assert('seminarId', 'Seminar ID should be 5-9 characters').notEmpty().len(5, 9);
-//    req.assert('campaignId', 'Campaign ID should be 24 characters').notEmpty().len(24, 24);
-//
-//    return req.validationErrors();
-//};
-//
-//
-//campaignSchema.statics.addTeamValidations = function(req){
-//    req.checkBody('username', 'Username should be 6-20 characters').notEmpty().len(6, 20);
-//    //req.checkBody('teamId', 'Team ID should be 24 characters').notEmpty().len(24, 24);
-//    req.checkBody('campaignId', 'Campaign ID should be 24 characters').notEmpty().len(24, 24);
-//
-//    return req.validationErrors();
-//};
-//
-//campaignSchema.statics.removeTeamValidations = function(req){
-//    req.checkBody('teamId', 'Team ID should be 24 characters').notEmpty().len(24, 24);
-//    req.checkBody('campaignId', 'Campaign ID should be 24 characters').notEmpty().len(24, 24);
-//
-//    return req.validationErrors();
-//};
-//
-//
-//campaignSchema.statics.campaignIdValidations = function(req){
-//    req.assert('campaignId', 'Campaign ID should be 24 characters').notEmpty().len(24, 24);
-//
-//    return req.validationErrors();
-//};
 
+UserTokenSchema.statics.createToken = function(user, req){
+
+    var payload = {
+        _id: user._id
+    };
+
+    var token  = jsonwebtoken.sign(payload, tokenConfig.jwtTokenSecret, {
+        expiresIn: TOKEN_EXPIRATION_SEC
+    });
+
+
+    var newToken = {
+        user: user._id,
+        // username: user.username,
+        // access: resultUser.access,
+
+        accessToken: token,
+
+        expireDate : moment().add(tokenConfig.jwtTokenExpireDay, 'days'),
+
+        ip: req.ip,
+        userAgent: ""
+
+    };
+    console.log("token: ", newToken);
+
+    var decoded = jsonwebtoken.decode(token);
+    console.log("decoded: ", decoded);
+
+    // data.token_exp = decoded.exp;
+    // data.token_iat = decoded.iat;
+
+   return UserToken.create(newToken);
+};
 
 
 

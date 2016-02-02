@@ -15,5 +15,10 @@
         //"options": {
         //    "authSource": "admin"
         //}
+    },
+
+    "userlogin" : {
+        "jwtTokenSecret" : "shhhhhhared-secret",
+        "jwtTokenExpireDay" : 30
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Created by jinwyp on 7/8/15.
+ * Created by jinwyp on 2/2/2016.
  */
 
 
@@ -7,12 +7,13 @@
  * Module dependencies
  */
 
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 // var mongooseTimestamps = require('mongoose-timestamp');
-mongoose.Promise = require('bluebird');
-Promise = require('bluebird');
+
+mongoose.Promise = Promise;
 
 var validator = require('validator');
 var bcrypt = require("bcryptjs");
