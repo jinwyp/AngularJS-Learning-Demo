@@ -219,16 +219,26 @@ UserSchema.statics.signUp = function(user){
 
 UserSchema.statics.login = function(user){
 
-    validation.username(user.username);
+    query = {};
     validation.userPassword(user.password);
 
-    return User.findOne({username : user.username}).exec().then(function(resultUser){
+    if (validator.isMobilePhone(user.username, 'zh-CN')){
+        query.mobile = user.username;
+    }else if (validator.isEmail(user.username)){
+        query.email = user.username;
+    }else{
+        validation.username(user.username);
+        query.username = user.username;
+    }
+
+    return User.findOne(query).exec().then(function(resultUser){
 
         validation.usernameNotFound(resultUser);
 
         if (!resultUser.comparePassword(user.password)){
             validation.userUnauthorized();
         }
+
         return resultUser;
 
     });
