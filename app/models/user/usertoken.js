@@ -123,10 +123,12 @@ UserTokenSchema.statics.createToken = function(user, req){
         expireDate : moment().add(tokenConfig.jwtTokenExpireDay, 'days'),
 
         ip: req.ip,
-        userAgent: ""
+        userAgent: req.get('User-Agent');
 
     };
     console.log("token: ", newToken);
+    console.log("User-Agent: ", req.get('User-Agent'));
+    console.log("User-Agent Headers: ", req.headers['user-agent');
 
     var decoded = jsonwebtoken.decode(token);
     console.log("decoded: ", decoded);
