@@ -27,7 +27,8 @@ var TOKEN_EXPIRATION_SEC = 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay; // 1 da
 var TOKEN_EXPIRATION_SEC_RememberMe = 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay * 6;
 var TOKEN_EXPIRATION_DAY_RememberMe = tokenConfig.jwtTokenExpireDay * 6; // 1 day
 
-
+var ValidatonError = require('../../errors/ValidationError');
+var UnauthorizedAccessError = require('../../errors/UnauthorizedAccessError');
 
 
 
@@ -42,6 +43,8 @@ var UserTokenSchema = new Schema({
 
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     accessToken: { type: String, required: true },
+    accessToken_iat : { type: Number },
+    accessToken_exp : { type: Number },
 
     expireDate: { type: Date, required: true },
 
@@ -86,18 +89,23 @@ var UserTokenSchema = new Schema({
  *
  */
 
+
 var validation = {
-    newUser : function (user){
-        if (!validator.isEmail(user.email))  throw new Error("Field validation error,  email format wrong");
+    tokenNotFound : function (token){
+        if (!token){
+            throw new UnauthorizedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token");
+        }
+    },
 
-        if (!validator.isLength(user.username, 6, 30))  throw new Error("Field validation error,  username length must be 6-30");
-
-        return false;
-    }
+    tokenDecodeWrong : function (token){
+        if (!token){
+            throw new UnauthorizedAccessError(ValidatonError.code.token.tokenDecodeWrong, "User Unauthorized, token wrong", "X-Access-Token");
+        }
+    },
 };
 
 
-UserTokenSchema.statics.validateNewUser = validation.newUser;
+UserTokenSchema.statics.validation = validation;
 
 
 
@@ -123,20 +131,15 @@ UserTokenSchema.statics.createToken = function(user, req){
         expireDate : moment().add(tokenConfig.jwtTokenExpireDay, 'days'),
 
         ip: req.ip,
-        userAgent: req.get('User-Agent');
+        userAgent: req.get('User-Agent')
 
     };
-    console.log("token: ", newToken);
-    console.log("User-Agent: ", req.get('User-Agent'));
-    console.log("User-Agent Headers: ", req.headers['user-agent');
 
     var decoded = jsonwebtoken.decode(token);
-    console.log("decoded: ", decoded);
+    newToken.accessToken_iat = decoded.iat;
+    newToken.accessToken_exp = decoded.exp;
 
-    // data.token_exp = decoded.exp;
-    // data.token_iat = decoded.iat;
-
-   return UserToken.create(newToken);
+    return UserToken.create(newToken);
 };
 
 

@@ -46,7 +46,7 @@ exports.login = function (req, res, next) {
 
 
     MUser.login(req.body).then(function(resultUser){
-        console.log(resultUser);
+        // console.log(resultUser);
 
         return MUserToken.createToken(resultUser, req);
 
@@ -67,5 +67,19 @@ exports.login = function (req, res, next) {
     //   });
     })
     .catch(next);
+
+};
+
+
+
+/**
+ * User Info
+ */
+exports.userInfo = function (req, res, next) {
+
+    // MUser.validateNewUser(req.body);
+
+    return res.status(200).json({ok:'ok'});
+
 
 };

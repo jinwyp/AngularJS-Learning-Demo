@@ -16,6 +16,11 @@ var validationCode = {
         passwordNotMatch : 1102
 
 
+    },
+
+    token : {
+        tokenNotFound : 1001,
+        tokenDecodeWrong : 1005
     }
 };
 

@@ -34,7 +34,9 @@ exports.DevelopmentHandlerMiddleware = function(err, req, res, next) {
     // debug(err.stack);
     // debug(JSON.stringify(newError, null, 4));
 
-    if (req.is('application/json') && req.xhr){
+    // console.log(req.is('application/json'));
+
+    if (req.is('application/json') && req.xhr || req.get('Content-Type') === 'application/json' ){
         return res.json(newError);
     }else{
         return res.render('error', newError);

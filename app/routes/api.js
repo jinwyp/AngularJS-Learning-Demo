@@ -1,6 +1,8 @@
 var express = require('express');
 var api = express.Router();
 
+var auth = require('../expressmidderware/auth.js');
+
 var movieController = require('../controllers/movie.js');
 var userController = require('../controllers/user/user.js');
 
@@ -27,6 +29,9 @@ api.get('/users', function(req, res, next) {
 
 api.post('/user/signup', userController.signUp);
 api.post('/user/login', userController.login);
+
+
+api.get('/user/info', auth.loginToken(), userController.userInfo);
 
 
 
