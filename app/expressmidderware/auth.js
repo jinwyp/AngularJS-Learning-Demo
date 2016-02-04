@@ -44,6 +44,11 @@ exports.loginToken = function (options) {
             console.log(err);
 
             if (err) {
+
+                if (err.name === 'TokenExpiredError'){
+                    return next(new UnauthorizedAccessError(ValidatonError.code.token.tokenExpired, "User Unauthorized, token expired", "X-Access-Token"));
+                }
+
                 return next(new UnauthorizedAccessError(ValidatonError.code.token.tokenDecodeWrong, "User Unauthorized, token wrong", "X-Access-Token"));
             }
 

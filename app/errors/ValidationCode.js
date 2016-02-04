@@ -20,7 +20,8 @@ var validationCode = {
 
     token : {
         tokenNotFound : 1001,
-        tokenDecodeWrong : 1005
+        tokenDecodeWrong : 1005,
+        tokenExpired : 1007
     }
 };
 

@@ -23,9 +23,9 @@ var tokenConfig = config.get('userlogin');
 
 var jsonwebtoken = require("jsonwebtoken");
 
-var TOKEN_EXPIRATION_SEC = 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay; // 1 day
+var TOKEN_EXPIRATION_SEC = 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay;
 var TOKEN_EXPIRATION_SEC_RememberMe = 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay * 6;
-var TOKEN_EXPIRATION_DAY_RememberMe = tokenConfig.jwtTokenExpireDay * 6; // 1 day
+var TOKEN_EXPIRATION_DAY_RememberMe = tokenConfig.jwtTokenExpireDay * 6;
 
 var ValidatonError = require('../../errors/ValidationError');
 var UnauthorizedAccessError = require('../../errors/UnauthorizedAccessError');

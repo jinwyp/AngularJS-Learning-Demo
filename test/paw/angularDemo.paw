@@ -227,7 +227,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z102"></relationship>
     </object>
     <object type="LMENVIRONMENTVARIABLEVALUE" id="z125">
-        <attribute name="value" type="string">Bearer yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmFmMWZiMDA4N2QyMjFlMTBlZjBjY2MiLCJpYXQiOjE0NTQ0OTM4ODQsImV4cCI6MTQ1NzA4NTg4NH0.AVdlYKVLQQrC4jAhNF87X3w1oIGWQheuEyAjMTjExEM</attribute>
+        <attribute name="value" type="string">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmFmMWZiMDA4N2QyMjFlMTBlZjBjY2MiLCJpYXQiOjE0NTQ0OTM4ODQsImV4cCI6MTQ1NzA4NTg4NH0.AVdlYKVLQQrC4jAhNF87X3w1oIGWQheuEyAjMTjExEM</attribute>
         <relationship name="environment" type="1/1" destination="LMENVIRONMENT" idrefs="z121"></relationship>
         <relationship name="variable" type="1/1" destination="LMENVIRONMENTVARIABLE" idrefs="z123"></relationship>
     </object>
