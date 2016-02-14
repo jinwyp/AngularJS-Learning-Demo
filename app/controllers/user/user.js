@@ -9,7 +9,8 @@ var MUserToken = require('../../models/user/usertoken.js');
  */
 exports.signUp = function (req, res, next) {
 
-    // MUser.validateNewUser(req.body);
+    MUser.validation.username(req.body.username);
+    MUser.validation.userPassword(req.body.password);
 
     MUser.signUp(req.body).then(function(resultUser){
 
@@ -42,13 +43,13 @@ exports.signUp = function (req, res, next) {
  */
 exports.login = function (req, res, next) {
 
-    // MUser.validateNewUser(req.body);
+    MUser.validation.userPassword(req.body.password);
 
 
     MUser.login(req.body).then(function(resultUser){
         // console.log(resultUser);
 
-        return MUserToken.createToken(resultUser, req);
+        return MUserToken.getToken(resultUser, req);
 
     }).then(function(resultToken){
 

@@ -1,0 +1,22 @@
+body {
+  padding-top: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.demo .listselected {
+  color: red;
+  font-size: 16px;
+}
+.demo .listfirst {
+  color: blue;
+}
+.demo .listlast {
+  color: green;
+}
+.demo .listlast2 {
+  color: green;
+}

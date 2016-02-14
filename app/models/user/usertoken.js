@@ -49,7 +49,8 @@ var UserTokenSchema = new Schema({
     expireDate: { type: Date, required: true },
 
     ip: { type: String },
-    userAgent: { type: String}
+    userAgent: { type: String},
+    deviceType: { type: String}
 
 
 }, {
@@ -90,6 +91,14 @@ var UserTokenSchema = new Schema({
  */
 
 
+var constantDeviceType = {
+    pc : 'pc',
+    mobilephone : 'mobilephone',
+    tablet : 'tablet'
+};
+UserTokenSchema.statics.constantDeviceType = constantDeviceType;
+
+
 var validation = {
     tokenNotFound : function (token){
         if (!token){
@@ -104,13 +113,13 @@ var validation = {
     },
 };
 
-
 UserTokenSchema.statics.validation = validation;
 
 
 
 
-UserTokenSchema.statics.createToken = function(user, req){
+
+UserTokenSchema.statics.getToken = function(user, req){
 
     var payload = {
         _id: user._id
@@ -131,15 +140,20 @@ UserTokenSchema.statics.createToken = function(user, req){
         expireDate : moment().add(tokenConfig.jwtTokenExpireDay, 'days'),
 
         ip: req.ip,
-        userAgent: req.get('User-Agent')
+        userAgent: req.get('User-Agent'),
+        deviceType : constantDeviceType.pc
 
     };
+
+
+    if (req.device.type === 'phone') newToken.deviceType = constantDeviceType.mobilephone;
+    if (req.device.type === 'tablet') newToken.deviceType = constantDeviceType.tablet;
 
     var decoded = jsonwebtoken.decode(token);
     newToken.accessToken_iat = decoded.iat;
     newToken.accessToken_exp = decoded.exp;
 
-    return UserToken.create(newToken);
+    return UserToken.findOneAndUpdate({deviceType:newToken.deviceType}, newToken, {upsert:true, new:true}).exec();
 };
 
 

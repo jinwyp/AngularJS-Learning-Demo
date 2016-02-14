@@ -22,7 +22,7 @@ var requireDir = require('require-dir');
 var env        = process.env.NODE_ENV || 'development';
 
  // Require all tasks in gulp/tasks, including subfolders
- requireDir('./gulp/task', { recurse: true });
+requireDir('./gulp/task', { recurse: true });
 
 
 
@@ -32,4 +32,4 @@ var env        = process.env.NODE_ENV || 'development';
 
 // The default task (called when you run `gulp` from cli)
 //
-gulp.task('default', ['minifyjs', 'watch', 'compass', 'nodemon' ]);
+gulp.task('default', ['watchAngularDemo', 'watchWebsite', 'nodemon' ]);

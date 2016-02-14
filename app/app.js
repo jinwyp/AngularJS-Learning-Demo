@@ -8,18 +8,19 @@ process.env.NODE_CONFIG_DIR= path.resolve(__dirname, './config');
 var config = require('config');
 var DBUrl = mongodbUri.format(config.get('mongodb'));
 
-var debug        = require('debug')('app:appindex');
-var responseTime = require('response-time');
+var debug           = require('debug')('app:appindex');
+var responseTime    = require('response-time');
 
-var favicon      = require('serve-favicon');
-var morgan       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var compression  = require('compression');
+var favicon         = require('serve-favicon');
+var morgan          = require('morgan');
+var cookieParser    = require('cookie-parser');
+var bodyParser      = require('body-parser');
+var compression     = require('compression');
+var userAgentDevice = require('express-device');
 
-var routesWebsite = require('./routes/website');
-var routesApi     = require('./routes/api');
-var errorHandler = require('./expressmidderware/errorhandler');
+var routesWebsite   = require('./routes/website');
+var routesApi       = require('./routes/api');
+var errorHandler    = require('./expressmidderware/errorhandler');
 
 var app = express();
 
@@ -44,7 +45,7 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(bodyParser.json()); // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(userAgentDevice.capture());
 
 
 
