@@ -6,11 +6,11 @@
 
     /* Controllers */
 
-    angular.module('websiteApp').controller('demo11Controller', demo11Controller);
+    angular.module('websiteApp').controller('loginController', loginController);
 
-    demo11Controller.$inject = ['$http'];
+    loginController.$inject = ['$http'];
 
-    function demo11Controller($http) {
+    function loginController($http) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -24,27 +24,32 @@
 
         /**********  Data Binding For ViewModel  **********/
         vm.data = {
-            searchText : '',
-            articles : [
-                {id: 1, title: 'today news'},
-                {id: 2, title: 'sports news'},
-                {id: 3, title: 'health news'},
-                {id: 4, title: 'tech news'}
-            ]
+            newUser : {
+                username : '',
+                password : ''
+            }
         };
 
 
         /**********  Event Center  **********/
         vm.event = {
-            showArticleDeleteIcon : showArticleDeleteIcon,
+            login : login,
             hideArticleDeleteIcon : hideArticleDeleteIcon,
             clickArticle : clickArticle
         };
 
 
-        function showArticleDeleteIcon(currentIndex){
+        function login(form){
 
-            vm.css.currentDeleteIcon = currentIndex;
+            if (form.$invalid) {
+                return ;
+            }
+
+            $http.post('/api/user/login', vm.data.newUser).then(function(response){
+                console.log(response.data);
+            }).catch(function(err){
+                console.log(err.data);
+            });
 
         }
 
@@ -64,18 +69,16 @@
 
 
         /**********  App Init  **********/
-        var app = {
-            init : function(){
 
-            },
-            reRun : function(){
+        function appInit (){
 
-            }
-        };
+        }
 
+        function appReRun(){
 
-        app.init();
+        }
 
+        appInit();
 
     }
 
