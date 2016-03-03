@@ -19,6 +19,7 @@
 
     "userlogin" : {
         "jwtTokenSecret" : "shhhhhhared-secret",
-        "jwtTokenExpireDay" : 30
+        "jwtTokenExpireDay" : 30,
+        "tokenFieldNmae" : "X-Access-Token"
     }
 }

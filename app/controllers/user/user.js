@@ -1,6 +1,13 @@
+var config = require('config');
+var tokenConfig = config.get('userlogin');
+
+var tokenFieldName = tokenConfig.tokenFieldName || 'X-Access-Token';
+var TOKEN_EXPIRATION_SEC = 1000 * 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay;
 
 var MUser = require('../../models/user/user.js');
 var MUserToken = require('../../models/user/usertoken.js');
+
+
 
 
 
@@ -52,7 +59,7 @@ exports.login = function (req, res, next) {
         return MUserToken.getToken(resultUser, req);
 
     }).then(function(resultToken){
-
+        res.cookie(tokenFieldName, resultToken.accessToken, { maxAge: TOKEN_EXPIRATION_SEC, httpOnly: true });
         return res.status(200).json(resultToken);
 
       // Remove sensitive data before login
@@ -70,6 +77,24 @@ exports.login = function (req, res, next) {
     .catch(next);
 
 };
+
+
+
+/**
+ * User Logout
+ */
+exports.logout = function (req, res, next) {
+
+    res.clearCookie(tokenFieldName);
+
+    // if(config.domain){
+    //     res.clearCookie('express.sid', {domain: '.'+config.domain});
+    // }
+
+    res.status(200).send({message: 'Logout success'});
+
+};
+
 
 
 

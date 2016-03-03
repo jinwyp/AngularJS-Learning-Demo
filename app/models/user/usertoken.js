@@ -32,6 +32,7 @@ var TOKEN_EXPIRATION_DAY_RememberMe = tokenConfig.jwtTokenExpireDay * 6;
 var ValidatonError = require('../../errors/ValidationError');
 var UnauthorizedAccessError = require('../../errors/UnauthorizedAccessError');
 
+var MUser = require('./user.js');
 
 
 /**
@@ -132,11 +133,6 @@ UserTokenSchema.statics.getToken = function(user, req){
         expiresIn: TOKEN_EXPIRATION_SEC
     });
 
-    console.log(ipaddr.parse(req.ip).toString());
-    console.log(ipaddr.parse(req.ip).isIPv4MappedAddress());
-    console.log(ipaddr.parse(req.ip).toIPv4Address());
-    // console.log(ipaddr.IPv4.parse(req.ip));
-    console.log(ipaddr.IPv6.parse(req.ip));
 
     var newToken = {
         user: user._id,
@@ -179,6 +175,32 @@ UserTokenSchema.statics.getToken = function(user, req){
     return UserToken.findOneAndUpdate({deviceType:newToken.deviceType}, newToken, {upsert:true, new:true}).exec();
 };
 
+
+
+
+
+UserTokenSchema.statics.getUserFromToken = function(userid, token, callback){
+
+    UserToken.findOne({ user: userid, accessToken: token }, function (err, resultToken) {
+        if (err) return callback(err);
+
+        if (!resultToken) {
+            return callback(new UnauthorizedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token"));
+        }
+
+        MUser.findOne({ _id: resultToken.user }, function (err, resultUser) {
+            if (err) return callback(err);
+
+            if (!resultUser) {
+                return callback(new UnauthorizedAccessError(ValidatonError.code.token.userNotFound, "User Unauthorized, user not found", "X-Access-Token"));
+            }
+
+            return callback(null, resultUser);
+        });
+    });
+
+
+};
 
 
 

@@ -26,6 +26,7 @@ api.get('/movieadd', movieController.addCampaign);
 
 api.post('/user/signup', userController.signUp);
 api.post('/user/login', userController.login);
+api.post('/user/logout', userController.logout);
 
 
 

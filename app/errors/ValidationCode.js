@@ -19,9 +19,11 @@ var validationCode = {
     },
 
     token : {
-        tokenNotFound : 1001,
-        tokenDecodeWrong : 1005,
-        tokenExpired : 1007
+        tokenNotFound : 4001,
+        userNotFound : 4002,
+        tokenDecodeWrong : 4005,
+        tokenExpired : 4007,
+
     }
 };
 
