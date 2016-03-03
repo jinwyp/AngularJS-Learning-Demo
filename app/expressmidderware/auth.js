@@ -29,7 +29,7 @@ exports.loginToken = function (options) {
             return null;
         }
 
-        var token = getToken(req.get(tokenFieldName));
+        var token = getToken(req.get(tokenFieldName)); // Get Token From Header
 
         if (!token){
             token = getToken(req.body[tokenFieldName]) || getToken(req.query[tokenFieldName]) || getToken(req.cookies[tokenFieldName]);
@@ -39,12 +39,10 @@ exports.loginToken = function (options) {
             return next(new UnauthorizedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token"));
         }
 
-
+        console.log(token);
         jsonwebtoken.verify(token, tokenConfig.jwtTokenSecret, function (err, decode) {
-            console.log(err);
 
             if (err) {
-
                 if (err.name === 'TokenExpiredError'){
                     return next(new UnauthorizedAccessError(ValidatonError.code.token.tokenExpired, "User Unauthorized, token expired", "X-Access-Token"));
                 }

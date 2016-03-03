@@ -17,6 +17,8 @@ mongoose.Promise = Promise;
 
 var validator = require('validator');
 var moment = require('moment');
+var ipaddr = require('ipaddr.js');
+
 
 var config = require('config');
 var tokenConfig = config.get('userlogin');
@@ -48,7 +50,8 @@ var UserTokenSchema = new Schema({
 
     expireDate: { type: Date, required: true },
 
-    ip: { type: String },
+    ipv4: { type: String },
+    ipv6: { type: String },
     userAgent: { type: String},
     deviceType: { type: String}
 
@@ -129,6 +132,11 @@ UserTokenSchema.statics.getToken = function(user, req){
         expiresIn: TOKEN_EXPIRATION_SEC
     });
 
+    console.log(ipaddr.parse(req.ip).toString());
+    console.log(ipaddr.parse(req.ip).isIPv4MappedAddress());
+    console.log(ipaddr.parse(req.ip).toIPv4Address());
+    // console.log(ipaddr.IPv4.parse(req.ip));
+    console.log(ipaddr.IPv6.parse(req.ip));
 
     var newToken = {
         user: user._id,
@@ -139,12 +147,27 @@ UserTokenSchema.statics.getToken = function(user, req){
 
         expireDate : moment().add(tokenConfig.jwtTokenExpireDay, 'days'),
 
-        ip: req.ip,
         userAgent: req.get('User-Agent'),
         deviceType : constantDeviceType.pc
 
     };
 
+    if (ipaddr.IPv4.isValid(req.ip)) {
+        // ipString is IPv4
+        newToken.ipv4 = req.ip;
+    } else if (ipaddr.IPv6.isValid(req.ip)) {
+        newToken.ipv6 = req.ip;
+        var currentIP = ipaddr.IPv6.parse(req.ip);
+
+        if (currentIP.isIPv4MappedAddress()) {
+            // ip.toIPv4Address().toString() is IPv4
+            newToken.ipv4 = currentIP.toIPv4Address().toString();
+        } else {
+            // ipString is IPv6
+        }
+    } else {
+        // ipString is invalid
+    }
 
     if (req.device.type === 'phone') newToken.deviceType = constantDeviceType.mobilephone;
     if (req.device.type === 'tablet') newToken.deviceType = constantDeviceType.tablet;

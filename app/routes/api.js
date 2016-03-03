@@ -21,15 +21,18 @@ api.get('/movieadd', movieController.addCampaign);
 
 
 
-/* GET users listing. */
-api.get('/users', function(req, res, next) {
-    res.send('respond with a resource');
-});
+
 
 
 api.post('/user/signup', userController.signUp);
 api.post('/user/login', userController.login);
 
+
+
+/* GET users listing. */
+api.get('/users', function(req, res, next) {
+    res.send('respond with a resource');
+});
 
 api.get('/user/info', auth.loginToken(), userController.userInfo);
 

@@ -20,6 +20,7 @@
     "express": "^4.13.3",
     "express-device": "^0.4.2",
     "express-jwt": "^3.3.0",
+    "ipaddr.js": "^1.1.0",
     "jsonwebtoken": "^5.5.4",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
