@@ -46,6 +46,7 @@
             }
 
             $http.post('/api/user/login', vm.data.newUser).then(function(response){
+                alert(response.data.accessToken);
                 console.log(response.data);
             }).catch(function(err){
                 console.log(err.data);

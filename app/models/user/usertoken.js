@@ -165,6 +165,7 @@ UserTokenSchema.statics.getToken = function(user, req){
         // ipString is invalid
     }
 
+    // desktop, tv, tablet, phone, bot or car
     if (req.device.type === 'phone') newToken.deviceType = constantDeviceType.mobilephone;
     if (req.device.type === 'tablet') newToken.deviceType = constantDeviceType.tablet;
 
