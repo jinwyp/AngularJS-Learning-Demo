@@ -12,6 +12,9 @@ var browserSync = require('browser-sync').create();
 
 // nodemon 的配置
 var nodemonConfig = {
+    "watch": [
+        "app"
+    ],
     script : 'app/bin/www',
     ext: 'js json',
     ignore : [

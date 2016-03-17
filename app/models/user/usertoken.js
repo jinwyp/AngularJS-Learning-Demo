@@ -172,7 +172,7 @@ UserTokenSchema.statics.getToken = function(user, req){
     newToken.accessToken_iat = decoded.iat;
     newToken.accessToken_exp = decoded.exp;
 
-    return UserToken.findOneAndUpdate({deviceType:newToken.deviceType}, newToken, {upsert:true, new:true}).exec();
+    return UserToken.findOneAndUpdate({user:user._id, deviceType:newToken.deviceType}, newToken, {upsert:true, new:true}).exec();
 };
 
 
