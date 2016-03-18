@@ -8,7 +8,7 @@ var MUser = require('../../models/user/user.js');
 var MUserToken = require('../../models/user/usertoken.js');
 
 
-
+var model = require('../../libs/requiredir').initialize('../../models');
 
 
 /**
