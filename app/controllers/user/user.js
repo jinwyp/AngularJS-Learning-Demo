@@ -87,11 +87,23 @@ exports.logout = function (req, res, next) {
 
     res.clearCookie(tokenFieldName);
 
+
     // if(config.domain){
     //     res.clearCookie('express.sid', {domain: '.'+config.domain});
     // }
 
-    res.status(200).send({message: 'Logout success'});
+    MUserToken.removeToken(req.body.token).then(function(resultToken){
+
+        if (resultToken){
+            return res.status(200).send({message: 'Logout success, Token Deleted'});
+        }else{
+            return res.status(200).send({message: 'Logout success, Token not found'});
+        }
+
+    })
+    .catch(next)
+
+
 
 };
 

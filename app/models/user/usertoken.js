@@ -177,7 +177,11 @@ UserTokenSchema.statics.getToken = function(user, req){
 };
 
 
+UserTokenSchema.statics.removeToken = function( token){
 
+    return UserToken.findOneAndRemove({accessToken:token}).exec();
+
+};
 
 
 UserTokenSchema.statics.getUserFromToken = function(userid, token, callback){
@@ -187,6 +191,10 @@ UserTokenSchema.statics.getUserFromToken = function(userid, token, callback){
 
         if (!resultToken) {
             return callback(new UnauthorizedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token"));
+        }
+
+        if (resultToken.isExpired()){
+            return callback(new UnauthorizedAccessError(ValidatonError.code.token.tokenExpired, "User Unauthorized, token expired", "X-Access-Token"));
         }
 
         MUser.findOne({ _id: resultToken.user }, function (err, resultUser) {
@@ -218,9 +226,9 @@ UserTokenSchema.statics.getUserFromToken = function(userid, token, callback){
 
 
 
-UserTokenSchema.methods.comparePassword = function (passw) {
-
-
+UserTokenSchema.methods.isExpired = function () {
+    var date = moment(this.expireDate);
+    return moment().isAfter(date);
 };
 
 

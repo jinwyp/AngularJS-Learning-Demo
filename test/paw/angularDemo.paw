@@ -330,12 +330,12 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">[{"data":{"json":"{\\"username\\":\\"jinwyp\\",\\"password\\":\\"123456\\"\\/*,\\"email\\":\\"jinwyp@163.com\\",\\"mobile\\":\\"13564568304\\"*\\/}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\/*\\"username\\":\\"jinwyp\\",\\"password\\":\\"123456\\",\\"email\\":\\"jinwyp@163.com\\",\\"mobile\\":\\"13564568304\\",*\\/\\"token\\":\\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmFmMWZiMDA4N2QyMjFlMTBlZjBjY2MiLCJpYXQiOjE0NTgyODAyNzQsImV4cCI6MTQ2MDg3MjI3NH0.avS267VofcV2FpzoKDsEMXLueLM1emtnQVRyJNOJCaU\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="order" type="int64">2</attribute>
         <attribute name="name" type="string">Logout</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z107"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z137 z138"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z138 z137"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z137">
         <attribute name="order" type="int64">1</attribute>
