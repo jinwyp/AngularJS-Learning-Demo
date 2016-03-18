@@ -105,7 +105,7 @@ exports.userInfo = function (req, res, next) {
 
     // MUser.validateNewUser(req.body);
 
-    return res.status(200).json({ok:'ok'});
+    return res.status(200).json(req.user);
 
 
 };
