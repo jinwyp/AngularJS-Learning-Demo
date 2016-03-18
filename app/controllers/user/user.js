@@ -101,7 +101,7 @@ exports.logout = function (req, res, next) {
         }
 
     })
-    .catch(next)
+    .catch(next);
 
 
 
