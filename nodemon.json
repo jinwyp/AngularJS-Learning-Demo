@@ -1,8 +1,9 @@
 {
   "verbose": true,
+  "script" : "core/bin/www",
   "ignore": [
     ".git",
-    "node_modules/**/node_modules",
+    "node_modules/**",
     "tmp/**",
     "public/**",
     "views/**"
@@ -10,7 +11,8 @@
   "execMap": {
   },
   "env": {
-    "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "DEBUG": "core:*"
   },
   "ext": "js json"
 }

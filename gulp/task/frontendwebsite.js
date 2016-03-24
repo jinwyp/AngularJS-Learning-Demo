@@ -30,13 +30,13 @@ var inject = require('gulp-inject');
 
 // 文件的路径
 var paths = {
-    base: 'app/public/',
+    base: 'core/public/',
     client: {
-        js : ['app/public/website/src/js/**/*.js'],
+        js : ['core/public/website/src/js/**/*.js'],
         //js2 : ['public/website/src/js/**/*.js', 'public/angularslide/js/**/*.js'],
-        sass : ['app/public/website/src/css/sass/**/*.scss'],
-        css : ['app/public/website/src/css/stylesheets/*.css'],
-        dist : 'app/public/website/dist'
+        sass : ['core/public/website/src/css/sass/**/*.scss'],
+        css : ['core/public/website/src/css/stylesheets/*.css'],
+        dist : 'core/public/website/dist'
     },
     server: {
         viewsTpl : 'views/**'
@@ -49,9 +49,9 @@ var paths = {
 
 // Compass 文件的路径
 var compassConfig = {
-    css : 'app/public/website/src/css/stylesheets',
-    sass : 'app/public/website/src/css/sass',
-    image : 'app/public/website/src/css/images',
+    css : 'core/public/website/src/css/stylesheets',
+    sass : 'core/public/website/src/css/sass',
+    image : 'core/public/website/src/css/images',
     style : 'expanded',  //The output style for the compiled css. One of: nested, expanded, compact, or compressed.
     comments : false
 };

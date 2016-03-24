@@ -1,4 +1,4 @@
-var debug        = require('debug')('app:errorhandler');
+var debug        = require('debug')('core:errorhandler');
 
 var PrettyErrorLib = require('pretty-error');
 var PrettyError = new PrettyErrorLib();

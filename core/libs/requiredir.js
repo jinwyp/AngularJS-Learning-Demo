@@ -48,7 +48,6 @@ var requireDir = function(newDirname, models){
                 models[fileBasename] = path.join(newDirname, file);
             }
         }
-        console.log(models);
 
     }
 

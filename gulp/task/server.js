@@ -13,21 +13,21 @@ var browserSync = require('browser-sync').create();
 // nodemon 的配置
 var nodemonConfig = {
     "watch": [
-        "app"
+        "core"
     ],
-    script : 'app/bin/www',
+    script : 'core/bin/www',
     ext: 'js json',
     ignore : [
-        "app/tmp/**",
-        "app/public/**",
-        "app/views/**",
+        "core/tmp/**",
+        "core/public/**",
+        "core/views/**",
         ".git",
         "node_modules/**"
     ],
     // nodeArgs: ['--debug'],
     env    : {
         "NODE_ENV": "development",
-        "DEBUG": "app:*"
+        "DEBUG": "core:*"
     }
 };
 
@@ -46,7 +46,7 @@ gulp.task('nodemon', function() {
 gulp.task('browsersync', ['nodemon'], function() {
 	browserSync.init({
 		proxy: "http://localhost:8088",
-        files: ["app/public/**/*.css", "app/public/**/*.html", "app/views/**/*.*"],
+        files: ["core/public/**/*.css", "core/public/**/*.html", "core/views/**/*.*"],
         browser: ["google chrome", "firefox"],
         port: 8089,
 	});

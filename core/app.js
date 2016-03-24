@@ -8,7 +8,7 @@ process.env.NODE_CONFIG_DIR= path.resolve(__dirname, './config');
 var config = require('config');
 var DBUrl = mongodbUri.format(config.get('mongodb'));
 
-var debug           = require('debug')('app:appindex');
+var debug           = require('debug')('core:appindex');
 var responseTime    = require('response-time');
 
 var favicon         = require('serve-favicon');
