@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=development DEBUG=app:* node ./app/bin/www"
+    "start": "NODE_ENV=development DEBUG=core:* node ./core/bin/www"
   },
   "author": "Jin WYP",
   "license": "MIT",
