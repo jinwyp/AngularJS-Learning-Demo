@@ -32,18 +32,14 @@ var requireDir = function(newDirname, models){
         var fileBasename = '';
 
         var nextDirname = path.resolve(newDirname, file);
+        var nextDirnameStats = fs.statSync(nextDirname);
 
-        if (fs.statSync(nextDirname).isDirectory()){
-
+        if (nextDirnameStats.isDirectory()){
+            models = requireDir(nextDirname, models);
         }else {
             fileExt = path.extname(file);
             fileBasename = path.basename(file, fileExt);
-        }
 
-
-        if (fs.statSync(nextDirname).isDirectory()){
-            models = requireDir(nextDirname, models);
-        }else {
             // ignore this file (via global NodeJS variable)
             if( fileExt.toLowerCase() !== '.js') {
                 continue;  // skip the current file and anything without a "JS" extension
@@ -52,6 +48,7 @@ var requireDir = function(newDirname, models){
                 models[fileBasename] = path.join(newDirname, file);
             }
         }
+        console.log(models);
 
     }
 
