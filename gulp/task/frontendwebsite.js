@@ -74,14 +74,14 @@ gulp.task('compass', function() {
 
 
 /********************  监视CSS文件变化 压缩CSS样式文件  ********************/
-gulp.task('minifycss', function() {
+gulp.task('minifycss', ['compass'], function() {
 
     return gulp.src(paths.client.css)
     .pipe(concat('main.css'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(sourcemaps.init())
+    // .pipe(sourcemaps.init())
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(sourcemaps.write('.'))
+    // .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.client.dist));
     // .pipe(livereload());
 });
@@ -121,6 +121,5 @@ gulp.task('minifyjs', ['jshint'], function(){
 gulp.task('watchWebsite', function() {
     //  livereload.listen();
      gulp.watch(paths.client.js, ['minifyjs']);
-     gulp.watch(paths.client.sass, ['compass']);
-     gulp.watch(paths.client.css, ['minifycss']);
+     gulp.watch(paths.client.sass, ['minifycss']);
 });

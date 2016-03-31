@@ -1,3 +1,9 @@
+body {
+  padding-top: 70px;
+  font: 14px "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+  background-color: #F6F8F8;
+}
+
 .navbar {
   height: 70px;
   background-color: #FFF;
@@ -18,11 +24,9 @@
 .loginbox {
   width: 800px;
 }
-
-body {
-  padding-top: 70px;
-  font: 14px "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
-  background-color: #F6F8F8;
+.loginbox h1 {
+  text-align: left;
+  margin: 30px 10px;
 }
 
 .mainbox {

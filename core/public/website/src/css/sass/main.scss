@@ -1,19 +1,8 @@
 @import "compass/css3";
 
+@import "base/_base";
 @import "layout/_header";
 @import "pages/_login";
-
-
-$color_bg_body : #F6F8F8;
-
-
-
-body {
-    padding-top: 70px;
-    font: 14px "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
-    background-color: $color_bg_body;
-}
-
 
 
 
