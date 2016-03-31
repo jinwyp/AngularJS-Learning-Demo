@@ -78,12 +78,12 @@ gulp.task('minifycss', function() {
     return gulp.src(paths.client.css)
     .pipe(concat('main.css'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(minifycss(
-     {
-         keepBreaks:false,
-         keepSpecialComments:0 //* for keeping all (default), 1 for keeping first one only, 0 for removing all
-     }
-    ))
+    // .pipe(minifycss(
+    //     {
+    //         keepBreaks:false,
+    //         keepSpecialComments:0 //* for keeping all (default), 1 for keeping first one only, 0 for removing all
+    //     }
+    // ))
     .pipe(gulp.dest(paths.client.dist));
     // .pipe(livereload());
 });

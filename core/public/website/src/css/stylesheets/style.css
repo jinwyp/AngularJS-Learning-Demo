@@ -1,22 +1,26 @@
 body {
-  padding-top: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding-top: 70px;
+  font: 14px "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+  background-color: #F6F8F8;
 }
 
-a {
-  color: #00B7FF;
+.mainbox {
+  width: 1300px;
 }
 
-.demo .listselected {
-  color: red;
+.navbar {
+  height: 70px;
+  background-color: #FFF;
+}
+
+.navbar-nav {
+  margin-top: 10px;
+}
+.navbar-nav li a {
   font-size: 16px;
+  color: #8A8686;
 }
-.demo .listfirst {
-  color: blue;
-}
-.demo .listlast {
-  color: green;
-}
-.demo .listlast2 {
-  color: green;
+.navbar-nav li a:active, .navbar-nav li a:focus, .navbar-nav li a:hover {
+  color: #393d40;
+  background-color: #FFF;
 }
