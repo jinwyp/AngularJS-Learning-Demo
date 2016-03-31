@@ -35,11 +35,11 @@ var UnauthorizedAccessError = require('../../errors/UnauthorizedAccessError');
 var MUser = require('./user.js');
 
 
+
+
 /**
  * Mongoose schema
  */
-
-
 
 
 var UserTokenSchema = new Schema({

@@ -56,7 +56,7 @@ var requireDir = function(newDirname, models){
 
 };
 
-exports.requireDir = requireDir;
+
 
 
 
@@ -78,4 +78,4 @@ var initialize = function(sourceDirname) {
 
 
 
-exports.initialize = initialize;
+module.exports = initialize;

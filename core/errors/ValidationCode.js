@@ -13,9 +13,9 @@ var validationCode = {
         mobileExist : 1014,
 
         usernameNotFound : 1101,
-        passwordNotMatch : 1102
+        passwordNotMatch : 1102,
 
-
+        messageType : 1201
     },
 
     token : {

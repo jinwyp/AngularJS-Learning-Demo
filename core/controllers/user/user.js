@@ -4,11 +4,37 @@ var tokenConfig = config.get('userlogin');
 var tokenFieldName = tokenConfig.tokenFieldName || 'X-Access-Token';
 var TOKEN_EXPIRATION_SEC = 1000 * 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay;
 
-var MUser = require('../../models/user/user.js');
-var MUserToken = require('../../models/user/usertoken.js');
+var model = require('../../libs/requiredir')('../../models');
 
 
-var model = require('../../libs/requiredir').initialize('../../models');
+
+
+
+
+/**
+ * User Send Verify Message by SMS / Email
+ */
+exports.userSendVerifyMessage = function (req, res, next) {
+
+    if (req.body.mobile){
+        model.userregistration.validation.userMobile(req.body.mobile);
+    }else{
+        model.userregistration.validation.userEmail(req.body.email);
+    }
+
+    model.userregistration.validation.messageType(req.body.messageType);
+
+    req.body.sendType = model.userregistration.constantSendType.sms;
+
+    model.userregistration.sendMessage(req.body, req).then(function(result){
+        return res.status(200).json({code:result.code});
+    })
+    .catch(next);
+
+
+};
+
+
 
 
 /**
@@ -16,10 +42,10 @@ var model = require('../../libs/requiredir').initialize('../../models');
  */
 exports.signUp = function (req, res, next) {
 
-    MUser.validation.username(req.body.username);
-    MUser.validation.userPassword(req.body.password);
+    model.user.validation.username(req.body.username);
+    model.user.validation.userPassword(req.body.password);
 
-    MUser.signUp(req.body).then(function(resultUser){
+    model.user.signUp(req.body).then(function(resultUser){
 
         return res.status(200).json(resultUser);
 
@@ -50,13 +76,13 @@ exports.signUp = function (req, res, next) {
  */
 exports.login = function (req, res, next) {
 
-    MUser.validation.userPassword(req.body.password);
+    model.user.validation.userPassword(req.body.password);
 
 
-    MUser.login(req.body).then(function(resultUser){
+    model.user.login(req.body).then(function(resultUser){
         // console.log(resultUser);
 
-        return MUserToken.getToken(resultUser, req);
+        return model.usertoken.getToken(resultUser, req);
 
     }).then(function(resultToken){
         res.cookie(tokenFieldName, resultToken.accessToken, { maxAge: TOKEN_EXPIRATION_SEC, httpOnly: true });
@@ -92,7 +118,7 @@ exports.logout = function (req, res, next) {
     //     res.clearCookie('express.sid', {domain: '.'+config.domain});
     // }
 
-    MUserToken.removeToken(req.body.token).then(function(resultToken){
+    model.usertoken.removeToken(req.body.token).then(function(resultToken){
 
         if (resultToken){
             return res.status(200).send({message: 'Logout success, Token Deleted'});
@@ -115,7 +141,7 @@ exports.logout = function (req, res, next) {
  */
 exports.userInfo = function (req, res, next) {
 
-    // MUser.validateNewUser(req.body);
+    // model.user.validateNewUser(req.body);
 
     return res.status(200).json(req.user);
 

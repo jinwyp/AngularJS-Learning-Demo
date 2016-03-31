@@ -4,7 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=development DEBUG=core:* node ./core/bin/www"
+    "start": "NODE_ENV=development DEBUG=core:* node ./core/bin/www",
+    "test": "mocha core/testing/api/**"
   },
   "author": "Jin WYP",
   "license": "MIT",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "autoprefixer": "^6.2.1",
     "browser-sync": "^2.10.1",
+    "chai": "^3.5.0",
     "express-generator": "^4.13.1",
     "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.8.0",

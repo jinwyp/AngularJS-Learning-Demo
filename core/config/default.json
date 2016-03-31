@@ -21,5 +21,13 @@
         "jwtTokenSecret" : "shhhhhhared-secret",
         "jwtTokenExpireDay" : 30,
         "tokenFieldNmae" : "X-Access-Token"
+    },
+
+    "settingEmail" : {
+        "verifyEmailExpireDay" : 5
+    },
+
+    "settingSMS" : {
+        "verifyCodeExpireHours" : 4
     }
 }

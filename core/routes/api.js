@@ -20,6 +20,9 @@ api.get('/movieadd', movieController.addCampaign);
 
 
 
+api.post('/user/verify/sms', userController.userSendVerifyMessage);
+api.post('/user/verify/email', userController.userSendVerifyMessage);
+
 api.post('/user/signup', userController.signUp);
 api.post('/user/login', userController.login);
 api.post('/user/logout', userController.logout);
