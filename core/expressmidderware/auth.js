@@ -12,6 +12,9 @@ var UnauthorizedAccessError = require('../errors/UnauthorizedAccessError');
 
 
 
+
+
+
 exports.loginToken = function (options) {
     return function (req, res, next) {
 
@@ -41,20 +44,30 @@ exports.loginToken = function (options) {
         }
 
 
+
+        function goNext(err){
+
+            if (options && options.goNextWithoutLogin){
+                return next();
+            }
+
+            return next(err);
+        }
+
         jsonwebtoken.verify(token, tokenConfig.jwtTokenSecret, function (err, decode) {
 
             if (err) {
                 if (err.name === 'TokenExpiredError'){
-                    return next(new UnauthorizedAccessError(ValidatonError.code.token.tokenExpired, "User Unauthorized, token expired", "X-Access-Token"));
+                    return goNext(new UnauthorizedAccessError(ValidatonError.code.token.tokenExpired, "User Unauthorized, token expired", "X-Access-Token"));
                 }
 
-                return next(new UnauthorizedAccessError(ValidatonError.code.token.tokenDecodeWrong, "User Unauthorized, token wrong", "X-Access-Token"));
+                return goNext(new UnauthorizedAccessError(ValidatonError.code.token.tokenDecodeWrong, "User Unauthorized, token wrong", "X-Access-Token"));
             }
 
             // console.log(decode);
 
             MUserToken.getUserFromToken(decode._id, token, function (err, resultUser) {
-                if (err) return next(err);
+                if (err) return goNext(err);
 
                 req.user = resultUser;
                 return next();
