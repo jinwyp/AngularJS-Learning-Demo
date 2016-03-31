@@ -13,10 +13,11 @@ var jshintReporter = require('jshint-stylish');
 
 var compass = require('gulp-compass');
 var autoprefixer = require('gulp-autoprefixer');
-var minifycss = require('gulp-minify-css');
+var cleanCSS = require('gulp-clean-css');
 
 var uglifyJS = require('gulp-uglify');
-var minifyHtml = require("gulp-minify-html");
+var htmlmin = require('gulp-htmlmin');
+var sourcemaps = require('gulp-sourcemaps');
 
 var ngTemplateCache = require('gulp-angular-templatecache');
 var ngAnnotate = require('gulp-ng-annotate');
@@ -76,12 +77,7 @@ gulp.task('minifycssAngularDemo', function() {
     return gulp.src(paths.client.css)
     .pipe(concat('main.css'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(minifycss(
-     {
-         keepBreaks:false,
-         keepSpecialComments:0 //* for keeping all (default), 1 for keeping first one only, 0 for removing all
-     }
-    ))
+    .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest(paths.client.dist));
     // .pipe(livereload());
 });
