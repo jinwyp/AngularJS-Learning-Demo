@@ -8,9 +8,9 @@
 
     angular.module('websiteApp').controller('loginController', loginController);
 
-    loginController.$inject = ['$http'];
+    loginController.$inject = ['Logger', 'User'];
 
-    function loginController($http) {
+    function loginController(Logger, User) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -18,7 +18,9 @@
         /**********  Data Binding For CSS style   **********/
         vm.css = {
             currentDeleteIcon : -1,
-            currentSelected : -1
+            currentSelected : -1,
+            loginFormErrorMessage : 0
+
         };
 
 
@@ -45,11 +47,13 @@
                 return ;
             }
 
-            $http.post('/api/user/login', vm.data.newUser).then(function(response){
-                alert(response.data.accessToken);
-                console.log(response.data);
+            User.login(vm.data.newUser).then(function(data){
+                console.log(data);
             }).catch(function(err){
-                console.log(err.data);
+                if (err && err.data && err.data.code){
+                    vm.css.loginFormErrorMessage = err.data.code;
+                }
+                Logger.errorXHR(err);
             });
 
         }

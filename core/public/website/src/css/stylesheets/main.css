@@ -1,7 +1,17 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 body {
   padding-top: 70px;
   font: 14px "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
   background-color: #F6F8F8;
+}
+
+.form-validation {
+  padding: 5px 0px 0px 0px;
+  font-size: 16px;
+  color: #a94442;
 }
 
 .navbar {
