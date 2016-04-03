@@ -78,7 +78,6 @@ exports.login = function (req, res, next) {
 
     model.user.validation.userPassword(req.body.password);
 
-
     model.user.login(req.body).then(function(resultUser){
         // console.log(resultUser);
 
@@ -106,30 +105,32 @@ exports.login = function (req, res, next) {
 
 
 
-/**
+/*
  * User Logout
  */
 exports.logout = function (req, res, next) {
 
-    res.clearCookie(tokenFieldName);
+    var token = req.body.accessToken || req.cookies[tokenFieldName];
 
+    res.clearCookie(tokenFieldName);
 
     // if(config.domain){
     //     res.clearCookie('express.sid', {domain: '.'+config.domain});
     // }
+    if (token){
+        model.usertoken.removeToken(token).then(function(resultToken){
 
-    model.usertoken.removeToken(req.body.token).then(function(resultToken){
+            if (resultToken){
+                return res.status(200).send({message: 'Logout success, Token Deleted'});
+            }else{
+                return res.status(200).send({message: 'Logout success, Token not found'});
+            }
 
-        if (resultToken){
-            return res.status(200).send({message: 'Logout success, Token Deleted'});
-        }else{
-            return res.status(200).send({message: 'Logout success, Token not found'});
-        }
-
-    })
-    .catch(next);
-
-
+        })
+        .catch(next);
+    }else{
+        return res.status(200).send({message: 'Logout success, Token not passed'});
+    }
 
 };
 

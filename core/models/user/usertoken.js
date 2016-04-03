@@ -104,6 +104,10 @@ UserTokenSchema.statics.constantDeviceType = constantDeviceType;
 
 
 var validation = {
+    token : function (token){
+        if (!validator.isLength(token, 100, 200))  throw new ValidatonError(ValidatonError.code.token.tokenLengthWrong, "Field validation error,  accessToken length must be 4-30", "accessToken");
+    },
+
     tokenNotFound : function (token){
         if (!token){
             throw new UnauthorizedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token");
@@ -177,11 +181,13 @@ UserTokenSchema.statics.getToken = function(user, req){
 };
 
 
-UserTokenSchema.statics.removeToken = function( token){
+
+UserTokenSchema.statics.removeToken = function(token){
 
     return UserToken.findOneAndRemove({accessToken:token}).exec();
 
 };
+
 
 
 UserTokenSchema.statics.getUserFromToken = function(userid, token, callback){

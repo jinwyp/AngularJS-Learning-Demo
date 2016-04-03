@@ -39,11 +39,7 @@ exports.loginToken = function (options) {
             token = req.body[tokenFieldName] || req.query[tokenFieldName] || req.cookies[tokenFieldName];
         }
 
-        if (!token){
-            return next(new UnauthorizedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token"));
-        }
-
-
+        res.locals.user = null;
 
         function goNext(err){
 
@@ -52,6 +48,12 @@ exports.loginToken = function (options) {
             }
 
             return next(err);
+        }
+
+
+
+        if (!token){
+            return goNext(new UnauthorizedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token"));
         }
 
         jsonwebtoken.verify(token, tokenConfig.jwtTokenSecret, function (err, decode) {
@@ -70,6 +72,7 @@ exports.loginToken = function (options) {
                 if (err) return goNext(err);
 
                 req.user = resultUser;
+                res.locals.user = resultUser;
                 return next();
             });
 

@@ -23,6 +23,7 @@ var validationCode = {
         userNotFound : 4002,
         tokenDecodeWrong : 4005,
         tokenExpired : 4007,
+        tokenLengthWrong : 4008
 
     }
 };
