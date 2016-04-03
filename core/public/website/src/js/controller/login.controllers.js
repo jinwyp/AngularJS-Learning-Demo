@@ -8,9 +8,9 @@
 
     angular.module('websiteApp').controller('loginController', loginController);
 
-    loginController.$inject = ['Logger', 'User'];
+    loginController.$inject = ['$window', 'Logger', 'User'];
 
-    function loginController(Logger, User) {
+    function loginController($window, Logger, User) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -36,39 +36,41 @@
         /**********  Event Center  **********/
         vm.event = {
             login : login,
-            hideArticleDeleteIcon : hideArticleDeleteIcon,
-            clickArticle : clickArticle
+            logout : logout
         };
 
 
         function login(form){
 
             if (form.$invalid) {
+                form.username.$setDirty();
+                form.password.$setDirty();
                 return ;
             }
 
             User.login(vm.data.newUser).then(function(data){
                 console.log(data);
+                $window.location.href = '/';
             }).catch(function(err){
                 if (err && err.data && err.data.code){
                     vm.css.loginFormErrorMessage = err.data.code;
                 }
                 Logger.errorXHR(err);
             });
+        }
+
+
+        function logout(){
+
+            User.logout().then(function(data){
+                console.log(data);
+                $window.location.href = '/';
+            }).catch(function(err){
+                Logger.errorXHR(err);
+            });
 
         }
 
-        function hideArticleDeleteIcon(){
-
-            vm.css.currentDeleteIcon = -1;
-
-        }
-
-        function clickArticle(currentIndex){
-
-            vm.css.currentSelected = currentIndex;
-
-        }
 
 
 
