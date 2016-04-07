@@ -190,7 +190,6 @@ UserRegistrationSchema.statics.sendMessage = function(user, req){
 
 UserRegistrationSchema.statics.verifySMSCode = function(user){
     MUser.validation.userMobile(user.mobile);
-    console.log(user);
     validation.code(user.smscode);
 
     return UserRegistration.findOne({mobile:user.mobile, code: user.smscode}).exec().then(function(result){
