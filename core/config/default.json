@@ -28,6 +28,6 @@
     },
 
     "settingSMS" : {
-        "verifyCodeExpireHours" : 4
+        "verifyCodeExpireHours" : 1
     }
 }

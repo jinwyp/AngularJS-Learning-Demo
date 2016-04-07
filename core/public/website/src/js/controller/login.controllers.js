@@ -47,7 +47,8 @@
             login : login,
             logout : logout,
             changeSignupType : changeSignupType,
-            getSignupSMS : getSignupSMS
+            getSignupSMS : getSignupSMS,
+            signupSMS : signupSMS
         };
 
 
@@ -87,6 +88,7 @@
             vm.css.signupType = type ;
         }
 
+
         function getSignupSMS(form){
 
             if (form.mobile.$invalid) {
@@ -105,8 +107,33 @@
                     vm.css.signupSMSSendButton = true;
                 }
             }, 1000);
+
+            User.getSMS(vm.data.signupUser.mobile, 'signup').then(function(data){
+                console.log(data.data);
+            }).catch(function(err){
+                Logger.errorXHR(err);
+            });
         }
 
+
+        function signupSMS(form){
+
+            if (form.$invalid) {
+                form.smscode.$setDirty();
+                form.username.$setDirty();
+                form.password.$setDirty();
+                return ;
+            }
+
+            User.signup(vm.data.signupUser).then(function(data){
+                console.log(data);
+            }).catch(function(err){
+                if (err && err.data && err.data.code){
+                    vm.css.loginFormErrorMessage = err.data.code;
+                }
+                Logger.errorXHR(err);
+            });
+        }
 
 
 

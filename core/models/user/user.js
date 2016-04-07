@@ -162,21 +162,21 @@ UserSchema.statics.signUp = function(user){
 
     var newUser = {};
 
-    if (typeof user.email !== "undefined"){
+    if (typeof user.email !== "undefined" && user.email){
         validation.userEmail(user.email);
         newUser.username = user.username;
         newUser.password = user.password;
         newUser.email = user.email;
     }
 
-    if (typeof user.mobile !== "undefined"){
+    if (typeof user.mobile !== "undefined" && user.mobile){
         validation.userMobile(user.mobile);
         newUser.username = user.username;
         newUser.password = user.password;
         newUser.mobile = user.mobile;
     }
 
-    if(typeof user.email === "undefined" && typeof user.mobile === "undefined"){
+    if(typeof newUser.username === "undefined"){
         validation.userEmail(user.email);
     }
 

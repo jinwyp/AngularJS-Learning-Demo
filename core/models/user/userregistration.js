@@ -29,6 +29,7 @@ var ValidatonError = require('../../errors/ValidationError');
 var UnauthorizedAccessError = require('../../errors/UnauthorizedAccessError');
 
 var MUserToken = require('./usertoken.js');
+var MUser = require('./user.js');
 
 var rn = require('../../libs/randomnumber.js');
 
@@ -115,15 +116,22 @@ var UserRegistrationSchema = new Schema({
 
 
 var validation = {
-    userEmail : function (email){
-        if (!validator.isEmail(email))  throw new ValidatonError(ValidatonError.code.user.emailWrong, "Field validation error, Email format wrong", "email");
+    messageType : function (type){
+        if (constantMessageTypeList.indexOf(type) === -1)  throw new ValidatonError(ValidatonError.code.user.messageTypeWrong, "Field validation error, messageType wrong", "messageType");
     },
-    userMobile : function (mobile){
-        if (!validator.isMobilePhone(mobile, 'zh-CN'))  throw new ValidatonError(ValidatonError.code.user.mobileWrong, "Field validation error, mobile number format wrong", "mobile");
+    code : function (code){
+        if (!validator.isLength(code, 6, 6))  throw new ValidatonError(ValidatonError.code.user.SMSCodeLengthWrong, "Field validation error,  SMSCode length must be 6-6", "smscode");
     },
 
-    messageType : function (type){
-        if (constantMessageTypeList.indexOf(type) === -1)  throw new ValidatonError(ValidatonError.code.user.messageType, "Field validation error, messageType wrong", "messageType");
+    codeNotFound : function (code){
+        if (!code){
+            throw new ValidatonError(ValidatonError.code.user.SMSCodeNotFound, "Field validation error, SMScode not found", "smscode");
+        }
+    },
+    codeExpired : function (isExpired){
+        if (isExpired){
+            throw new ValidatonError(ValidatonError.code.user.SMSCodeExpired, "Field validation error, SMScode expired", "smscode");
+        }
     },
 };
 
@@ -133,7 +141,11 @@ UserRegistrationSchema.statics.validation = validation;
 
 
 
+
+
 UserRegistrationSchema.statics.sendMessage = function(user, req){
+    MUser.validation.userMobile(user.mobile);
+    validation.messageType(user.messageType);
 
     var newUser = {
 
@@ -176,6 +188,18 @@ UserRegistrationSchema.statics.sendMessage = function(user, req){
 
 
 
+UserRegistrationSchema.statics.verifySMSCode = function(user){
+    MUser.validation.userMobile(user.mobile);
+    console.log(user);
+    validation.code(user.smscode);
+
+    return UserRegistration.findOne({mobile:user.mobile, code: user.smscode}).exec().then(function(result){
+        validation.codeNotFound(result);
+        validation.codeExpired(result.isExpired());
+
+        return result;
+    });
+};
 
 
 

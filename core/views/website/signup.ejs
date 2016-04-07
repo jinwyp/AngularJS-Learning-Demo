@@ -56,7 +56,7 @@
         <div class="form-group has-feedback" ng-class="{'has-success':signupForm.username.$dirty&&signupForm.username.$valid, 'has-error':signupForm.username.$dirty&&signupForm.username.$invalid}">
             <!-- <label for="inputUsername" class="col-xs-4  control-label">用户名</label> -->
             <div class="col-xs-4 col-sm-4">
-                <input type="text" class="form-control input-lg" id="inputUsername" name="username" placeholder="用户名" ng-model="signup.data.newUser.username" required ng-minlength="4" ng-maxlength="30">
+                <input type="text" class="form-control input-lg" id="inputUsername" name="username" placeholder="用户名" ng-model="signup.data.signupUser.username" required ng-minlength="4" ng-maxlength="30">
                 <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="signupForm.username.$dirty&&signupForm.username.$valid"></span>
                 <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="signupForm.username.$dirty&&signupForm.username.$invalid"></span>
             </div>
@@ -69,7 +69,7 @@
         <div class="form-group has-feedback" ng-class="{'has-success':signupForm.password.$dirty&&signupForm.password.$valid, 'has-error':signupForm.password.$dirty&&signupForm.password.$invalid}">
             <!-- <label for="inputPassword" class="col-xs-4  control-label">密码</label> -->
             <div class="col-xs-4 col-sm-4">
-                <input type="password" class="form-control input-lg" id="inputPassword" name="password" placeholder="密码"  ng-model="signup.data.newUser.password" required ng-minlength="6" ng-maxlength="30">
+                <input type="password" class="form-control input-lg" id="inputPassword" name="password" placeholder="密码"  ng-model="signup.data.signupUser.password" required ng-minlength="6" ng-maxlength="30">
                 <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="signupForm.password.$dirty&&signupForm.password.$valid"></span>
                 <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="signupForm.password.$dirty&&signupForm.password.$invalid"></span>
             </div>
@@ -81,11 +81,19 @@
 
         <div class="form-group has-feedback">
             <div class="col-xs-2 col-sm-2">
-                <button type="submit" class="btn btn-info btn-lg" ng-click="signup.event.login(signupForm)">注 册</button>
+                <button type="submit" class="btn btn-info btn-lg" ng-click="signup.event.signupSMS(signupForm)">注 册</button>
             </div>
             <div class="col-xs-4 col-sm-4">
-                <span class="help-block form-validation" ng-if="signup.css.loginFormErrorMessage === 1101">用户名错误！</span>
-                <span class="help-block form-validation" ng-if="signup.css.loginFormErrorMessage === 1102">密码错误！</span>
+                <span class="help-block form-validation" ng-if="signup.css.loginFormErrorMessage === 1204">短信验证码错误！</span>
+                <span class="help-block form-validation" ng-if="signup.css.loginFormErrorMessage === 1205">短信验证码已过期！</span>
+                <span class="help-block form-validation" ng-if="signup.css.loginFormErrorMessage === 1014">手机号已存在！</span>
+                <span class="help-block form-validation" ng-if="signup.css.loginFormErrorMessage === 1011">用户名已存在！</span>
+            </div>
+        </div>
+
+        <div class="form-group has-feedback">
+            <div class="col-xs-2 col-sm-2">
+                <a href="#">收不到短信?</a>
             </div>
         </div>
 
@@ -94,11 +102,7 @@
 
 
 
-    <div class="row">
-        <div class="col-xs-2 col-sm-2">
-            <a href="#">收不到短信?</a>
-        </div>
-    </div>
+
 
 
 

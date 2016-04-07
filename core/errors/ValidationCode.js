@@ -15,7 +15,10 @@ var validationCode = {
         usernameNotFound : 1101,
         passwordNotMatch : 1102,
 
-        messageType : 1201
+        messageTypeWrong : 1201,
+        SMSCodeLengthWrong : 1203,
+        SMSCodeNotFound : 1204,
+        SMSCodeExpired : 1205
     },
 
     token : {

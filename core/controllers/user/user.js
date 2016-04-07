@@ -12,16 +12,11 @@ var model = require('../../libs/requiredir')('../../models');
 
 
 /**
- * User Send Verify Message by SMS / Email
+ * User Send Verify Message by SMS
  */
-exports.userSendVerifyMessage = function (req, res, next) {
+exports.userSendVerifySMS = function (req, res, next) {
 
-    if (req.body.mobile){
-        model.userregistration.validation.userMobile(req.body.mobile);
-    }else{
-        model.userregistration.validation.userEmail(req.body.email);
-    }
-
+    model.user.validation.userMobile(req.body.mobile);
     model.userregistration.validation.messageType(req.body.messageType);
 
     req.body.sendType = model.userregistration.constantSendType.sms;
@@ -30,10 +25,24 @@ exports.userSendVerifyMessage = function (req, res, next) {
         return res.status(200).json({code:result.code});
     })
     .catch(next);
-
-
 };
 
+
+/**
+ * User Send Verify Message by Email
+ */
+exports.userSendVerifyEmail = function (req, res, next) {
+
+    model.user.validation.userEmail(req.body.email);
+    model.userregistration.validation.messageType(req.body.messageType);
+
+    req.body.sendType = model.userregistration.constantSendType.email;
+
+    model.userregistration.sendMessage(req.body, req).then(function(result){
+        return res.status(200).json({code:result.code});
+    })
+    .catch(next);
+};
 
 
 
@@ -45,23 +54,53 @@ exports.signUp = function (req, res, next) {
     model.user.validation.username(req.body.username);
     model.user.validation.userPassword(req.body.password);
 
-    model.user.signUp(req.body).then(function(resultUser){
+    if (req.body.smscode){
+        model.userregistration.validation.code(req.body.smscode);
 
-        return res.status(200).json(resultUser);
+        model.userregistration.verifySMSCode(req.body).then(function(resultCode){
+            return model.user.signUp(req.body);
+        })
+        .then(function(resultUser){
 
-      // Remove sensitive data before login
-    //   user.password = undefined;
-    //   user.salt = undefined;
-      //
-    //   req.login(user, function (err) {
-    //     if (err) {
-    //       res.status(400).send(err);
-    //     } else {
-    //       res.json(user);
-    //     }
-    //   });
-    })
-    .catch(next);
+            return res.status(200).json(resultUser);
+
+          // Remove sensitive data before login
+        //   user.password = undefined;
+        //   user.salt = undefined;
+          //
+        //   req.login(user, function (err) {
+        //     if (err) {
+        //       res.status(400).send(err);
+        //     } else {
+        //       res.json(user);
+        //     }
+        //   });
+        })
+        .catch(next);
+
+    }else {
+        model.user.signUp(req.body).then(function(resultUser){
+
+            return res.status(200).json(resultUser);
+
+          // Remove sensitive data before login
+        //   user.password = undefined;
+        //   user.salt = undefined;
+          //
+        //   req.login(user, function (err) {
+        //     if (err) {
+        //       res.status(400).send(err);
+        //     } else {
+        //       res.json(user);
+        //     }
+        //   });
+        })
+        .catch(next);
+    }
+
+
+
+
 
 };
 

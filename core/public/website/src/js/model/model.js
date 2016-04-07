@@ -16,12 +16,13 @@
   function userService($http, $localStorage) {
       return {
           login: login,
-          logout: logout
+          logout: logout,
+          getSMS: getSMS,
+          signup: signup,
       };
 
       function login(user) {
-          return $http.post('/api/user/login', user)
-              .then(getUserLogin);
+          return $http.post('/api/user/login', user).then(getUserLogin);
             //   .catch(Logger.errorXHR);
 
           function getUserLogin(response) {
@@ -33,10 +34,24 @@
           }
       }
 
-
       function logout() {
           var token = $localStorage.access_token || '';
           return $http.post('/api/user/logout', {accessToken:token});
+      }
+
+      function getSMS(mobile, messageType) {
+          messageType = messageType || 'signup';
+          return $http.post('/api/user/verify/sms', {mobile : mobile, messageType:messageType});
+      }
+
+      function signup(user) {
+          return $http.post('/api/user/signup', {
+              email    : user.email || '',
+              mobile   : user.mobile || '',
+              smscode  : user.smscode || '',
+              username : user.username,
+              password : user.password
+          });
       }
   }
 })();
