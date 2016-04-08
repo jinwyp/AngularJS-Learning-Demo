@@ -54,52 +54,22 @@ exports.signUp = function (req, res, next) {
     model.user.validation.username(req.body.username);
     model.user.validation.userPassword(req.body.password);
 
-    if (req.body.smscode){
-        model.userregistration.validation.code(req.body.smscode);
+    if (req.userSMSCode){
 
-        model.userregistration.verifySMSCode(req.body).then(function(resultCode){
-            return model.user.signUp(req.body);
-        })
-        .then(function(resultUser){
-
+        model.user.signUp(req.body).then(function(resultUser){
+            resultUser.password = undefined;
+            console.log(resultUser.password);
             return res.status(200).json(resultUser);
-
-          // Remove sensitive data before login
-        //   user.password = undefined;
-        //   user.salt = undefined;
-          //
-        //   req.login(user, function (err) {
-        //     if (err) {
-        //       res.status(400).send(err);
-        //     } else {
-        //       res.json(user);
-        //     }
-        //   });
         })
         .catch(next);
 
     }else {
         model.user.signUp(req.body).then(function(resultUser){
-
+            resultUser.password = undefined;
             return res.status(200).json(resultUser);
-
-          // Remove sensitive data before login
-        //   user.password = undefined;
-        //   user.salt = undefined;
-          //
-        //   req.login(user, function (err) {
-        //     if (err) {
-        //       res.status(400).send(err);
-        //     } else {
-        //       res.json(user);
-        //     }
-        //   });
         })
         .catch(next);
     }
-
-
-
 
 
 };
@@ -119,6 +89,7 @@ exports.login = function (req, res, next) {
 
     model.user.login(req.body).then(function(resultUser){
         // console.log(resultUser);
+
 
         return model.usertoken.getToken(resultUser, req);
 
@@ -141,6 +112,8 @@ exports.login = function (req, res, next) {
     .catch(next);
 
 };
+
+
 
 
 
@@ -182,8 +155,11 @@ exports.logout = function (req, res, next) {
 exports.userInfo = function (req, res, next) {
 
     // model.user.validateNewUser(req.body);
+    model.user.find99({}).then(function(result){
+        return res.status(200).json(result);
+    })
+    .catch(next);
 
-    return res.status(200).json(req.user);
 
 
 };

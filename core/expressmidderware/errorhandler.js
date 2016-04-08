@@ -6,7 +6,7 @@ PrettyError.skipNodeFiles(); // this will skip events.js and http.js and similar
 PrettyError.skipPackage('express', 'mongoose'); // this will skip all the trace lines about express` core and sub-modules
 
 var PageNotFoundError = require('../errors/PageNotFoundError');
-
+var SystemError = require('../errors/SystemError');
 
 
 exports.PageNotFoundMiddleware = function(req, res, next) {
@@ -17,29 +17,39 @@ exports.PageNotFoundMiddleware = function(req, res, next) {
 
 
 exports.DevelopmentHandlerMiddleware = function(err, req, res, next) {
-    res.status(err.status || 500);
+    var newErr = null;
 
-    var newError = {
-        type : err.type,
-        name : err.name,
-        message: err.message,
-        status: err.status,
-        code: err.code,
-        field: err.field,
-        stack: err.stack,
-        error: err
-    };
+    if (typeof err.type === 'undefined'){
+        newErr = new SystemError(500, err.message, err);
+        newErr.stack = err.stack;
+    }else{
+        newErr = err;
+    }
 
-    debug(PrettyError.render(err));
+    res.status(newErr.status);
+
+    debug(PrettyError.render(newErr));
     // debug(err.stack);
     // debug(JSON.stringify(newError, null, 4));
 
     // console.log(req.is('application/json'));
 
+    var resError = {
+        type : newErr.type,
+        name : newErr.name,
+        message: newErr.message,
+        status: newErr.status,
+        code: newErr.code,
+        field: newErr.field,
+        stack: newErr.stack,
+        error: newErr
+    };
+
+
     if (req.is('application/json') && req.xhr || req.get('Content-Type') === 'application/json' ){
-        return res.json(newError);
+        return res.json(resError);
     }else{
-        return res.render('error', newError);
+        return res.render('error', resError);
     }
 };
 
@@ -48,19 +58,29 @@ exports.DevelopmentHandlerMiddleware = function(err, req, res, next) {
 
 
 exports.ProductionHandlerMiddleware = function(err, req, res, next) {
-    res.status(err.status || 500);
+    var newErr = null;
 
-    var newError = {
-        name : err.name,
-        message: err.message,
-        code: err.code,
-        field: err.field
+    if (typeof err.type === 'undefined'){
+        newErr = new SystemError(500, err.message, err);
+        newErr.stack = err.stack;
+    }else{
+        newErr = err;
+    }
+
+    res.status(newErr.status);
+
+    var resError = {
+        type : newErr.type,
+        name : newErr.name,
+        message: newErr.message,
+        code: newErr.code,
+        field: newErr.field
     };
 
-    if (req.is('application/json') && req.xhr){
-        return res.json(newError);
+    if (req.is('application/json') && req.xhr || req.get('Content-Type') === 'application/json'){
+        return res.json(resError);
     }else{
-        return res.render('error', newError);
+        return res.render('error', resError);
     }
 };
 
@@ -68,20 +88,20 @@ exports.ProductionHandlerMiddleware = function(err, req, res, next) {
 
 // To render exceptions thrown in non-promies code:
 process.on('uncaughtException', function(error){
-    var newError = {
-        type : err.type,
-        name : err.name,
-        message: err.message,
-        status: err.status,
-        code: err.code,
-        field: err.field,
-        stack: err.stack,
-        error: err
-    };
+    var newError = null;
+
+    if (typeof error.type === 'undefined'){
+        newError = new SystemError(500, error.message, error);
+        newError.stack = error.stack;
+    }else{
+        newError = error;
+    }
 
     debug('5XX UncaughtException: ', JSON.stringify(newError, null, 4));
     process.exit(1);
 });
+
+
 
 // To render unhandled rejections created in BlueBird:
 // https://nodejs.org/api/process.html#process_event_unhandledrejection

@@ -124,14 +124,10 @@ var validation = {
     },
 
     codeNotFound : function (code){
-        if (!code){
-            throw new ValidatonError(ValidatonError.code.user.SMSCodeNotFound, "Field validation error, SMScode not found", "smscode");
-        }
+        if (!code) throw new ValidatonError(ValidatonError.code.user.SMSCodeNotFound, "Field validation error, SMScode not found", "smscode");
     },
     codeExpired : function (isExpired){
-        if (isExpired){
-            throw new ValidatonError(ValidatonError.code.user.SMSCodeExpired, "Field validation error, SMScode expired", "smscode");
-        }
+        if (isExpired) throw new ValidatonError(ValidatonError.code.user.SMSCodeExpired, "Field validation error, SMScode expired", "smscode");
     },
 };
 
@@ -189,6 +185,7 @@ UserRegistrationSchema.statics.sendMessage = function(user, req){
 
 
 UserRegistrationSchema.statics.verifySMSCode = function(user){
+
     MUser.validation.userMobile(user.mobile);
     validation.code(user.smscode);
 
@@ -198,9 +195,8 @@ UserRegistrationSchema.statics.verifySMSCode = function(user){
 
         return result;
     });
+
 };
-
-
 
 /**
  * Mongoose Schema Instance Methods

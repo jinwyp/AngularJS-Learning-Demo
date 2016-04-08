@@ -100,6 +100,16 @@ var UserSchema = new Schema({
  *
  */
 
+
+var fields = "-__v -password";
+UserSchema.statics.find99 = function(query){
+    return User.find(query).select(fields).exec();
+};
+UserSchema.statics.find1 = function(query){
+    return User.findOne(query).select(fields).exec();
+};
+
+
 var validation = {
     username : function (username){
         if (!validator.isLength(username, 4, 30))  throw new ValidatonError(ValidatonError.code.user.usernameWrong, "Field validation error,  username length must be 4-30", "username");
@@ -116,27 +126,17 @@ var validation = {
 
 
     usernameExist : function (user){
-        if (user){
-            throw new ValidatonError(ValidatonError.code.user.usernameExist, "Field validation error,  username already exist", "username");
-        }
+        if (user) throw new ValidatonError(ValidatonError.code.user.usernameExist, "Field validation error,  username already exist", "username");
     },
     userEmailExist : function (user){
-        if (user){
-            throw new ValidatonError(ValidatonError.code.user.emailExist, "Field validation error,  Email already exist", "email");
-        }
-
+        if (user) throw new ValidatonError(ValidatonError.code.user.emailExist, "Field validation error,  Email already exist", "email");
     },
     userMobileExist : function (user){
-        if (user){
-            throw new ValidatonError(ValidatonError.code.user.mobileExist, "Field validation error,  mobile number already exist", "mobile");
-        }
+        if (user) throw new ValidatonError(ValidatonError.code.user.mobileExist, "Field validation error,  mobile number already exist", "mobile");
     },
 
-
     usernameNotFound : function (user){
-        if (!user){
-            throw new UnauthorizedAccessError(ValidatonError.code.user.usernameNotFound, "User Unauthorized, user not found", "username");
-        }
+        if (!user) throw new UnauthorizedAccessError(ValidatonError.code.user.usernameNotFound, "User Unauthorized, user not found", "username");
     },
 
     userUnauthorized : function (){
@@ -184,7 +184,6 @@ UserSchema.statics.signUp = function(user){
     return User.findOne({username : user.username}).exec().then(function(resultUserWithUsername){
 
         validation.usernameExist(resultUserWithUsername);
-
 
         if (user.email && user.mobile){
 

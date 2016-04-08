@@ -16,6 +16,7 @@ var morgan          = require('morgan');
 var cookieParser    = require('cookie-parser');
 var bodyParser      = require('body-parser');
 var compression     = require('compression');
+var helmet          = require('helmet');
 var userAgentDevice = require('express-device');
 
 var routesWebsite   = require('./routes/website');
@@ -28,6 +29,7 @@ var app = express();
 
 // compress all requests
 app.use(compression());
+app.use(helmet());
 
 app.use(morgan('dev'));
 app.use(responseTime());
