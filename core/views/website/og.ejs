@@ -1,0 +1,67 @@
+<% include ./include/head.ejs %>
+<% include ./include/header.ejs %>
+
+
+
+<div class="container-fluid ogbox" ng-controller="ogController as og">
+
+    <div class="row">
+
+        <div class="col-md-7">
+            <div class="book_cover">
+                <div class="book_head" ng-class="og.data.currentColor.style">
+                    <p class="subtitle_en" contenteditable="true">O<span class="apostrophe ">'</span>Reilly Generator</p>
+                </div>
+                <div id="book_body">
+                    <p class="subtitle_ja_above" contenteditable="true"></p>
+                    <div class="book_title_cover " ng-class="og.data.currentColor.style">
+                        <p class="book_title_above" contenteditable="true">実例で学ぶ</p>
+                        <p class="book_title_below" contenteditable="true">DirtyCode</p>
+                    </div>
+                    <p class="subtitle_ja_below" contenteditable="true">なぜこのサイトはうまく動かないのか</p>
+                </div>
+                <div class="animal" dragbox>
+                    <img class="coverAnimal" ng-src={{og.data.currentAnimal.imageUrl}} alt="{{og.data.currentAnimal.name}}">
+                </div>
+                <div class="book_foot">
+                    <div class="foot_left">
+                        <p id="logo_en" contenteditable="true">Bitnauts</p>
+                        <p id="logo_ja" contenteditable="true">ビットノーツ</p>
+                    </div>
+                    <div class="foot_right">
+                        <p class="author" contenteditable="true">Yoshitaka Jingu</p>
+                        <p id="translator" contenteditable="true">ほりかわ けんいち</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-5">
+            <div class="theme_box">
+                <p id="ribbon_half" class="hidden"></p>
+                <p class="box_title">Theme Picker</p>
+                <ul>
+                    <li ng-repeat="color in og.data.colorList" ng-class="color.name" title="{{color.name}}" ng-click="og.event.clickColor(color)">{{color.name}}</li>
+                </ul>
+            </div>
+
+            <div class="animal_box">
+                <p class="box_title">Animal Picker</p>
+                <ul>
+                    <li ng-repeat="animal in og.data.animalList" ng-class="animal.style" title="{{animal.name}}" ng-click="og.event.clickAnimal(animal)">{{animal.name}}</li>
+                </ul>
+            </div>
+
+            <div class="button_box">
+                <a href="javascript:void(0);" id="capture_button" class="icon_camera"><img src="/website/src/css/images/og/camera.png"></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<% include ./include/bottomscript.ejs %>

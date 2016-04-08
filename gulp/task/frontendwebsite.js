@@ -80,7 +80,7 @@ gulp.task('minifycss', ['compass'], function() {
     .pipe(concat('main.css'))
     .pipe(rename({suffix: '.min'}))
     // .pipe(sourcemaps.init())
-    .pipe(cleanCSS({compatibility: 'ie8'}))
+    //.pipe(cleanCSS({compatibility: 'ie8'}))
     // .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.client.dist));
     // .pipe(livereload());

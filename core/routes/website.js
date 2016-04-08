@@ -20,12 +20,17 @@ website.get('/web/signin', auth.loginToken({goNextWithoutLogin:true}), function(
     res.render('website/login', { title: '登陆'});
 });
 
+website.get('/web/og',function(req, res, next) {
+
+    res.render('website/og', { title: "O'Relly Generator", user:null})
+});
 
 /* GET home page. after Login */
 
 website.get('/web/userhome', auth.loginToken(), function(req, res, next) {
     res.render('website/index', { title: '用户中心' });
 });
+
 
 
 
