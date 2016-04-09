@@ -14,17 +14,18 @@
  */
 
 
-function SystemError(code, error) {
+
+function SystemError(code, message, error) {
     // Error.call(this, typeof error === "undefined" ? undefined : error.message);
     Error.captureStackTrace(this, this.constructor);
 
     this.type = "SystemLevelOperationalError";
     this.name = "SystemError";
-    this.message = typeof error === "undefined" ? "System Operational Error" : error.message;
+    this.message = message || "System Operational Error";
 
     this.code = code || 500;
-
     this.status = 500;
+
     this.inner = error;
 }
 
