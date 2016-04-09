@@ -30,7 +30,11 @@
 
 
         function linkFunc (scope, element, attr) {
-            var startX = 0, startY = 0, x = 215, y = -48;
+            var startX = 0, startY = 0, x = 0, y = 0, limitleft = 0, limitright = 0 ;
+            x = Number(attr.left);
+            y = Number(attr.top);
+            limitleft = Number(attr.limitleft);
+            limitright = Number(attr.limitright);
 
             element.css({
                 position: 'relative',
@@ -43,7 +47,8 @@
                 // Prevent default dragging of selected content
                 event.preventDefault();
                 console.log(event.pageX, event.pageY);
-                console.log(element.offset().left, element.offset().top, element.offset().bottom);
+                // console.log(element.offset().left, element.offset().top, element.offset().bottom);
+                // console.log(element.position().left, element.position().top, element.position().bottom);
                 startX = event.pageX - x;
                 startY = event.pageY - y;
                 $document.on('mousemove', mousemove);
@@ -53,6 +58,11 @@
             function mousemove(event) {
                 y = event.pageY - startY;
                 x = event.pageX - startX;
+
+                console.log(event.pageX, event.pageY, x, y);
+                if (x < limitleft) x = limitleft;
+                if (x > limitright) x = limitright;
+                
                 element.css({
                     top: y + 'px',
                     left:  x + 'px'
@@ -70,5 +80,3 @@
 
 
 })();
-
-

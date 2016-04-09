@@ -75,10 +75,9 @@
 
   }
   .animal {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    margin-left: -190px;
+    position: relative;
+    top:20px;
+    left: 60px;
     width: 380px;
     height: 380px;
     -moz-background-size: 100%;

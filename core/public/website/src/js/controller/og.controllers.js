@@ -17,11 +17,7 @@
 
         /**********  Data Binding For CSS style   **********/
         vm.css = {
-            loginFormErrorMessage : 0,
-            signupType : 'mobile',
-            signupFirstTime : true,
-            signupSMSCountDown : 60,
-            signupSMSSendButton : true
+            loginFormErrorMessage : 0
         };
 
 
