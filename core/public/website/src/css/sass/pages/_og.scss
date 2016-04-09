@@ -1,6 +1,6 @@
 .ogbox{
   width: 885px;
-  border: 1px solid black;
+  margin-top: 10px;
   padding: 0px;
 
 
@@ -20,7 +20,7 @@
     margin: 0 12px 24px 0;
     padding: 0 41px 41px;
     width: 516px;
-    height: 617px;
+    height: 660px;
     background: #fff;
     border: 1px solid #000;
     outline: none;
@@ -104,7 +104,7 @@
   .foot_left, .foot_right {
     position: absolute;
     bottom: 0;
-    padding-bottom: 41px;
+    padding-bottom: 30px;
   }
   .author {
     margin-bottom: 5px;
@@ -122,7 +122,7 @@
     position: relative;
     overflow: hidden;
     margin-bottom: 5px;
-    padding: 0px;
+    padding: 0px 0px 10px 0px;
     width: 324px;
     background-color: #f8f8f8;
     border: 2px solid #ccc;
@@ -130,7 +130,7 @@
   }
 
   .box_title {
-    margin: 10px auto 5px;
+    margin: 12px auto 5px;
     width: 240px;
     height: 20px;
     text-align: center;
@@ -143,8 +143,9 @@
     text-shadow: 0 0 1px rgba(150,150,150,0.6);
   }
   .theme_box ul, .animal_box ul{
-    padding:0px 0px 0px 14px;
+    padding:5px 0px 0px 10px;
     margin:0;
+    overflow: hidden;
   }
   .theme_box li, .animal_box li {
     border: 0;
@@ -158,8 +159,11 @@
     cursor: pointer;
   }
 
+  .theme_box ul {
+    padding-left: 15px
+  }
   .theme_box li {
-    margin: 4px;
+    margin: 5px;
     width: 32px;
     height: 32px;
     border-radius: 6px;

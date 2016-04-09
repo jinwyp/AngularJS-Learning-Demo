@@ -1,5 +1,5 @@
-<% include ./include/head.ejs %>
-<% include ./include/header.ejs %>
+<% include ../include/head.ejs %>
+<% include ../include/header.ejs %>
 
 
 
@@ -15,22 +15,22 @@
                 <div id="book_body">
                     <p class="subtitle_ja_above" contenteditable="true"></p>
                     <div class="book_title_cover " ng-class="og.data.currentColor.style">
-                        <p class="book_title_above" contenteditable="true">実例で学ぶ</p>
-                        <p class="book_title_below" contenteditable="true">DirtyCode</p>
+                        <p class="book_title_above" contenteditable="true">从入门到放弃</p>
+                        <p class="book_title_below" contenteditable="true">JavaScript</p>
                     </div>
-                    <p class="subtitle_ja_below" contenteditable="true">なぜこのサイトはうまく動かないのか</p>
+                    <p class="subtitle_ja_below" contenteditable="true">汇集前端各种搭环境教程,999种框架对比</p>
                 </div>
                 <div class="animal" dragbox>
                     <img class="coverAnimal" ng-src={{og.data.currentAnimal.imageUrl}} alt="{{og.data.currentAnimal.name}}">
                 </div>
                 <div class="book_foot">
                     <div class="foot_left">
-                        <p id="logo_en" contenteditable="true">Bitnauts</p>
+                        <p id="logo_en" contenteditable="true">坑爹出版社</p>
                         <p id="logo_ja" contenteditable="true">ビットノーツ</p>
                     </div>
                     <div class="foot_right">
-                        <p class="author" contenteditable="true">Yoshitaka Jingu</p>
-                        <p id="translator" contenteditable="true">ほりかわ けんいち</p>
+                        <p class="author" contenteditable="true">JinWYP 著</p>
+                        <p id="translator" contenteditable="true">迷之学者 翻译</p>
                     </div>
                 </div>
             </div>
@@ -64,4 +64,4 @@
 
 
 
-<% include ./include/bottomscript.ejs %>
+<% include ../include/bottomscript.ejs %>

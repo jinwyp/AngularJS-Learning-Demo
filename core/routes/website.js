@@ -20,10 +20,11 @@ website.get('/web/signin', auth.loginToken({goNextWithoutLogin:true}), function(
     res.render('website/login', { title: '登陆'});
 });
 
-website.get('/web/og',function(req, res, next) {
 
-    res.render('website/og', { title: "O'Relly Generator", user:null})
+website.get('/web/tools/oreilly',function(req, res, next) {
+    res.render('website/tools/oreillygenerator', { title: "O'Relly Generator", user:null});
 });
+
 
 /* GET home page. after Login */
 
