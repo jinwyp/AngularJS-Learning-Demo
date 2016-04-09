@@ -430,7 +430,7 @@ body {
   background-position: -160px -280px;
 }
 .ogbox .button_box {
-  padding: 5px 10px;
+  padding: 10px 5px 0px 15px;
   height: 60px;
   border-color: #c9e1f4;
   background-color: #eaf3fe;

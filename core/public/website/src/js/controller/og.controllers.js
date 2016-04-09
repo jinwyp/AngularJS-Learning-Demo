@@ -8,9 +8,9 @@
 
     angular.module('websiteApp').controller('ogController', ogController);
 
-    ogController.$inject = ['$window', '$interval'];
+    ogController.$inject = ['$window', '$document'];
 
-    function ogController($window, $interval) {
+    function ogController($window, $document) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -94,7 +94,8 @@
         /**********  Event Center  **********/
         vm.event = {
             clickColor: clickColor,
-            clickAnimal: clickAnimal
+            clickAnimal: clickAnimal,
+            screenShot: screenShot
         };
 
 
@@ -107,6 +108,19 @@
             console.log(animal);
             vm.data.currentAnimal = animal;
         }
+
+        function screenShot(){
+            var myElement = $('.book_cover');
+            html2canvas(myElement, {
+                onrendered: function(canvas) {
+                    var myImage = canvas.toDataURL("image/png");
+                    window.open(myImage);
+
+                    // document.body.appendChild(canvas);
+                }
+            });
+        }
+
 
 
         /**********  App Init  **********/
