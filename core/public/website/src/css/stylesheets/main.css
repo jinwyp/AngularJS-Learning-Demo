@@ -439,3 +439,28 @@ body {
 .mainbox {
   width: 1300px;
 }
+
+.box {
+  width: 310px;
+  height: 310px;
+  border: 1px solid red;
+}
+.box .d1, .box .d2, .box .d3, .box .d4, .box .d5 {
+  border: 1px solid blue;
+  float: left;
+}
+.box .d1, .box .d4 {
+  width: 100px;
+  height: 200px;
+}
+.box .d2, .box .d5 {
+  width: 200px;
+  height: 100px;
+}
+.box .d5 {
+  clear: both;
+}
+.box .d3 {
+  width: 100px;
+  height: 100px;
+}

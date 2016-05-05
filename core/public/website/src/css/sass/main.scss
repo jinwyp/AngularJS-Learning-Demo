@@ -10,3 +10,34 @@
 .mainbox {
     width: 1300px;
 }
+
+.box {
+    width: 310px;
+    height: 310px;
+    border: 1px solid red;
+
+    .d1, .d2, .d3, .d4, .d5 {
+        border: 1px solid blue;
+        float: left;
+    }
+
+    .d1, .d4 {
+        width: 100px;
+        height: 200px;
+    }
+
+    .d2, .d5 {
+        width: 200px;
+        height: 100px;
+    }
+
+    .d5 {
+        clear: both;
+    }
+
+    .d3 {
+        width: 100px;
+        height: 100px;
+    }
+
+}
