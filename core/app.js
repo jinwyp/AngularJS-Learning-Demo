@@ -56,6 +56,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
+
+
 // Start Router
 app.use('/api', routesApi);
 app.use('/', routesWebsite);

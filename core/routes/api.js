@@ -30,6 +30,8 @@ api.post('/user/logout', userController.logout);
 
 
 
+
+
 /* GET users listing. */
 api.get('/users', function(req, res, next) {
     res.send('respond with a resource');
