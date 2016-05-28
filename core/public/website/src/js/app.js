@@ -29,7 +29,7 @@
 
     };
 
-    //console.log(combostr([1,2,3,4,5,6,7,8]));
+    console.log(combostr([1,2,3,4,5,6,7,8,9]));
 
 
     var qs = function (arr){
@@ -40,8 +40,6 @@
         var pivotIndex = Math.floor(arr.length / 2 );
 
         var pivot = arr.splice(pivot, 1)[0];
-
-        console.log(pivot);
 
         var left = [];
         var right = [];

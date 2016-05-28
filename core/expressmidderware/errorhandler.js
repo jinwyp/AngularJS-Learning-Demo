@@ -46,6 +46,17 @@ exports.DevelopmentHandlerMiddleware = function(err, req, res, next) {
     };
 
 
+    var type = req.accepts('html', 'json', 'text');
+
+    // Security Header for content sniffing
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+
+
+    if (type === 'text'){
+        res.setHeader('Content-Type', 'text/plain');
+        return res.json(resError);
+    }
+
     if (req.is('application/json') && req.xhr || req.get('Content-Type') === 'application/json' ){
         return res.json(resError);
     }else{
