@@ -10,7 +10,7 @@ var SystemError = require('../errors/SystemError');
 
 
 exports.PageNotFoundMiddleware = function(req, res, next) {
-    next(new PageNotFoundError('404' , 'Page Not Found'));
+    next(new PageNotFoundError(404 , 'Page Not Found'));
 };
 
 
