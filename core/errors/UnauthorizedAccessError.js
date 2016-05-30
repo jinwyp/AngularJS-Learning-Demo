@@ -6,9 +6,9 @@ function UnauthorizedAccessError(code, message, field) {
     this.name = "UnauthorizedAccessError";
     this.message = message || "Unauthorized Access Token";
 
-    this.code = code || 401;
+    this.code = code || 403;
     this.field = field || "unknownfield";
-    this.status = 401;
+    this.status = 403;
 }
 
 UnauthorizedAccessError.prototype = Object.create(Error.prototype);
