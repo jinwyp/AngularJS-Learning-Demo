@@ -19,7 +19,7 @@ var validator = require('validator');
 var bcrypt = require("bcryptjs");
 
 var ValidatonError = require('../../errors/ValidationError');
-var UnauthorizedAccessError = require('../../errors/UnauthorizedAccessError');
+var UnauthenticatedAccessError = require('../../errors/UnauthenticatedAccessError');
 
 
 
@@ -136,11 +136,11 @@ var validation = {
     },
 
     usernameNotFound : function (user){
-        if (!user) throw new UnauthorizedAccessError(ValidatonError.code.user.usernameNotFound, "User Unauthorized, user not found", "username");
+        if (!user) throw new UnauthenticatedAccessError(ValidatonError.code.user.usernameNotFound, "User Unauthorized, user not found", "username");
     },
 
     userUnauthorized : function (){
-        throw new UnauthorizedAccessError(ValidatonError.code.user.passwordNotMatch, "User Unauthorized, password not match", "password" );
+        throw new UnauthenticatedAccessError(ValidatonError.code.user.passwordNotMatch, "User Unauthorized, password not match", "password" );
     }
 };
 

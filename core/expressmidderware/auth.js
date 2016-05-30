@@ -7,7 +7,7 @@ var MUserToken = require('../models/user/usertoken.js');
 var MUser = require('../models/user/user.js');
 
 var ValidatonError = require('../errors/ValidationError');
-var UnauthorizedAccessError = require('../errors/UnauthorizedAccessError');
+var UnauthenticatedAccessError = require('../errors/UnauthenticatedAccessError');
 
 
 
@@ -53,17 +53,17 @@ exports.loginToken = function (options) {
 
 
         if (!token){
-            return goNext(new UnauthorizedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token"));
+            return goNext(new UnauthenticatedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token"));
         }
 
         jsonwebtoken.verify(token, tokenConfig.jwtTokenSecret, function (err, decode) {
 
             if (err) {
                 if (err.name === 'TokenExpiredError'){
-                    return goNext(new UnauthorizedAccessError(ValidatonError.code.token.tokenExpired, "User Unauthorized, token expired", "X-Access-Token"));
+                    return goNext(new UnauthenticatedAccessError(ValidatonError.code.token.tokenExpired, "User Unauthorized, token expired", "X-Access-Token"));
                 }
 
-                return goNext(new UnauthorizedAccessError(ValidatonError.code.token.tokenDecodeWrong, "User Unauthorized, token wrong", "X-Access-Token"));
+                return goNext(new UnauthenticatedAccessError(ValidatonError.code.token.tokenDecodeWrong, "User Unauthorized, token wrong", "X-Access-Token"));
             }
 
             // console.log(decode);

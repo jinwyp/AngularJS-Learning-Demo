@@ -26,7 +26,6 @@ var emailConfig = config.get('settingEmail');
 
 
 var ValidatonError = require('../../errors/ValidationError');
-var UnauthorizedAccessError = require('../../errors/UnauthorizedAccessError');
 
 var MUserToken = require('./usertoken.js');
 var MUser = require('./user.js');
