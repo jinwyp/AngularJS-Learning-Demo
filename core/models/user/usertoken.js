@@ -118,7 +118,7 @@ var validation = {
         if (!token){
             throw new UnauthenticatedAccessError(ValidatonError.code.token.tokenDecodeWrong, "User Unauthorized, token wrong", "X-Access-Token");
         }
-    },
+    }
 };
 
 UserTokenSchema.statics.validation = validation;
