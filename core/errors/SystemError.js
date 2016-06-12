@@ -11,6 +11,9 @@
  * https://matoski.com/article/jwt-express-node-mongoose/
  *
  * https://www.joyent.com/developers/node/design/errors
+ *
+ * https://nodejs.org/api/errors.html
+ *
  */
 
 
@@ -24,6 +27,7 @@ function SystemError(code, message, error) {
     this.message = message || "System Operational Error";
 
     this.code = code || 500;
+    this.codename = error.code || error.errno || 'Common System Errors';
     this.status = 500;
 
     this.inner = error;
@@ -33,3 +37,4 @@ SystemError.prototype = Object.create(Error.prototype);
 SystemError.prototype.constructor = SystemError;
 
 module.exports = SystemError;
+

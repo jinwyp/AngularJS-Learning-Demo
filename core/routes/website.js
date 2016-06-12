@@ -1,7 +1,7 @@
 var express = require('express');
 var website = express.Router();
 
-var auth = require('../expressmidderware/auth.js');
+var auth = require('../business-midderware/auth.js');
 
 
 

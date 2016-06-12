@@ -21,7 +21,7 @@ var userAgentDevice = require('express-device');
 
 var routesWebsite   = require('./routes/website');
 var routesApi       = require('./routes/api');
-var errorHandler    = require('./expressmidderware/errorhandler');
+var errorHandler    = require('./express-midderware/errorhandler');
 
 var app = express();
 
@@ -115,6 +115,7 @@ process.on('SIGINT', function() {
     process.exit(0);
   });
 });
+
 
 
 module.exports = app;

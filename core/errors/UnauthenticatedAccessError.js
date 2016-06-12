@@ -7,7 +7,7 @@ function UnauthenticatedAccessError(code, message, field) {
     this.message = message || "Unauthenticated Access Token";
 
     this.code = code || 401;
-    this.field = field || "unknownfield";
+    this.field = field || "unknown field";
     this.status = 401;
 }
 
