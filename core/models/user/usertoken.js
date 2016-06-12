@@ -29,8 +29,9 @@ var TOKEN_EXPIRATION_SEC = 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay;
 var TOKEN_EXPIRATION_SEC_RememberMe = 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay * 6;
 var TOKEN_EXPIRATION_DAY_RememberMe = tokenConfig.jwtTokenExpireDay * 6;
 
-var ValidatonError = require('../../errors/ValidationError');
 var UnauthenticatedAccessError = require('../../errors/UnauthenticatedAccessError');
+
+var checker = require('../../business-libs/dataChecker.js');
 
 var MUser = require('./user.js');
 
@@ -103,25 +104,6 @@ var constantDeviceType = {
 UserTokenSchema.statics.constantDeviceType = constantDeviceType;
 
 
-var validation = {
-    token : function (token){
-        if (!validator.isLength(token, 100, 200))  throw new ValidatonError(ValidatonError.code.token.tokenLengthWrong, "Field validation error,  accessToken length must be 4-30", "accessToken");
-    },
-
-    tokenNotFound : function (token){
-        if (!token){
-            throw new UnauthenticatedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token");
-        }
-    },
-
-    tokenDecodeWrong : function (token){
-        if (!token){
-            throw new UnauthenticatedAccessError(ValidatonError.code.token.tokenDecodeWrong, "User Unauthorized, token wrong", "X-Access-Token");
-        }
-    }
-};
-
-UserTokenSchema.statics.validation = validation;
 
 
 
@@ -195,20 +177,14 @@ UserTokenSchema.statics.getUserFromToken = function(userid, token, callback){
     UserToken.findOne({ user: userid, accessToken: token }, function (err, resultToken) {
         if (err) return callback(err);
 
-        if (!resultToken) {
-            return callback(new UnauthenticatedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token"));
-        }
+        if (!resultToken) return checker.tokenNotFound(resultToken, callback);
+        if (resultToken.isExpired()) return checker.tokenExpired(resultToken.isExpired(), callback);
 
-        if (resultToken.isExpired()){
-            return callback(new UnauthenticatedAccessError(ValidatonError.code.token.tokenExpired, "User Unauthorized, token expired", "X-Access-Token"));
-        }
 
         MUser.findOne({ _id: resultToken.user }, function (err, resultUser) {
             if (err) return callback(err);
 
-            if (!resultUser) {
-                return callback(new UnauthenticatedAccessError(ValidatonError.code.token.userNotFound, "User Unauthorized, user not found", "X-Access-Token"));
-            }
+            if (!resultUser) return checker.tokenUserNotFound(resultUser, callback);
 
             return callback(null, resultUser);
         });

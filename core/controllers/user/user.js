@@ -6,6 +6,7 @@ var TOKEN_EXPIRATION_SEC = 1000 * 60 * 60 * 24 * tokenConfig.jwtTokenExpireDay;
 
 var model = require('../../libs/requiredir')('../../models');
 
+var checker = require('../../business-libs/dataChecker.js');
 
 
 
@@ -16,8 +17,8 @@ var model = require('../../libs/requiredir')('../../models');
  */
 exports.userSendVerifySMS = function (req, res, next) {
 
-    model.user.validation.userMobile(req.body.mobile);
-    model.userregistration.validation.messageType(req.body.messageType);
+    checker.userMobile(req.body.mobile);
+    checker.businessMessageType(req.body.messageType);
 
     req.body.sendType = model.userregistration.constantSendType.sms;
 
@@ -33,8 +34,8 @@ exports.userSendVerifySMS = function (req, res, next) {
  */
 exports.userSendVerifyEmail = function (req, res, next) {
 
-    model.user.validation.userEmail(req.body.email);
-    model.userregistration.validation.messageType(req.body.messageType);
+    checker.userEmail(req.body.email);
+    checker.businessMessageType(req.body.messageType);
 
     req.body.sendType = model.userregistration.constantSendType.email;
 
@@ -51,8 +52,8 @@ exports.userSendVerifyEmail = function (req, res, next) {
  */
 exports.signUp = function (req, res, next) {
 
-    model.user.validation.username(req.body.username);
-    model.user.validation.userPassword(req.body.password);
+    checker.username(req.body.username);
+    checker.userPassword(req.body.password);
 
     if (req.userSMSCode){
 
@@ -85,7 +86,7 @@ exports.signUp = function (req, res, next) {
  */
 exports.login = function (req, res, next) {
 
-    model.user.validation.userPassword(req.body.password);
+    checker.userPassword(req.body.password);
 
     model.user.login(req.body).then(function(resultUser){
         // console.log(resultUser);

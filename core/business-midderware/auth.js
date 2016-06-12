@@ -4,11 +4,9 @@ var tokenConfig = config.get('userlogin');
 var jsonwebtoken = require("jsonwebtoken");
 
 var MUserToken = require('../models/user/usertoken.js');
-var MUser = require('../models/user/user.js');
 
-var ValidatonError = require('../errors/ValidationError');
-var UnauthenticatedAccessError = require('../errors/UnauthenticatedAccessError');
 
+var checker = require('../business-libs/dataChecker.js');
 
 
 
@@ -41,43 +39,32 @@ exports.loginToken = function (options) {
 
         res.locals.user = null;
 
-        function goNext(err){
-
-            if (options && options.goNextWithoutLogin){
-                return next();
-            }
-
-            return next(err);
+        if (options && options.goNextWithoutLogin){
+            return next();
         }
 
+        checker.tokenNotFound(token, next);
 
-
-        if (!token){
-            return goNext(new UnauthenticatedAccessError(ValidatonError.code.token.tokenNotFound, "User Unauthorized, token not found", "X-Access-Token"));
-        }
 
         jsonwebtoken.verify(token, tokenConfig.jwtTokenSecret, function (err, decode) {
 
             if (err) {
                 if (err.name === 'TokenExpiredError'){
-                    return goNext(new UnauthenticatedAccessError(ValidatonError.code.token.tokenExpired, "User Unauthorized, token expired", "X-Access-Token"));
+                    return checker.tokenExpired(true, next);
                 }
-
-                return goNext(new UnauthenticatedAccessError(ValidatonError.code.token.tokenDecodeWrong, "User Unauthorized, token wrong", "X-Access-Token"));
+                return checker.tokenDecodeWrong(null, next);
             }
 
             // console.log(decode);
 
             MUserToken.getUserFromToken(decode._id, token, function (err, resultUser) {
-                if (err) return goNext(err);
+                if (err) return next(err);
 
                 req.user = resultUser;
                 res.locals.user = resultUser;
                 return next();
             });
-
         });
-
 
     };
 

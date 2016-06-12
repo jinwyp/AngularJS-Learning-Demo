@@ -25,16 +25,16 @@ var smsConfig = config.get('settingSMS');
 var emailConfig = config.get('settingEmail');
 
 
-var ValidatonError = require('../../errors/ValidationError');
-
 var MUserToken = require('./usertoken.js');
-var MUser = require('./user.js');
 
 var rn = require('../../libs/randomnumber.js');
+var checker = require('../../business-libs/dataChecker.js');
 
 
 /**
  * Mongoose schema
+ *
+ * 预注册用户, 例如先验证邮箱,验证成功才注册正式用户。
  */
 
 
@@ -95,42 +95,25 @@ var UserRegistrationSchema = new Schema({
  */
 
 
- var constantMessageType = {
+ var constantBusinessMessageType = {
      signup : 'signup',
      signin : 'signin',
      resetpw : 'resetpw'
  };
 
- var constantMessageTypeList = ['signup', 'signin', 'resetpw'];
- UserRegistrationSchema.statics.constantMessageType = constantMessageType;
+ var constantBusinessMessageTypeList = ['signup', 'signin', 'resetpw'];
 
- var constantSendType = {
+ UserRegistrationSchema.statics.constantBusinessMessageType = constantBusinessMessageType;
+ UserRegistrationSchema.statics.constantBusinessMessageTypeList = constantBusinessMessageTypeList;
+
+
+ var constantMessageSendType = {
      email : 'email',
      sms : 'sms'
  };
- UserRegistrationSchema.statics.constantSendType = constantSendType;
+ UserRegistrationSchema.statics.constantSendType = constantMessageSendType;
 
 
-
-
-
-var validation = {
-    messageType : function (type){
-        if (constantMessageTypeList.indexOf(type) === -1)  throw new ValidatonError(ValidatonError.code.user.messageTypeWrong, "Field validation error, messageType wrong", "messageType");
-    },
-    code : function (code){
-        if (!validator.isLength(code, 6, 6))  throw new ValidatonError(ValidatonError.code.user.SMSCodeLengthWrong, "Field validation error,  SMSCode length must be 6-6", "smscode");
-    },
-
-    codeNotFound : function (code){
-        if (!code) throw new ValidatonError(ValidatonError.code.user.SMSCodeNotFound, "Field validation error, SMScode not found", "smscode");
-    },
-    codeExpired : function (isExpired){
-        if (isExpired) throw new ValidatonError(ValidatonError.code.user.SMSCodeExpired, "Field validation error, SMScode expired", "smscode");
-    },
-};
-
-UserRegistrationSchema.statics.validation = validation;
 
 
 
@@ -139,8 +122,8 @@ UserRegistrationSchema.statics.validation = validation;
 
 
 UserRegistrationSchema.statics.sendMessage = function(user, req){
-    MUser.validation.userMobile(user.mobile);
-    validation.messageType(user.messageType);
+    checker.userMobile(user.mobile);
+    checker.businessMessageType(user.messageType);
 
     var newUser = {
 
@@ -185,12 +168,12 @@ UserRegistrationSchema.statics.sendMessage = function(user, req){
 
 UserRegistrationSchema.statics.verifySMSCode = function(user){
 
-    MUser.validation.userMobile(user.mobile);
-    validation.code(user.smscode);
+    checker.userMobile(user.mobile);
+    checker.SMScode(user.smscode);
 
     return UserRegistration.findOne({mobile:user.mobile, code: user.smscode}).exec().then(function(result){
-        validation.codeNotFound(result);
-        validation.codeExpired(result.isExpired());
+        checker.SMScodeNotFound(result);
+        checker.SMScodeNotFound(result.isExpired());
 
         return result;
     });

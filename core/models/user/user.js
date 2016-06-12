@@ -18,8 +18,7 @@ mongoose.Promise = Promise;
 var validator = require('validator');
 var bcrypt = require("bcryptjs");
 
-var ValidatonError = require('../../errors/ValidationError');
-var UnauthenticatedAccessError = require('../../errors/UnauthenticatedAccessError');
+var checker = require('../../business-libs/dataChecker.js');
 
 
 
@@ -110,42 +109,6 @@ UserSchema.statics.find1 = function(query){
 };
 
 
-var validation = {
-    username : function (username){
-        if (!validator.isLength(username, 4, 30))  throw new ValidatonError(ValidatonError.code.user.usernameWrong, "Field validation error,  username length must be 4-30", "username");
-    },
-    userPassword : function (password){
-        if (!validator.isLength(password, 6, 30))  throw new ValidatonError(ValidatonError.code.user.passwordWrong, "Field validation error,  password length must be 6-30", "password");
-    },
-    userEmail : function (email){
-        if (!validator.isEmail(email))  throw new ValidatonError(ValidatonError.code.user.emailWrong, "Field validation error, Email format wrong", "email");
-    },
-    userMobile : function (mobile){
-        if (!validator.isMobilePhone(mobile, 'zh-CN'))  throw new ValidatonError(ValidatonError.code.user.mobileWrong, "Field validation error, mobile number format wrong", "mobile");
-    },
-
-
-    usernameExist : function (user){
-        if (user) throw new ValidatonError(ValidatonError.code.user.usernameExist, "Field validation error,  username already exist", "username");
-    },
-    userEmailExist : function (user){
-        if (user) throw new ValidatonError(ValidatonError.code.user.emailExist, "Field validation error,  Email already exist", "email");
-    },
-    userMobileExist : function (user){
-        if (user) throw new ValidatonError(ValidatonError.code.user.mobileExist, "Field validation error,  mobile number already exist", "mobile");
-    },
-
-    usernameNotFound : function (user){
-        if (!user) throw new UnauthenticatedAccessError(ValidatonError.code.user.usernameNotFound, "User Unauthorized, user not found", "username");
-    },
-
-    userUnauthorized : function (){
-        throw new UnauthenticatedAccessError(ValidatonError.code.user.passwordNotMatch, "User Unauthorized, password not match", "password" );
-    }
-};
-
-
-UserSchema.statics.validation = validation;
 
 
 
@@ -157,33 +120,33 @@ UserSchema.statics.validation = validation;
 // TODO: 注册验证手机号是否有效
 UserSchema.statics.signUp = function(user){
 
-    validation.username(user.username);
-    validation.userPassword(user.password);
+    checker.username(user.username);
+    checker.userPassword(user.password);
 
     var newUser = {};
 
     if (typeof user.email !== "undefined" && user.email){
-        validation.userEmail(user.email);
+        checker.userEmail(user.email);
         newUser.username = user.username;
         newUser.password = user.password;
         newUser.email = user.email;
     }
 
     if (typeof user.mobile !== "undefined" && user.mobile){
-        validation.userMobile(user.mobile);
+        checker.userMobile(user.mobile);
         newUser.username = user.username;
         newUser.password = user.password;
         newUser.mobile = user.mobile;
     }
 
     if(typeof newUser.username === "undefined"){
-        validation.userEmail(user.email);
+        checker.userEmail(user.email);
     }
 
 
     return User.findOne({username : user.username}).exec().then(function(resultUserWithUsername){
 
-        validation.usernameExist(resultUserWithUsername);
+        checker.usernameExist(resultUserWithUsername);
 
         if (user.email && user.mobile){
 
@@ -192,20 +155,20 @@ UserSchema.statics.signUp = function(user){
                 User.findOne({mobile:user.mobile}).exec()
             ]).spread(function(resultUserWithEmail, resultUserWithMobile){
 
-                validation.userEmailExist(resultUserWithEmail);
-                validation.userMobileExist(resultUserWithMobile);
+                checker.userEmailExist(resultUserWithEmail);
+                checker.userMobileExist(resultUserWithMobile);
                 return User.create(newUser);
             });
 
         }else if (user.email){
             return User.findOne({email:user.email}).exec().then(function(resultUserWithEmail){
-                validation.userEmailExist(resultUserWithEmail);
+                checker.userEmailExist(resultUserWithEmail);
                 return User.create(newUser);
             });
 
         }else if (user.mobile){
             return User.findOne({mobile:user.mobile}).exec().then(function(resultUserWithMobile){
-                validation.userMobileExist(resultUserWithMobile);
+                checker.userMobileExist(resultUserWithMobile);
                 return User.create(newUser);
             });
         }
@@ -220,23 +183,23 @@ UserSchema.statics.signUp = function(user){
 UserSchema.statics.login = function(user){
 
     query = {};
-    validation.userPassword(user.password);
+    checker.userPassword(user.password);
 
     if (validator.isMobilePhone(user.username, 'zh-CN')){
         query.mobile = user.username;
     }else if (validator.isEmail(user.username)){
         query.email = user.username;
     }else{
-        validation.username(user.username);
+        checker.username(user.username);
         query.username = user.username;
     }
 
     return User.findOne(query).exec().then(function(resultUser){
 
-        validation.usernameNotFound(resultUser);
+        checker.userNotFound(resultUser);
 
         if (!resultUser.comparePassword(user.password)){
-            validation.userUnauthorized();
+            checker.userUnauthorized();
         }
 
         return resultUser;
