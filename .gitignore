@@ -11,6 +11,7 @@ lib-cov
 *.tags*
 
 *.log
+*.logs
 *.csv
 *.dat
 *.out

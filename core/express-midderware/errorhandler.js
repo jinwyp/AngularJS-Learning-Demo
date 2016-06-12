@@ -1,4 +1,5 @@
 var debug        = require('debug')('core:errorhandler');
+var logger       = require('./logger');
 
 var PrettyErrorLib = require('pretty-error');
 var PrettyError = new PrettyErrorLib();
@@ -29,6 +30,8 @@ exports.DevelopmentHandlerMiddleware = function(err, req, res, next) {
     res.status(newErr.status);
 
     debug(PrettyError.render(newErr));
+    logger.debug(newErr);
+
     // debug(err.stack);
     // debug(JSON.stringify(newError, null, 4));
 
@@ -88,7 +91,27 @@ exports.ProductionHandlerMiddleware = function(err, req, res, next) {
         field: newErr.field
     };
 
-    if (req.is('application/json') && req.xhr || req.get('Content-Type') === 'application/json'){
+
+    var type = req.accepts('html', 'json', 'text');
+
+    // Security Header for content sniffing
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+
+    if (newErr.status >= 500){
+        logger.error(newErr);
+    }else if (newErr.status === 404 || newErr.status === 409 || newErr.status === 401 || newErr.status === 403 ){
+        logger.warn(newErr);
+    }else{
+        logger.error(newErr);
+    }
+
+    if (type === 'text'){
+        res.setHeader('Content-Type', 'text/plain');
+        return res.json(resError);
+    }
+
+
+    if (req.is('application/json') && req.xhr || req.get('Content-Type') === 'application/json' || req.get('Content-Type') === 'application/json' || type === 'json'){
         return res.json(resError);
     }else{
         return res.render('error', resError);
@@ -109,6 +132,7 @@ process.on('uncaughtException', function(error){
     }
 
     debug('5XX UncaughtException: ', JSON.stringify(newError, null, 4));
+    logger.error('5XX UncaughtException: ', JSON.stringify(newError, null, 4));
     process.exit(1);
 });
 
@@ -117,7 +141,8 @@ process.on('uncaughtException', function(error){
 // To render unhandled rejections created in BlueBird:
 // https://nodejs.org/api/process.html#process_event_unhandledrejection
 process.on('unhandledRejection', function(reason, p){
-   debug('5XX UnhandledRejection Promise: ', reason);
+   debug('5XX UnhandledRejection Promise: ', JSON.stringify(p), '. Reason: ', reason);
+   logger.error('5XX UnhandledRejection Promise: ', JSON.stringify(p), '. Reason: ', reason);
 });
 
 

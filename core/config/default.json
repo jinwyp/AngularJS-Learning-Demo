@@ -17,6 +17,8 @@
         //}
     },
 
+    "logSavePath" : '../log/',
+
     "userlogin" : {
         "jwtTokenSecret" : "shhhhhhared-secret",
         "jwtTokenExpireDay" : 30,
