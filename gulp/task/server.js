@@ -36,18 +36,36 @@ var nodemonConfig = {
 
 /********************  使用nodemon 自动重启服务器  ********************/
 gulp.task('nodemon', function() {
-    return nodemon(nodemonConfig).on('restart', function () {
-        console.log('-------------------- Nodejs server restarted! --------------------');
-    });
+    var called = false;
+    return nodemon(nodemonConfig)
+        .on('start', function(){
+            if (!called){
+                callled = true;
+                cb()
+            }
+        })
+        .on('restart', function () {
+            console.log('-------------------- Nodejs server restarted! --------------------');
+        })
+        .once('quit', function(){
+            console.log('-------------------- Nodejs server stopped! --------------------');
+            process.exit();
+        });
 });
 
 
 /********************  使用 browser-sync 自动刷新页面  ********************/
 gulp.task('browsersync', ['nodemon'], function() {
 	browserSync.init({
-		proxy: "http://localhost:8088",
         files: ["core/public/**/*.css", "core/public/**/*.html", "core/views/**/*.*"],
         browser: ["google chrome", "firefox"],
+        proxy: "http://localhost:8088",
         port: 8089,
+        ui : {
+            port:4000,
+            weinre : {port:4001}
+        },
+        notify : true,
+        open : false
 	});
 });
