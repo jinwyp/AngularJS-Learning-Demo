@@ -37,5 +37,5 @@ module.exports = {
     path : path,
     user : newUser,
     userSMS : userSignupSMS,
-    userEmail : userSignupEmail,
+    userEmail : userSignupEmail
 };

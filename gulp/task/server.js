@@ -6,7 +6,7 @@
 var gulp        = require("gulp");
 var nodemon     = require('gulp-nodemon');
 var browserSync = require('browser-sync').create();
-
+var reload  = browserSync.reload;
 
 
 
@@ -18,10 +18,9 @@ var nodemonConfig = {
     script : 'core/bin/www',
     ext: 'js json',
     ignore : [
-        "core/tmp/**",
+        ".git",
         "core/public/**",
         "core/views/**",
-        ".git",
         "node_modules/**"
     ],
     // nodeArgs: ['--debug'],
@@ -45,6 +44,9 @@ gulp.task('nodemon', function() {
             }
         })
         .on('restart', function () {
+            //setTimeout(function () {
+            //    reload({ stream: false });
+            //}, 3000);
             console.log('-------------------- Nodejs server restarted! --------------------');
         })
         .once('quit', function(){
