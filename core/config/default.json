@@ -17,7 +17,7 @@
         //}
     },
 
-    "logSavePath" : '../log/',
+    "logSavePath" : "../log/",
 
     "userlogin" : {
         "jwtTokenSecret" : "shhhhhhared-secret",

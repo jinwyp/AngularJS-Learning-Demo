@@ -18,6 +18,7 @@ lib-cov
 *.pid
 *.gz
 
+**/dist/**
 pids
 
 

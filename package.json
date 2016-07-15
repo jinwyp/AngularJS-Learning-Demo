@@ -14,7 +14,7 @@
     "bluebird": "^3.3.4",
     "body-parser": "^1.14.2",
     "compression": "^1.6.0",
-    "config": "^1.17.1",
+    "config": "^1.21.0",
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
     "ejs": "^2.3.4",
