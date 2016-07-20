@@ -3,25 +3,40 @@
  */
 
 
-var avalon = require('avalon2');
+var avalon = require('avalon2')
 
-require('./index');
+require('./stylesheets/style.scss');
 
-avalon.define({
-    $id: 'test',
-    show: function(){
-        this.config.isShow = true
-    },
-    config: {
+avalon.component('ms-modal', {
+    template: require('html!./template.html'),
+    defaults: {
+        title: 'modal',
         isShow: false,
-        onCancel: function(){
-            alert('cancel')
+        cbProxy: function (ok) {
+            var cbName = ok ? 'onOk': 'onCancel'
+            if (this.hasOwnProperty(cbName)) {
+                var ret = this[cbName]()
+                if (ret !== false || (ret && typeof ret.next === 'function')) {
+                    this.isShow = false
+                }
+            } else {
+                this.isShow = false
+            }
         },
-        onOk: function(){
-            alert('ok')
-        },
-        title:'这是测试'
-    }
+        onReady: function(){
+            var el = this.$element;
+            el.style.display = 'none'//强制阻止动画发生
+
+            this.$watch('isShow', function(a){
+                if(a){
+                    document.body.style.overflow = 'hidden'
+                }else{
+                    document.body.style.overflow = ''
+                }
+            })
+        }
+    },
+    soleSlot: 'content'
 })
 
-module.exports = avalon;
+

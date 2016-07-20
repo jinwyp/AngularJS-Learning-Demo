@@ -4,12 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "dev": "webpack-dev-server --progress --colors",
+    "dev2": "webpack-dev-server --devtool eval --progress --colors --hot --inline --content-base dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "avalon2": "^2.1.7",
-    "webpack": "^1.13.1"
+    "avalon2": "^2.1.7"
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-loader": "^0.4.3",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }

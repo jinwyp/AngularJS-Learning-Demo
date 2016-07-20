@@ -1,20 +1,28 @@
+
 /**
  * Created by JinWYP on 7/15/16.
  */
 
 
 var avalon = require('avalon2');
-//require('./style.scss');
-//require('text!./template.html');
 
-avalon.component('ms-modal', {
-    template: '<div>1111</div>',
-    defaults: {
-        title:'modal',
-        isShow: true,
-        cbProxy: function(ok){
+require('./main');
 
-        }
+avalon.define({
+    $id: 'test',
+    show: function(){
+        this.config.isShow = true
     },
-    soleSlot: 'content'
-})
+    config: {
+        isShow: false,
+        onCancel: function(){
+            alert('cancel')
+        },
+        onOk: function(){
+            alert('ok')
+        },
+        title:'这是测试'
+    }
+});
+
+module.exports = avalon; //注意这里必须返回avalon,用于webpack output配置
