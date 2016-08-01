@@ -18,13 +18,11 @@ exports.PageNotFoundMiddleware = function(req, res, next) {
 
 
 exports.DevelopmentHandlerMiddleware = function(err, req, res, next) {
-    var newErr = null;
+    var newErr = err;
 
     if (typeof err.type === 'undefined'){
-        newErr = new SystemError(500, err.message, err);
-        newErr.stack = err.stack;
-    }else{
-        newErr = err;
+        newErr = new SystemError(500, err.message||'System Error', err);
+        if (err && typeof err.stack !== 'undefined'){newErr.stack = err.stack;}
     }
 
     res.status(newErr.status);
