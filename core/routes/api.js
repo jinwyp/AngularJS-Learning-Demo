@@ -1,8 +1,8 @@
 var express = require('express');
 var api = express.Router();
 
-var auth = require('./../business-midderware/auth.js');
-var verifySMS = require('../business-midderware/verifysms.js');
+var auth = require('../business-middleware/auth.js');
+var verifySMS = require('../business-middleware/verifysms.js');
 
 var movieController = require('../controllers/movie.js');
 var userController = require('../controllers/user/user.js');
