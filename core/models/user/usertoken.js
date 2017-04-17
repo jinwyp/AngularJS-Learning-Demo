@@ -11,11 +11,9 @@ var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
- // var mongooseTimestamps = require('mongoose-timestamp');
 
 mongoose.Promise = Promise;
 
-var validator = require('validator');
 var moment = require('moment');
 var ipaddr = require('ipaddr.js');
 
@@ -32,10 +30,9 @@ var TOKEN_EXPIRATION_DAY_RememberMe = tokenConfig.jwtTokenExpireDay * 6;
 var UnauthenticatedAccessError = require('../../errors/UnauthenticatedAccessError');
 
 var checker = require('../../business-libs/dataChecker.js');
-
 var MUser = require('./user.js');
 
-
+var modelConstant = require('../modelConstant');
 
 
 /**
@@ -88,21 +85,14 @@ var UserTokenSchema = new Schema({
 
 
 
+
+
 /**
  * Mongoose Schema Statics
  *
  * http://mongoosejs.com/docs/guide.html
  *
  */
-
-
-var constantDeviceType = {
-    pc : 'pc',
-    mobilephone : 'mobilephone',
-    tablet : 'tablet'
-};
-UserTokenSchema.statics.constantDeviceType = constantDeviceType;
-
 
 
 
@@ -130,7 +120,7 @@ UserTokenSchema.statics.getToken = function(user, req){
         expireDate : moment().add(tokenConfig.jwtTokenExpireDay, 'days'),
 
         userAgent: req.get('User-Agent'),
-        deviceType : constantDeviceType.pc
+        deviceType : modelConstant.userDeviceType.pc
 
     };
 
@@ -152,8 +142,8 @@ UserTokenSchema.statics.getToken = function(user, req){
     }
 
     // desktop, tv, tablet, phone, bot or car
-    if (req.device.type === 'phone') newToken.deviceType = constantDeviceType.mobilephone;
-    if (req.device.type === 'tablet') newToken.deviceType = constantDeviceType.tablet;
+    if (req.device.type === 'phone') newToken.deviceType = modelConstant.userDeviceType.mobilephone;
+    if (req.device.type === 'tablet') newToken.deviceType = modelConstant.userDeviceType.tablet;
 
     var decoded = jsonwebtoken.decode(token);
     newToken.accessToken_iat = decoded.iat;

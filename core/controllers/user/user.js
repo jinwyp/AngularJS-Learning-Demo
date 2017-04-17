@@ -58,7 +58,6 @@ exports.signUp = function (req, res, next) {
     if (req.userSMSCode){
 
         model.user.signUp(req.body).then(function(resultUser){
-            resultUser.password = undefined;
             console.log(resultUser.password);
             return res.status(200).json(resultUser);
         })
@@ -66,7 +65,6 @@ exports.signUp = function (req, res, next) {
 
     }else {
         model.user.signUp(req.body).then(function(resultUser){
-            resultUser.password = undefined;
             return res.status(200).json(resultUser);
         })
         .catch(next);

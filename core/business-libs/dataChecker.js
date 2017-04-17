@@ -10,8 +10,7 @@ var ValidationError = require('../errors/ValidationError.js');
 var UnauthenticatedAccessError = require('../errors/UnauthenticatedAccessError.js');
 var UnauthorizedAccessError = require('../errors/UnauthorizedAccessError.js');
 
-var MUserReg = require('../models/user/userregistration.js');
-var businessMessageTypeList = MUserReg.constantBusinessMessageTypeList ;
+var businessMessageTypeList = require('../models/modelConstant').businessMessageTypeList ;
 
 
 function isFunction(fn) {
@@ -93,12 +92,12 @@ var validation = {
     businessMessageType : function (type, next){
         if (businessMessageTypeList.indexOf(type) === -1) return throw409(code.user.businessMessageTypeWrong.code, code.user.businessMessageTypeWrong.message, code.user.businessMessageTypeWrong.field);
     },
-    SMScode : function (code, next){
-        if (!validator.isLength(code, 6, 6)) return throw409(code.user.SMSCodeLengthWrong, code.user.SMSCodeLengthWrong.message, code.user.SMSCodeLengthWrong.field);
-    },
 
-    SMScodeNotFound : function (code, next){
-        if (!code) return throw409(code.user.SMSCodeNotFound.code, code.user.SMSCodeNotFound.message, code.user.SMSCodeNotFound.field);
+    SMScode : function (smsCode, next){
+        if (!smsCode ) return throw409(code.user.SMSCodeLengthWrong.code, code.user.SMSCodeLengthWrong.message, code.user.SMSCodeLengthWrong.field);
+    },
+    SMScodeNotFound : function (smsCode, next){
+        if (!smsCode) return throw409(code.user.SMSCodeNotFound.code, code.user.SMSCodeNotFound.message, code.user.SMSCodeNotFound.field);
     },
     SMScodeExpired : function (isExpired, next){
         if (isExpired) return throw409(code.user.SMSCodeExpired.code, code.user.SMSCodeExpired.message, code.user.SMSCodeExpired.field);

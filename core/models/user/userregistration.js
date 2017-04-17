@@ -7,6 +7,8 @@
  * Module dependencies
  */
 
+
+
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -15,7 +17,6 @@ var ObjectId = Schema.Types.ObjectId;
 
 mongoose.Promise = Promise;
 
-var validator = require('validator');
 var moment = require('moment');
 var ipaddr = require('ipaddr.js');
 
@@ -25,10 +26,12 @@ var smsConfig = config.get('settingSMS');
 var emailConfig = config.get('settingEmail');
 
 
-var MUserToken = require('./usertoken.js');
 
 var rn = require('../../libs/randomnumber.js');
 var checker = require('../../business-libs/dataChecker.js');
+
+var modelConstant = require('../modelConstant');
+
 
 
 /**
@@ -95,16 +98,6 @@ var UserRegistrationSchema = new Schema({
  */
 
 
- var constantBusinessMessageType = {
-     signup : 'signup',
-     signin : 'signin',
-     resetpw : 'resetpw'
- };
-
- var constantBusinessMessageTypeList = ['signup', 'signin', 'resetpw'];
-
- UserRegistrationSchema.statics.constantBusinessMessageType = constantBusinessMessageType;
- UserRegistrationSchema.statics.constantBusinessMessageTypeList = constantBusinessMessageTypeList;
 
 
  var constantMessageSendType = {
@@ -120,10 +113,10 @@ var UserRegistrationSchema = new Schema({
 
 
 
-
 UserRegistrationSchema.statics.sendMessage = function(user, req){
     checker.userMobile(user.mobile);
     checker.businessMessageType(user.messageType);
+
 
     var newUser = {
 
@@ -135,7 +128,7 @@ UserRegistrationSchema.statics.sendMessage = function(user, req){
         expireDate : moment().add(smsConfig.verifyCodeExpireHours, 'hours'),
 
         userAgent: req.get('User-Agent'),
-        deviceType : MUserToken.constantDeviceType.pc
+        deviceType : modelConstant.userDeviceType.pc
 
     };
 
@@ -157,8 +150,8 @@ UserRegistrationSchema.statics.sendMessage = function(user, req){
     }
 
     // desktop, tv, tablet, phone, bot or car
-    if (req.device.type === 'phone') newUser.deviceType = MUserToken.constantDeviceType.mobilephone;
-    if (req.device.type === 'tablet') newUser.deviceType = MUserToken.constantDeviceType.tablet;
+    if (req.device.type === 'phone') newUser.deviceType = modelConstant.userDeviceType.mobilephone;
+    if (req.device.type === 'tablet') newUser.deviceType = modelConstant.userDeviceType.tablet;
 
     return UserRegistration.findOneAndUpdate({mobile:user.mobile, messageType: user.messageType}, newUser, {upsert:true, new:true}).exec();
 };
@@ -173,12 +166,14 @@ UserRegistrationSchema.statics.verifySMSCode = function(user){
 
     return UserRegistration.findOne({mobile:user.mobile, code: user.smscode}).exec().then(function(result){
         checker.SMScodeNotFound(result);
-        checker.SMScodeNotFound(result.isExpired());
+        checker.SMScodeExpired(result.isExpired());
 
         return result;
     });
 
 };
+
+
 
 /**
  * Mongoose Schema Instance Methods

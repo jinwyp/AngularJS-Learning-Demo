@@ -19,7 +19,8 @@ var nodemonConfig = {
     ],
     ignore : [
         "core/public/**",
-        "core/views/**"
+        "core/views/**",
+        "core/log/**"
     ],
 
     env : {
