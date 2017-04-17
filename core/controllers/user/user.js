@@ -87,7 +87,6 @@ exports.login = function (req, res, next) {
     checker.userPassword(req.body.password);
 
     model.user.login(req.body).then(function(resultUser){
-        // console.log(resultUser);
 
 
         return model.usertoken.getToken(resultUser, req);
@@ -95,18 +94,6 @@ exports.login = function (req, res, next) {
     }).then(function(resultToken){
         res.cookie(tokenFieldName, resultToken.accessToken, { maxAge: TOKEN_EXPIRATION_SEC, httpOnly: true });
         return res.status(200).json(resultToken);
-
-      // Remove sensitive data before login
-    //   user.password = undefined;
-    //   user.salt = undefined;
-      //
-    //   req.login(user, function (err) {
-    //     if (err) {
-    //       res.status(400).send(err);
-    //     } else {
-    //       res.json(user);
-    //     }
-    //   });
     })
     .catch(next);
 
@@ -133,6 +120,7 @@ exports.logout = function (req, res, next) {
 
             if (resultToken){
                 return res.status(200).send({message: 'Logout success, Token Deleted'});
+
             }else{
                 return res.status(200).send({message: 'Logout success, Token not found'});
             }
