@@ -6,27 +6,25 @@
 var gulp        = require("gulp");
 var nodemon     = require('gulp-nodemon');
 var browserSync = require('browser-sync').create();
-var reload  = browserSync.reload;
+var browserSyncReload  = browserSync.reload;
 
 
 
 // nodemon 的配置
 var nodemonConfig = {
-    "watch": [
+    script : 'core/bin/www',
+    ext    : 'js json',
+    watch  : [
         "core"
     ],
-    script : 'core/bin/www',
-    ext: 'js json',
     ignore : [
-        ".git",
         "core/public/**",
-        "core/views/**",
-        "node_modules/**"
+        "core/views/**"
     ],
-    // nodeArgs: ['--debug'],
-    env    : {
-        "NODE_ENV": "development",
-        "DEBUG": "core:*"
+
+    env : {
+        "NODE_ENV" : "development",
+        "DEBUG"    : "core:*"
     }
 };
 
@@ -34,26 +32,27 @@ var nodemonConfig = {
 
 
 /********************  使用nodemon 自动重启服务器  ********************/
-gulp.task('nodemon', function() {
+gulp.task('nodemon', function(endTask) {
     var called = false;
     return nodemon(nodemonConfig)
         .on('start', function(){
             if (!called){
-                callled = true;
-                cb()
+                called = true;
+                endTask()
             }
         })
         .on('restart', function () {
             //setTimeout(function () {
-            //    reload({ stream: false });
+            //    browserSyncReload({ stream: false });
             //}, 3000);
-            console.log('-------------------- Nodejs server restarted! --------------------');
+            console.log('-------------------- Node.js server restarted! --------------------');
         })
-        .once('quit', function(){
-            console.log('-------------------- Nodejs server stopped! --------------------');
+        .once('crash', function(){
+            console.log('-------------------- Node.js server crashed! --------------------');
             process.exit();
         });
 });
+
 
 
 /********************  使用 browser-sync 自动刷新页面  ********************/

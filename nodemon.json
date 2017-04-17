@@ -1,18 +1,18 @@
 {
   "verbose": true,
-  "script" : "core/bin/www",
+  "script": "core/bin/www",
   "ext": "js json",
+  "watch": [
+    "core"
+  ],
   "ignore": [
-    ".git",
-    "public/**",
-    "views/**",
-    "node_modules/**"
+    "core/public/**",
+    "core/views/**"
   ],
   "execMap": {
   },
   "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "core:*"
+    "NODE_ENV": "development",
+    "DEBUG": "core:*"
   }
-
 }

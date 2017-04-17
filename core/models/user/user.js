@@ -11,7 +11,6 @@ var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
-// var mongooseTimestamps = require('mongoose-timestamp');
 
 mongoose.Promise = Promise;
 
@@ -19,7 +18,6 @@ var validator = require('validator');
 var bcrypt = require("bcryptjs");
 
 var checker = require('../../business-libs/dataChecker.js');
-
 
 
 /**
@@ -56,7 +54,6 @@ var UserSchema = new Schema({
  * Mongoose plugin
  */
 
- // UserSchema.plugin(mongooseTimestamps);
 
 
 
@@ -98,6 +95,7 @@ var UserSchema = new Schema({
  * http://mongoosejs.com/docs/guide.html
  *
  */
+
 
 
 var fields = "-__v -password";

@@ -10,7 +10,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
-var mongooseTimestamps = require('mongoose-timestamp');
 
 
 /**
@@ -55,14 +54,16 @@ var MovieSchema = new Schema({
     //    processBackgroundColor : {type: String, default: '#FFFFFF'}
     //},
 
-
+}, {
+    toObject: { virtuals: false },
+    toJSON: { virtuals: false },
+    timestamps: true
 });
 
 /**
  * Mongoose plugin
  */
 
- MovieSchema.plugin(mongooseTimestamps);
 
 
 
