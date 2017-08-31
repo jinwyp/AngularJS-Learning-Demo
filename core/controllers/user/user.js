@@ -70,7 +70,6 @@ exports.signUp = function (req, res, next) {
         .catch(next);
     }
 
-
 };
 
 

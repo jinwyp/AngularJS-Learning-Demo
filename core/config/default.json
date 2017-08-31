@@ -22,7 +22,7 @@
     "userlogin" : {
         "jwtTokenSecret" : "shhhhhhared-secret",
         "jwtTokenExpireDay" : 30,
-        "tokenFieldNmae" : "X-Access-Token"
+        "tokenFieldName" : "X-Access-Token"
     },
 
     "settingEmail" : {
